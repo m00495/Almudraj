@@ -7,7 +7,6 @@
 <title>قائمة الأسامي</title>
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* -- جميع الأنماط السابقة تبقى كما هي -- */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -24,275 +23,91 @@
     --shadow: rgba(44, 36, 22, 0.08);
   }
 
-  body {
-    font-family: 'El Messiri', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 0;
-  }
+  body { font-family: 'El Messiri', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0; }
 
-  header {
-    background: var(--accent);
-    padding: 2rem 2rem 1.5rem;
-    text-align: center;
-  }
+  header { background: var(--accent); padding: 2rem 2rem 1.5rem; text-align: center; }
+  header h1 { font-size: 1.8rem; font-weight: 600; color: #fff; letter-spacing: 0.01em; margin-bottom: 0.25rem; }
+  header p  { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
 
-  header h1 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: 0.01em;
-    margin-bottom: 0.25rem;
-  }
-
-  header p {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.75);
-  }
-
-  .search-wrap {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 8px var(--shadow);
-  }
-
-  .search-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .search-icon {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--muted);
-    pointer-events: none;
-  }
+  .search-wrap { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+  .search-inner { max-width: 720px; margin: 0 auto; position: relative; }
+  .search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
 
   #searchInput {
-    width: 100%;
-    padding: 0.75rem 2.8rem 0.75rem 1rem;
-    font-size: 1rem;
-    font-family: inherit;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%; padding: 0.75rem 2.8rem 0.75rem 1rem; font-size: 1rem; font-family: inherit;
+    border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text);
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
   }
-
-  #searchInput:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(90,122,58,0.15);
-    background: #fff;
-  }
-
+  #searchInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(90,122,58,0.15); background: #fff; }
   #searchInput::placeholder { color: var(--muted); }
 
-  .stats {
-    max-width: 720px;
-    margin: 1.25rem auto 0.5rem;
-    padding: 0 0.25rem;
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
+  .stats { max-width: 720px; margin: 1.25rem auto 0.5rem; padding: 0 0.25rem; font-size: 0.82rem; color: var(--muted); }
 
-  .list {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0.5rem 2rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .list { max-width: 720px; margin: 0 auto; padding: 0.5rem 2rem 3rem; display: flex; flex-direction: column; gap: 10px; }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    transition: box-shadow 0.18s, transform 0.18s;
-    animation: fadeUp 0.25s ease both;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; transition: box-shadow 0.18s, transform 0.18s; animation: fadeUp 0.25s ease both;
   }
+  .card:hover { box-shadow: 0 4px 16px var(--shadow); transform: translateY(-1px); }
 
-  .card:hover {
-    box-shadow: 0 4px 16px var(--shadow);
-    transform: translateY(-1px);
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-left {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .subtitle {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 3px;
-    font-style: italic;
-    opacity: 0.75;
-  }
-
+  .card-left { display: flex; align-items: center; gap: 0.9rem; min-width: 0; flex: 1; }
   .info { min-width: 0; }
-
-  .name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .location {
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
+  .name { font-size: 1rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .location { font-size: 0.82rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .location svg { vertical-align: middle; margin-left: 3px; }
 
   .btn-map {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0.5rem 1rem;
-    background: var(--maps);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.18s, transform 0.12s;
+    display: flex; align-items: center; gap: 6px; padding: 0.5rem 1rem;
+    background: var(--maps); color: #fff; border: none; border-radius: 8px;
+    font-family: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0; transition: background 0.18s, transform 0.12s;
   }
-
-  .btn-map:hover { background: var(--maps-hover); }
+  .btn-map:hover  { background: var(--maps-hover); }
   .btn-map:active { transform: scale(0.97); }
 
-  .empty {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--muted);
-    display: none;
+  .status-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 85px; padding: 0.4rem 1rem; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 600; cursor: default;
+    transition: background 0.2s, color 0.2s, filter 0.2s; user-select: none;
   }
+  .status-badge.visited     { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+  .status-badge.not-visited { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+  body.editable .status-badge        { cursor: pointer; }
+  body.editable .status-badge:hover  { filter: brightness(0.93); }
 
+  .password-section { max-width: 720px; margin: 1.5rem auto 0; padding: 0.5rem 2rem; text-align: center; }
+  .password-section input[type="password"] {
+    padding: 0.5rem; font-family: inherit; font-size: 0.9rem;
+    border: 1.5px solid var(--border); border-radius: 6px; width: 160px; margin-left: 0.5rem;
+  }
+  .password-section button { background: var(--accent); color: white; border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: inherit; font-size: 0.9rem; cursor: pointer; }
+  .password-section button:hover { background: var(--accent-hover); }
+
+  /* شاشة التحميل */
+  .loading {
+    max-width: 720px; margin: 3rem auto; text-align: center; color: var(--muted); font-size: 1rem;
+  }
+  .loading-spinner {
+    width: 36px; height: 36px; border: 3px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-msg { max-width: 720px; margin: 2rem auto; text-align: center; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 10px; padding: 1rem 2rem; }
+
+  .empty { text-align: center; padding: 3rem 1rem; color: var(--muted); display: none; }
   .empty svg { display: block; margin: 0 auto 1rem; opacity: 0.35; }
   .empty p { font-size: 1rem; }
 
-  .footer-section {
-    max-width: 720px;
-    margin: 0 auto 3rem;
-    padding: 1.5rem 2rem;
-    border-top: 1px dashed var(--border);
-    color: var(--muted);
-    font-size: 0.9rem;
-    text-align: center;
-    font-style: italic;
-    opacity: 0.7;
-  }
+  .footer-section { max-width: 720px; margin: 0 auto 3rem; padding: 1.5rem 2rem; border-top: 1px dashed var(--border); color: var(--muted); font-size: 0.9rem; text-align: center; font-style: italic; opacity: 0.7; }
 
-  mark {
-    background: #fff3a3;
-    border-radius: 3px;
-    padding: 0 1px;
-    color: var(--text);
-  }
-
-  /* --- أنماط أزرار الحالة الجديدة --- */
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 85px;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: default;
-    transition: background 0.2s, color 0.2s, filter 0.2s;
-    user-select: none;
-  }
-
-  .status-badge.visited {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-  }
-
-  .status-badge.not-visited {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-  }
-
-  /* عندما يدخل الموظفون كلمة المرور، نجعل المؤشر يتحول إلى يد */
-  body.editable .status-badge {
-    cursor: pointer;
-  }
-
-  body.editable .status-badge:hover {
-    filter: brightness(0.93);
-  }
-
-  /* قسم كلمة المرور */
-  .password-section {
-    max-width: 720px;
-    margin: 1.5rem auto 0;
-    padding: 0.5rem 2rem;
-    text-align: center;
-  }
-
-  .password-section input[type="password"] {
-    padding: 0.5rem;
-    font-family: inherit;
-    font-size: 0.9rem;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    width: 160px;
-    margin-left: 0.5rem;
-  }
-
-  .password-section button {
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1.2rem;
-    font-family: inherit;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
-
-  .password-section button:hover {
-    background: var(--accent-hover);
-  }
+  mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--text); }
 
   @media (max-width: 540px) {
     header { padding: 1.5rem 1rem 1.2rem; }
@@ -312,7 +127,6 @@
   <p>ابحث عن راعي المزرعة وافتح موقعها بضغطة "هنا"</p>
 </header>
 
-
 <div class="password-section" id="passwordSection">
   <input type="password" id="empPassword" placeholder="رمز الموظفين">
   <button onclick="attemptLogin()">دخول</button>
@@ -324,11 +138,22 @@
     <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
-    <input type="text" id="searchInput" placeholder="ابحث عن اسم الراعي المزرعة..." autocomplete="off" />
+    <input type="text" id="searchInput" placeholder="ابحث عن اسم الراعي..." autocomplete="off" />
   </div>
 </div>
 
 <div class="stats" id="stats"></div>
+
+<!-- شاشة التحميل -->
+<div class="loading" id="loadingScreen">
+  <div class="loading-spinner"></div>
+  <p>جاري تحميل البيانات...</p>
+</div>
+
+<!-- رسالة الخطأ -->
+<div class="error-msg" id="errorMsg" style="display:none;">
+  ⚠️ تعذّر الاتصال بالبيانات — تحقق من رابط الـ API أو اتصالك بالإنترنت.
+</div>
 
 <div class="list" id="list"></div>
 
@@ -343,136 +168,67 @@
 </div>
 
 <script>
-// ========== استبدل هذا الرابط برابط تطبيق الويب الخاص بك من Apps Script ==========
-const API_URL = 'https://script.google.com/macros/s/AKfycbyP2Dq_-WaXVVIxBr8a4S5Sa0zqnccioGVuAkfEAFJmI_bK4_XS2P7OB8es6jq7Xiui2w/exec'; // <-- ضع رابطك هنا
-// ================================================================================
+// ======================================================
+// ضع رابط الـ deployment هنا
+const API_URL = 'https://script.google.com/macros/s/AKfycbx2apKxQqsmmyxylxweUwW7OXvmlSZyjDXPn9Zb9j8yiHKyXZSkQwDPLE7COuDEX_6RjQ/exec';
+// ======================================================
 
-const PASSWORD = '12345'; 
-let isEditing = false;      // تصبح true بعد إدخال كلمة المرور الصحيحة
+const PASSWORD = '12345';
+let isEditing = false;
+let farmers   = []; // تُملأ من الشيت
 
-// بيانات المزارع
-const farmers = [
-  { id: 1, name: "سعود عبد العزيز الرفين",   farm: "مزرعة العتيبي",    area: "",       lat: 22.238749 , lng: 46.775326 },
-  { id: 2, name: "ورثة ناجي شايع الرمان",    farm: "مزرعة الوادي",     area: "",              lat: 22.239825, lng: 46.773673 },
-  { id: 3, name: "محمد عبد الله يحيى البواردي",      farm: "مزرعة النخيل",     area: "",          lat: 22.22442, lng: 46.77877 },
-  { id: 4, name: "ورثة مبارك عبد الله الخرعان", farm: "مزرعة الدوسري",  area: "  ",    lat: 22.224773, lng: 46.780029 },
-  { id: 5, name: "قينان عباس ال عمار",     farm: "مزرعة الجبل",      area: "",               lat: 22.225637, lng: 46.779094 },
-  { id: 6, name: "صالح مسفر الفواز",     farm: "مزرعة الجبل",      area: "",               lat: 22.223170, lng: 46.779222 },
-  { id: 7, name: "ورثة سعود شافي الرشود",     farm: "مزرعة الجبل",      area: "",               lat: 22.246089, lng: 46.773141 },
-  { id: 8, name: "الدرداح هندي منصور الرشود",     farm: "مزرعة الجبل",      area: "",               lat: 22.243854, lng: 46.773435 },
-  { id: 9, name: "ورثة ابراهيم سعود الرشود",     farm: "مزرعة الجبل",      area: "",               lat: 22.243901, lng: 46.772916 },
-  { id:10, name: "شايع تميم محمد ال عمار",     farm: "مزرعة الجبل",      area: "",               lat: 22.224486, lng: 46.780675 },
-  { id:11, name: "ورثة ابراهيم حمود الجرفين",     farm: "مزرعة الجبل",      area: "",               lat: 22.241019, lng: 46.770277 },
-  { id:12, name: "ورثة تميم رشود العنيزان",     farm: "مزرعة الجبل",      area: "",               lat: 22.242497, lng: 46.776967 },
-  { id:13, name: "ورثة عبد الهادي عنبر المقابله",     farm: "مزرعة الجبل",      area: "",               lat: 22.223485, lng: 46.782705 },
-  { id:14, name: "عبد الرحمن سالم العبد الهادي",     farm: "مزرعة الجبل",      area: "",               lat: 22.241422, lng: 46.776140 },
-  { id:15, name: "ورثة تميم محمد ال عمار",     farm: "مزرعة الجبل",      area: "",               lat: 22.224486, lng: 46.780675 },
-  { id:16, name: "درعان مسلم العبد الهادي",     farm: "مزرعة الجبل",      area: "",               lat: 22.224901, lng: 46.780722 },
-  { id:17, name:"مرزوق محمد سالم العنيزان",     farm: "مزرعة الجبل",      area: "",               lat: 22.240569, lng: 46.784254 },
-  { id:18, name: "مبارك عبد الله العنيزان/يوسف محمد ال حامد",     farm: "مزرعة الجبل",      area: "",               lat: 22.239225, lng: 46.776492 },
-  { id:19, name: "عبد الله محمد البصيص الشثري",     farm: "مزرعة الجبل",      area: "",               lat: 22.223626, lng: 46.785196 },
-  { id:20, name: "ورثة فهد الجماح ال عمار",     farm: "مزرعة الجبل",      area: "",               lat: 22.223328, lng: 46.787446 },
-  { id:21, name: "مزرعة فهيد محمد القاسم",     farm: "مزرعة الجبل",      area: "",               lat: 22.237961, lng: 46.759922 },
-  { id:22, name: "سعد عبد الواحد القاسم",     farm: "مزرعة الجبل",      area: "",               lat: 22.238684, lng: 46.759597 },
-  { id:23, name: "محمد سعد القحطاني",     farm: "مزرعة الجبل",      area: "",               lat: 22.228662, lng: 46.783275 },
-  { id:24, name: "عيسى علي الحسن",     farm: "مزرعة الجبل",      area: "",               lat: 22.224145, lng: 46.778519 },
-  { id:25, name: "محمد عبد الله محمد القاسم",     farm: "مزرعة الجبل",      area: "",               lat: 22.238090, lng: 46.757763 },
-  { id:26, name: "عبد الهادي حسن الحماد",     farm: "مزرعة الجبل",      area: "",               lat: 22.224755, lng: 46.782896 },
-  { id:28, name: "فريج فرحان الربيع",     farm: "مزرعة الجبل",      area: "",               lat: 22.224811, lng: 46.782367 },
-  { id:29, name: "تميم دخيل الهذال",     farm: "مزرعة الجبل",      area: "",               lat: 22.224811, lng: 46.782367 },
-  { id:30, name: "مفلح حمد المثيب الفويضل",     farm: "مزرعة الجبل",      area: "",               lat: 22.242907, lng: 46.763652 },
-  { id:31, name: "ورثة عبد الله مسند الفويضل",     farm: "مزرعة الجبل",      area: "",               lat: 22.243251, lng: 46.762943 },
-  { id:32, name: "مفرج سعد المثيب الفويضل",     farm: "مزرعة الجبل",      area: "",               lat: 22.243616, lng: 46.763596 },
-  { id:33, name: "سعود ابراهيم المعجب",     farm: "مزرعة الجبل",      area: "",               lat: 22.225393, lng: 46.782788 },
-  { id:34, name: "تميم مرزوق الدوسري",     farm: "مزرعة الجبل",      area: "",               lat: 22.239063, lng: 46.771275},
-  { id:35, name: "فهد مسفر المحيميد",     farm: "مزرعة الجبل",      area: "",               lat: 22.225503, lng: 46.778411 },
-  { id:36, name: "مبارك عبد الله النزهان",     farm: "مزرعة الجبل",      area: "",               lat: 22.225291, lng: 46.783540 },
-  { id:37, name: "سعد مبارك الدقل",     farm: "مزرعة الجبل",      area: "",               lat: 22.234864, lng: 46.766368 },
-  { id:38, name: "راشد مبارك الدقل",     farm: "مزرعة الجبل",      area: "",               lat: 22.235866, lng: 46.766153 },
-  { id:39, name: "مبارك سالم ال مشجع",     farm: "مزرعة الجبل",      area: "",               lat: 22.237743, lng: 46.779195 },
-  { id:40, name: "ورثة حمد جويعد الشايع",     farm: "مزرعة الجبل",      area: "",               lat: 22.235042, lng: 46.764298 },
-  { id:41, name: "ورثة حمد جويعد الشايع ٢",     farm: "مزرعة الجبل",      area: "",               lat: 22.235680, lng: 46.763758 },
-  { id:42, name: "ورثة مبارك راضي الجرفين",     farm: "مزرعة الجبل",      area: "",               lat: 22.236728, lng: 46.783203 },
-  { id:43, name: "ورثة مبارك راضي الجرفين ٢",     farm: "مزرعة الجبل",      area: "",               lat: 22.236768, lng: 46.782917 },
-  { id:44, name: "خالد عبد الله مبارك ال معجب",     farm: "مزرعة الجبل",      area: "",               lat: 22.241727, lng: 46.765979 },
-  { id:45, name: "راشد بن ثنيان القاسم1",     farm: "مزرعة الجبل",      area: "",               lat: 22.238790, lng: 46.767516 },
-  { id:46, name: "راشد بن ثنيان القاسم2",     farm: "مزرعة الجبل",      area: "",               lat: 22.238620, lng: 46.767988 },
-  { id:47, name: "مرضي حمود الجرفين",     farm: "مزرعة الجبل",      area: "",               lat: 22.239339, lng: 46.769822 },
-  { id:48, name: "ورثة محمد مبارك الرمان",     farm: "مزرعة الجبل",      area: "",               lat: 22.236851, lng: 46.771390 },
-  { id:49, name: "ابراهيم سعد الدريهم",     farm: "مزرعة الجبل",      area: "",               lat: 22.239799, lng: 46.790785 },
-  { id:50, name: "يوسف محمد الحامد",     farm: "مزرعة الجبل",      area: "",               lat: 22.236516, lng:46.784936 },
-  { id:51, name: "طلال يوسف محمد الحامد",     farm: "مزرعة الجبل",      area: "",               lat: 22.237992, lng:  46.783479 },
-  { id:52, name: "ورثة عبد الواحد القاسم",     farm: "مزرعة الجبل",      area: "",               lat:22.237383, lng:  46.762946 },
-  { id:53, name: "ورثة عبد الله سعيد القاسم",     farm: "مزرعة الجبل",      area: "",               lat: 22.233197, lng: 46.761001 },
-  { id:54, name: "محمد خلف بن مسحان",     farm: "مزرعة الجبل",      area: "",               lat: 22.237288, lng: 46.788441 },
-  { id:55, name: "عبد الهادي مسفر المحيميد",     farm: "مزرعة الجبل",      area: "",               lat: 22.236507, lng: 46.790555 },
-
-
-];
-
-// دالة تسجيل الدخول
+// ── تسجيل الدخول ──
 function attemptLogin() {
-  const pw = document.getElementById('empPassword').value;
+  const pw    = document.getElementById('empPassword').value;
   const error = document.getElementById('loginError');
   if (pw === PASSWORD) {
     isEditing = true;
-    document.body.classList.add('editable'); // إضافة كلاس للـ body ليظهر المؤشر كيد عند الحالة
+    document.body.classList.add('editable');
     document.getElementById('passwordSection').style.display = 'none';
     error.textContent = '';
-    // إعادة عرض القائمة مع تفعيل التعديل
     render(document.getElementById('searchInput').value);
   } else {
     error.textContent = 'رمز خاطئ – حاول مرة أخرى.';
   }
 }
 
-// --- دوال التعامل مع Google Sheets ---
-async function fetchVisits() {
-  try {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    return data; // مصفوفة { id, name, visited }
-  } catch (e) {
-    console.error('فشل جلب حالات الزيارة', e);
-    return [];
-  }
-}
-
 async function updateVisitInSheet(farmId, visited) {
+  console.log(`إرسال: id=${farmId}, visited=${visited}`);
   try {
-    await fetch(API_URL, {
+    const response = await fetch(API_URL, {
       method: 'POST',
-      mode: 'no-cors', // ضروري لتجنب مشاكل CORS
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: farmId, visited: visited })
     });
+    const result = await response.json();
+    console.log('رد الخادم:', result);
+    if (result.result !== 'success') throw new Error(result.message);
   } catch (e) {
-    console.error('فشل الام', e);
+    console.error('فشل التحديث:', e);
+    alert('حدث خطأ في حفظ الحالة: ' + e.message);
   }
 }
 
-let visitsMap = {}; // لتخزين حالات الزيارة القادمة من Google Sheets
 
+// ── تمييز نص البحث ──
 function highlight(text, query) {
   if (!query) return text;
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+  const esc = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return String(text).replace(new RegExp(esc, 'gi'), m => `<mark>${m}</mark>`);
 }
 
-function openMaps(lat, lng, name) {
-  const url = `https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`;
-  window.open(url, '_blank');
+function openMaps(lat, lng) {
+  window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`, '_blank');
 }
 
+// ── رسم القائمة ──
 function render(query) {
-  const q = query.trim();
+  const q        = query.trim();
   const filtered = q
-    ? farmers.filter(f =>
-        f.name.includes(q) || f.farm.includes(q) || f.area.includes(q)
-      )
+    ? farmers.filter(f => String(f.name).includes(q))
     : farmers;
 
-  const list = document.getElementById('list');
+  const list  = document.getElementById('list');
   const empty = document.getElementById('empty');
   const stats = document.getElementById('stats');
 
@@ -480,79 +236,85 @@ function render(query) {
 
   if (filtered.length === 0) {
     empty.style.display = 'block';
-    stats.textContent = '';
+    stats.textContent   = '';
     return;
   }
 
   empty.style.display = 'none';
-  stats.textContent = `${filtered.length} من أصل ${farmers.length}`;
+  stats.textContent   = `${filtered.length} من أصل ${farmers.length}`;
 
   filtered.forEach((f, i) => {
     const card = document.createElement('div');
-    card.className = 'card';
-    card.style.animationDelay = `${i * 30}ms`;
+    card.className         = 'card';
+    card.style.animationDelay = `${i * 25}ms`;
 
-    const visited = visitsMap[f.id] === true; // true/false من الجدول
+    const visited = f.visited === true;
 
     card.innerHTML = `
       <div class="card-left">
         <div class="info">
           <div class="name">${highlight(f.name, q)}</div>
-          <div class="location">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-              <circle cx="12" cy="9" r="2.5"/>
-            </svg>
-            ${f.area}
-          </div>
         </div>
       </div>
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <span class="status-badge ${visited ? 'visited' : 'not-visited'}" data-id="${f.id}">${visited ? 'تم' : 'لم يتم'}</span>
-        <button class="btn-map" onclick="openMaps(${f.lat}, ${f.lng}, '${f.name}')">
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <span class="status-badge ${visited ? 'visited' : 'not-visited'}" data-id="${f.id}">
+          ${visited ? 'تم الترشيد' : 'لم يتم'}
+        </span>
+        <button class="btn-map" onclick="openMaps(${f.lat}, ${f.lng})">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
           <span>هنا</span>
         </button>
-      </div>
-    `;
+      </div>`;
+
     list.appendChild(card);
   });
 
-  // إضافة مستمعي الأحداث لأزرار الحالة (تعمل فقط إذا isEditing == true)
+  // أحداث تغيير الحالة (للموظفين فقط)
   document.querySelectorAll('.status-badge').forEach(badge => {
-    badge.addEventListener('click', async function() {
-      if (!isEditing) return; // لا تفعل شيء إذا لم يتم تسجيل الدخول
-      const farmId = parseInt(this.dataset.id);
-      const currentVisited = visitsMap[farmId] === true;
-      const newVisited = !currentVisited;
+    badge.addEventListener('click', async function () {
+      if (!isEditing) return;
+      const farmId     = this.dataset.id;
+      const farmer     = farmers.find(f => String(f.id) === String(farmId));
+      if (!farmer) return;
 
-      // تحديث المظهر فوراً
-      this.classList.toggle('visited', newVisited);
-      this.classList.toggle('not-visited', !newVisited);
-      this.textContent = newVisited ? 'ترشيد' : 'لم يتم';
+      const newVisited  = !farmer.visited;
+      farmer.visited    = newVisited;
 
-      // تحديث الخريطة المحلية
-      visitsMap[farmId] = newVisited;
+      this.className    = 'status-badge ' + (newVisited ? 'visited' : 'not-visited');
+      this.textContent  = newVisited ? 'تم الترشيد' : 'لم يتم';
 
-      // إرسال التحديث إلى Google Sheets
       await updateVisitInSheet(farmId, newVisited);
     });
   });
 }
 
-// ========== تشغيل الصفحة ==========
+async function fetchAll() {
+  const res = await fetch(API_URL);
+  const data = await res.json();
+  return data.map(item => ({
+    id: item.id || item.ID,
+    name: item.name,
+    lat: item.lat,
+    lng: item.lng,
+    visited: item.visited === true || item.visited === 'true' || item.visited === 'TRUE' || item.visited === 'نعم'
+  }));
+}
+
+// ── تشغيل الصفحة ──
 (async function init() {
-  // جلب حالات الزيارة من Google Sheets
-  const visitsData = await fetchVisits();
-  visitsData.forEach(v => { visitsMap[v.id] = v.visited; });
+  try {
+    farmers = await fetchAll();
+    document.getElementById('loadingScreen').style.display = 'none';
+    render('');
+  } catch (e) {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('errorMsg').style.display      = 'block';
+    console.error(e);
+  }
 
-  // عرض القائمة لأول مرة (بدون كلمة مرور، المربعات غير قابلة للتعديل)
-  render('');
-
-  // ربط البحث
   document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
 })();
 </script>
