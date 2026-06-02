@@ -170,7 +170,7 @@
 <script>
 // ======================================================
 // ضع رابط الـ deployment هنا
-const API_URL = 'https://script.google.com/macros/s/AKfycbx2apKxQqsmmyxylxweUwW7OXvmlSZyjDXPn9Zb9j8yiHKyXZSkQwDPLE7COuDEX_6RjQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx0EeDU_r-X8cLRdvJsFvJB3mn9tPmBdaCaj-9ZbhTzbzi3nugTg2YIUb2GHr8XicPb7A/exec';
 // ======================================================
 
 const PASSWORD = '12345';
@@ -193,23 +193,28 @@ function attemptLogin() {
 }
 
 async function updateVisitInSheet(farmId, visited) {
-  console.log(`إرسال: id=${farmId}, visited=${visited}`);
+  console.log(`📤 إرسال (GET): id=${farmId}, visited=${visited}`);
   try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: farmId, visited: visited })
-    });
+    const url = `${API_URL}?id=${farmId}&visited=${visited}`;
+    const response = await fetch(url);
     const result = await response.json();
     console.log('رد الخادم:', result);
     if (result.result !== 'success') throw new Error(result.message);
+    
+    // تحديث البيانات المحلية والواجهة
+    const farmer = farmers.find(f => f.id === farmId);
+    if (farmer) farmer.visited = visited;
+    const badge = document.querySelector(`.status-badge[data-id="${farmId}"]`);
+    if (badge) {
+      badge.className = `status-badge ${visited ? 'visited' : 'not-visited'}`;
+      badge.textContent = visited ? 'تم الترشيد' : 'لم يتم';
+    }
+    console.log('✅ تم الحفظ بنجاح وتم تحديث الواجهة');
   } catch (e) {
-    console.error('فشل التحديث:', e);
+    console.error('❌ فشل التحديث:', e);
     alert('حدث خطأ في حفظ الحالة: ' + e.message);
   }
 }
-
-
 // ── تمييز نص البحث ──
 function highlight(text, query) {
   if (!query) return text;
@@ -299,7 +304,7 @@ async function fetchAll() {
     name: item.name,
     lat: item.lat,
     lng: item.lng,
-    visited: item.visited === true || item.visited === 'true' || item.visited === 'TRUE' || item.visited === 'نعم'
+    visited: item.visited === true || item.visited === 'TRUE' || item.visited === 'نعم'
   }));
 }
 
