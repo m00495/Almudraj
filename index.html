@@ -396,7 +396,7 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
   .tab-btn  { font-size: .78rem; padding: .7rem .3rem; }
   .btn-map span { display: none; }
   .btn-map  { padding: .3rem .55rem; }
-  .badge    { min-width: 72px; font-size: .73rem; }
+  .badge    { min-width: 90px; font-size: .73rem; }
   .btn-history span { display: none; }
   .btn-history { padding: .3rem .5rem; }
 }
@@ -405,7 +405,7 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
 <body>
  
 <header>
-  <h1>🌾 دليلك للأسامي</h1>
+  <h1> دليلك للأسامي</h1>
   <p>إدارة رعاة المزارع وتسجيل الزيارات</p>
 </header>
  
@@ -567,10 +567,8 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
         <div class="ud-badge">قيد التطوير</div>
       </div>
       <div class="ud-grid">
-        <div class="ud-cell"><div class="ud-icon">🏡</div><div class="ud-label">إجمالي الزيارات</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
-        <div class="ud-cell"><div class="ud-icon">✅</div><div class="ud-label">تم ترشيدهم</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
-        <div class="ud-cell"><div class="ud-icon">📅</div><div class="ud-label">آخر زيارة</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
-        <div class="ud-cell"><div class="ud-icon">⏳</div><div class="ud-label">لم يتم ترشيدهم</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+        <div class="ud-cell"><div class="ud-icon"></div><div class="ud-label">إجمالي الزيارات</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+        <div class="ud-cell"><div class="ud-icon"></div><div class="ud-label">آخر زيارة</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
       </div>
     </div>
  
@@ -840,7 +838,7 @@ async function submitVisit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type:'visit', farmName, area, farmCondition: farmCond, irrigation, crops, badPractices, palmBasin })
     });
-    showMsg('✅ تم حفظ الزيارة بنجاح!', 'ok');
+    showMsg(' تم حفظ الزيارة !', 'ok');
     resetForm();
     await loadVisits();
   } catch(e) {
@@ -911,7 +909,7 @@ function renderVisits() {
         ${v.area         ? `<span class="v-tag area">${v.area}</span>` : ''}
         ${v.farmCondition? `<span class="v-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
         ${v.irrigation   ? `<span class="v-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-        ${v.crops        ? `<span class="v-tag">🌱 ${v.crops}</span>` : ''}
+        ${v.crops        ? `<span class="v-tag"> ${v.crops}</span>` : ''}
         ${v.badPractices ? `<span class="v-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
         ${v.palmBasin    ? `<span class="v-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
       </div>`;
@@ -954,7 +952,7 @@ function openVhDrawer(farmName) {
           ${v.area         ? `<span class="vh-tag area">${v.area}</span>` : ''}
           ${v.farmCondition? `<span class="vh-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
           ${v.irrigation   ? `<span class="vh-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-          ${v.crops        ? `<span class="vh-tag">🌱 ${v.crops}</span>` : ''}
+          ${v.crops        ? `<span class="vh-tag"> ${v.crops}</span>` : ''}
           ${v.badPractices ? `<span class="vh-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
           ${v.palmBasin    ? `<span class="vh-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
         </div>`;
