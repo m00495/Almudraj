@@ -170,7 +170,7 @@
 <script>
 // ======================================================
 // ضع رابط الـ deployment هنا
-const API_URL = 'https://script.google.com/macros/s/AKfycbxQlyIwSvwDMJinAgWlnhitCh3hlOzubxaHnUQT-1WPV9nJLHR0QR9e1XGiAlXs0IDb4Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxDTTUe0WtxyLloDP9HPYcvxrZ6D_HocsA7E1kr4zXMH1K7uH8OXGPMJoV2wR9R_R1NVQ/exec';
 // ======================================================
 
 const PASSWORD = '12345';
@@ -201,15 +201,16 @@ async function updateVisitInSheet(farmId, visited) {
     console.log('رد الخادم:', result);
     if (result.result !== 'success') throw new Error(result.message);
     
-    // تحديث البيانات المحلية والواجهة
-    const farmer = farmers.find(f => f.id === farmId);
-    if (farmer) farmer.visited = visited;
+    // تحديث الواجهة محلياً
     const badge = document.querySelector(`.status-badge[data-id="${farmId}"]`);
     if (badge) {
       badge.className = `status-badge ${visited ? 'visited' : 'not-visited'}`;
       badge.textContent = visited ? 'تم الترشيد' : 'لم يتم';
     }
-    console.log('✅ تم الحفظ بنجاح وتم تحديث الواجهة');
+    const farmer = farmers.find(f => String(f.id) === String(farmId));
+    if (farmer) farmer.visited = visited;
+    
+    console.log('✅ تم الحفظ بنجاح');
   } catch (e) {
     console.error('❌ فشل التحديث:', e);
     alert('حدث خطأ في حفظ الحالة: ' + e.message);
