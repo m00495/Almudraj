@@ -7,402 +7,977 @@
 <title>قائمة الأسامي</title>
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
-  :root {
-    --bg: #f0f4f8;
-    --surface: #ffffff;
-    --border: #d6c9a8;
-    --text: #2c2416;
-    --muted: #7a6a4f;
-    --accent: #5688a8;
-    --accent-hover: #304166;
-    --maps: #1356ad;
-    --maps-hover: #1558b0;
-    --shadow: rgba(44, 36, 22, 0.08);
-  }
+:root {
+  --bg:           #f0f4f8;
+  --surface:      #ffffff;
+  --border:       #dde3ea;
+  --text:         #1e2a35;
+  --muted:        #6b7a8d;
+  --accent:       #5688a8;
+  --accent-dark:  #304166;
+  --accent-light: #e8f1f8;
+  --maps:         #1356ad;
+  --maps-hover:   #0d3f85;
+  --green:        #198754;
+  --green-bg:     #d1e7dd;
+  --red:          #842029;
+  --red-bg:       #f8d7da;
+  --shadow:       0 2px 12px rgba(30,42,53,.09);
+}
  
-  body { font-family: 'El Messiri', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0; }
+body { font-family: 'El Messiri', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
  
-  /* ── HEADER ── */
-  header { background: var(--accent); padding: 1.5rem 2rem; text-align: center; }
-  header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
-  header p  { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+/* ── HEADER ── */
+header { background: var(--accent); padding: 1.4rem 1.5rem; text-align: center; position: relative; }
+header h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: .15rem; }
+header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
  
-  /* ── PAGE LAYOUT ── */
-  .page { max-width: 780px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; display: flex; flex-direction: column; gap: 1.25rem; }
+/* ── PASSWORD BAR ── */
+.pwd-bar {
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: .7rem 1.5rem; display: flex; align-items: center;
+  justify-content: center; gap: .6rem; flex-wrap: wrap;
+}
+.pwd-bar input {
+  padding: .4rem .8rem; font-family: inherit; font-size: .88rem;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  background: var(--bg); outline: none; width: 148px;
+  transition: border-color .2s;
+}
+.pwd-bar input:focus { border-color: var(--accent); background: #fff; }
+.pwd-bar button {
+  background: var(--accent); color: #fff; border: none; border-radius: 8px;
+  padding: .4rem 1rem; font-family: inherit; font-size: .88rem; cursor: pointer;
+  transition: background .18s;
+}
+.pwd-bar button:hover { background: var(--accent-dark); }
+#loginStatus { font-size: .8rem; }
+#loginStatus.ok  { color: var(--green); }
+#loginStatus.err { color: #c0392b; }
  
-  /* ── SECTION CARD (container box) ── */
-  .section-card {
-    background: var(--surface);
-    border-radius: 16px;
-    box-shadow: 0 2px 12px var(--shadow);
-    overflow: hidden;
-  }
+/* ── TABS ── */
+.tabs { display: flex; background: #fff; border-bottom: 2px solid var(--border); }
+.tab-btn {
+  flex: 1; padding: .8rem .5rem; font-family: inherit; font-size: .88rem;
+  font-weight: 600; border: none; background: none; cursor: pointer;
+  color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: color .18s, border-color .18s;
+}
+.tab-btn.active       { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-btn:disabled     { opacity: .4; cursor: not-allowed; }
  
-  .section-header {
-    padding: 1rem 1.25rem 0.75rem;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
+/* ── PAGE LAYOUT ── */
+.page { max-width: 780px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
  
-  .section-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
+/* ── CARD BOX ── */
+.box { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
+.box-header {
+  padding: .9rem 1.2rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.box-title { font-size: .95rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: .4rem; }
+.box-count { font-size: .75rem; color: var(--muted); background: var(--bg); padding: .2rem .65rem; border-radius: 20px; border: 1px solid var(--border); }
  
-  .section-count {
-    font-size: 0.78rem;
-    color: var(--muted);
-    background: #f0f4f8;
-    padding: 0.25rem 0.7rem;
-    border-radius: 20px;
-    border: 1px solid #e0e0e0;
-  }
+/* ── SEARCH ── */
+.search-bar { padding: .65rem 1.2rem; border-bottom: 1px solid var(--border); position: relative; }
+.search-bar input {
+  width: 100%; padding: .6rem 2.4rem .6rem .85rem; font-size: .92rem;
+  font-family: inherit; border: 1.5px solid var(--border); border-radius: 9px;
+  background: var(--bg); outline: none; color: var(--text); transition: border-color .2s;
+}
+.search-bar input:focus { border-color: var(--accent); background: #fff; }
+.search-bar svg { position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
  
-  /* ── SEARCH ── */
-  .search-inner { position: relative; padding: 0.75rem 1.25rem; border-bottom: 1px solid #eee; }
-  .search-icon  { position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+/* ── SCROLLABLE LIST ── */
+.list-scroll { max-height: 460px; overflow-y: auto; }
+.list-scroll::-webkit-scrollbar { width: 4px; }
+.list-scroll::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
  
-  #searchInput {
-    width: 100%; padding: 0.65rem 2.5rem 0.65rem 0.9rem; font-size: 0.95rem; font-family: inherit;
-    border: 1.5px solid #dde3ea; border-radius: 9px; background: #f7f9fb; color: var(--text);
-    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  #searchInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(86,136,168,0.15); background: #fff; }
-  #searchInput::placeholder { color: var(--muted); }
+/* ── FARMER ROW ── */
+.f-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .7rem 1.2rem; gap: .75rem; border-bottom: 1px solid #f2f4f6;
+  transition: background .14s; animation: fadeUp .2s ease both;
+}
+.f-row:last-child { border-bottom: none; }
+.f-row:hover { background: #f7f9fb; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
  
-  /* ── SCROLLABLE LIST ── */
-  .list-scroll {
-    max-height: 480px;
-    overflow-y: auto;
-    padding: 0.5rem 0;
-  }
+.f-info { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: .18rem; }
+.f-name { font-size: .92rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.f-last-visit {
+  font-size: .72rem; color: var(--muted);
+  display: flex; align-items: center; gap: .3rem;
+}
+.f-last-visit svg { flex-shrink: 0; }
+.f-last-visit.has-visit { color: #5688a8; }
+.f-last-visit.no-visit  { color: #b0bec5; }
+
+.f-right { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
  
-  .list-scroll::-webkit-scrollbar { width: 5px; }
-  .list-scroll::-webkit-scrollbar-track { background: transparent; }
-  .list-scroll::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 88px; padding: .28rem .8rem; border-radius: 20px;
+  font-size: .78rem; font-weight: 600; user-select: none;
+}
+.badge.yes { background: var(--green-bg); color: var(--green); border: 1px solid #b6d9c8; }
+.badge.no  { background: var(--red-bg);   color: var(--red);   border: 1px solid #f0b8bc; }
  
-  /* ── CARD ── */
-  .card {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.75rem 1.25rem; gap: 0.75rem;
-    border-bottom: 1px solid #f2f2f2;
-    transition: background 0.15s;
-    animation: fadeUp 0.22s ease both;
-  }
-  .card:last-child { border-bottom: none; }
-  .card:hover { background: #f7f9fb; }
+.btn-map {
+  display: flex; align-items: center; gap: 4px; padding: .3rem .75rem;
+  background: var(--maps); color: #fff; border: none; border-radius: 7px;
+  font-family: inherit; font-size: .78rem; font-weight: 500; cursor: pointer;
+  transition: background .18s, transform .1s;
+}
+.btn-map:hover  { background: var(--maps-hover); }
+.btn-map:active { transform: scale(.95); }
  
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.empty-row { text-align: center; padding: 2.5rem 1rem; color: var(--muted); display: none; }
  
-  .card-left { min-width: 0; flex: 1; }
+/* ── FARMER ROW clickable name ── */
+.f-name-btn {
+  background: none; border: none; font: inherit; font-size: .92rem; font-weight: 600;
+  color: var(--text); text-align: right; cursor: pointer; min-width: 0; flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0;
+  transition: color .15s;
+}
+.f-name-btn:hover { color: var(--accent); text-decoration: underline dotted; }
  
-  .name {
-    font-size: 0.95rem; font-weight: 600; color: var(--text);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
+/* ── DRAWER ── */
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.35);
+  z-index: 200; opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
  
-  .card-right { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(420px,100vw);
+  background: var(--surface); z-index: 201; box-shadow: -4px 0 24px rgba(0,0,0,.18);
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.drawer.open { transform: translateX(0); }
  
-  /* ── STATUS BADGE (read-only) ── */
-  .status-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 90px; padding: 0.3rem 0.85rem; border-radius: 20px;
-    font-size: 0.8rem; font-weight: 600; user-select: none; cursor: default;
-  }
-  .status-badge.visited     { background: #d4edda; color: #155724; border: 1px solid #b8dfc4; }
-  .status-badge.not-visited { background: #f8d7da; color: #721c24; border: 1px solid #f1b5ba; }
+.drawer-head {
+  background: var(--accent); padding: 1.1rem 1.2rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem;
+  flex-shrink: 0;
+}
+.drawer-head h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .15rem; }
+.drawer-head p  { font-size: .75rem; color: rgba(255,255,255,.75); }
+.drawer-close {
+  background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 8px;
+  width: 32px; height: 32px; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; transition: background .15s;
+}
+.drawer-close:hover { background: rgba(255,255,255,.35); }
  
-  /* ── MAP BUTTON ── */
-  .btn-map {
-    display: flex; align-items: center; gap: 5px; padding: 0.35rem 0.85rem;
-    background: var(--maps); color: #fff; border: none; border-radius: 8px;
-    font-family: inherit; font-size: 0.82rem; font-weight: 500; cursor: pointer;
-    white-space: nowrap; transition: background 0.18s, transform 0.1s;
-  }
-  .btn-map:hover  { background: var(--maps-hover); }
-  .btn-map:active { transform: scale(0.96); }
+.drawer-body { flex: 1; overflow-y: auto; padding: 1.1rem; }
+.drawer-body::-webkit-scrollbar { width: 4px; }
+.drawer-body::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
  
-  /* ── EMPTY ── */
-  .empty-inner { text-align: center; padding: 2.5rem 1rem; color: var(--muted); display: none; }
-  .empty-inner svg { display: block; margin: 0 auto 0.75rem; opacity: 0.3; }
+.dw-sec { font-size: .72rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; margin: 1rem 0 .55rem; }
+.dw-sec:first-child { margin-top: 0; }
  
-  /* ── LOADING ── */
-  .loading-inner { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: 0.9rem; }
-  .loading-spinner {
-    width: 32px; height: 32px; border: 3px solid #dde3ea;
-    border-top-color: var(--accent); border-radius: 50%;
-    animation: spin 0.8s linear infinite; margin: 0 auto 0.75rem;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+.dw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: .65rem; }
+.dw-cell { background: var(--bg); border-radius: 10px; padding: .65rem .85rem; border: 1px solid var(--border); }
+.dw-cell-lbl { font-size: .68rem; color: var(--muted); margin-bottom: .18rem; }
+.dw-cell-val { font-size: .88rem; font-weight: 700; }
+.dw-cell-val.good { color: var(--green); }
+.dw-cell-val.bad  { color: var(--red); }
+.dw-cell-val.mid  { color: #856404; }
  
-  .error-inner { text-align: center; padding: 1.5rem; color: #721c24; font-size: 0.88rem; }
+.dw-full { background: var(--bg); border-radius: 10px; padding: .65rem .85rem; border: 1px solid var(--border); margin-bottom: .65rem; }
+.dw-full-lbl { font-size: .68rem; color: var(--muted); margin-bottom: .18rem; }
+.dw-full-val { font-size: .88rem; font-weight: 600; }
  
-  /* ── UNDER DEVELOPMENT SECTION ── */
-  .dev-section { background: var(--surface); border-radius: 16px; box-shadow: 0 2px 12px var(--shadow); overflow: hidden; }
+.dw-prev {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .5rem .85rem; background: var(--bg); border-radius: 9px;
+  border: 1px solid var(--border); margin-bottom: .4rem; font-size: .82rem;
+}
+.dw-prev-date { color: var(--muted); font-size: .74rem; }
  
-  .dev-header {
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid #eee;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .dev-header span { font-size: 1rem; font-weight: 700; color: var(--accent); }
-  .dev-badge {
-    font-size: 0.7rem; font-weight: 600; background: #fff3cd; color: #856404;
-    border: 1px solid #ffeeba; border-radius: 20px; padding: 0.15rem 0.6rem;
-  }
+.dw-empty { text-align: center; padding: 1.8rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
  
-  .dev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee; }
+/* ── LOADING ── */
+.spinner-wrap { text-align: center; padding: 2rem; color: var(--muted); font-size: .88rem; }
+.spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto .75rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.err-box { text-align: center; padding: 1.25rem; color: #842029; font-size: .85rem; }
  
-  .dev-card {
-    background: var(--surface); padding: 1.25rem 1.5rem;
-    display: flex; flex-direction: column; gap: 0.4rem;
-  }
-  .dev-card-icon { font-size: 1.4rem; }
-  .dev-card-label { font-size: 0.78rem; color: var(--muted); }
-  .dev-card-value {
-    font-size: 1.1rem; font-weight: 700; color: #bbb;
-    letter-spacing: 0.05em;
-  }
-  .dev-card-note { font-size: 0.72rem; color: #c0a98b; font-style: italic; }
+/* ── VISIT FORM ── */
+.form-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 1.2rem; }
  
-  /* ── PASSWORD ── */
-  .pwd-wrap { padding: 0.75rem 1.25rem; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 0.6rem; }
-  .pwd-wrap input[type="password"] {
-    padding: 0.45rem 0.8rem; font-family: inherit; font-size: 0.9rem;
-    border: 1.5px solid #dde3ea; border-radius: 8px; background: #f7f9fb;
-    color: var(--text); outline: none; width: 150px;
-    transition: border-color 0.2s;
-  }
-  .pwd-wrap input:focus { border-color: var(--accent); background: #fff; }
-  .pwd-wrap button {
-    background: var(--accent); color: #fff; border: none; border-radius: 8px;
-    padding: 0.45rem 1rem; font-family: inherit; font-size: 0.9rem; cursor: pointer;
-    transition: background 0.18s;
-  }
-  .pwd-wrap button:hover { background: var(--accent-hover); }
-  #loginError { font-size: 0.8rem; color: #c0392b; }
+.f-group label { display: block; font-size: .82rem; font-weight: 700; color: var(--muted); margin-bottom: .5rem; }
+.f-group .q-num { display: inline-block; background: var(--accent); color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 20px; height: 20px; line-height: 20px; text-align: center; margin-left: .4rem; }
  
-  mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--text); }
+/* searchable select */
+.sel-wrap { position: relative; }
+.sel-input {
+  width: 100%; padding: .6rem .85rem; font-size: .92rem; font-family: inherit;
+  border: 1.5px solid var(--border); border-radius: 9px; background: var(--bg);
+  outline: none; color: var(--text); cursor: pointer; transition: border-color .2s;
+}
+.sel-input:focus { border-color: var(--accent); background: #fff; }
+.sel-dropdown {
+  position: absolute; top: calc(100% + 4px); right: 0; left: 0; z-index: 50;
+  background: #fff; border: 1.5px solid var(--accent); border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 220px; overflow-y: auto;
+  display: none;
+}
+.sel-dropdown.open { display: block; }
+.sel-option {
+  padding: .6rem 1rem; font-size: .9rem; cursor: pointer; transition: background .12s;
+}
+.sel-option:hover, .sel-option.focused { background: var(--accent-light); }
+.sel-option.selected { color: var(--accent); font-weight: 700; }
  
-  @media (max-width: 540px) {
-    header { padding: 1.2rem 1rem; }
-    header h1 { font-size: 1.3rem; }
-    .page { padding: 1rem 0.75rem 3rem; }
-    .dev-grid { grid-template-columns: 1fr 1fr; }
-    .btn-map span { display: none; }
-    .btn-map { padding: 0.35rem 0.6rem; }
-    .status-badge { min-width: 75px; font-size: 0.75rem; padding: 0.3rem 0.6rem; }
-  }
+/* dots / pills */
+.pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pill {
+  padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; font-weight: 600;
+  border: 1.5px solid var(--border); background: var(--bg); color: var(--muted);
+  cursor: pointer; transition: all .15s; user-select: none;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+.pill.sel-pill { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pill.multi.sel-pill { background: var(--accent-dark); border-color: var(--accent-dark); }
+ 
+/* other text */
+.other-input {
+  margin-top: .5rem; width: 100%; padding: .55rem .85rem; font-size: .9rem;
+  font-family: inherit; border: 1.5px solid var(--border); border-radius: 9px;
+  background: var(--bg); outline: none; color: var(--text); display: none;
+  transition: border-color .2s;
+}
+.other-input:focus { border-color: var(--accent); background: #fff; }
+.other-input.show { display: block; }
+ 
+/* submit */
+.btn-submit {
+  width: 100%; padding: .8rem; background: var(--accent); color: #fff;
+  border: none; border-radius: 10px; font-family: inherit; font-size: 1rem;
+  font-weight: 700; cursor: pointer; transition: background .18s;
+  margin-top: .5rem;
+}
+.btn-submit:hover    { background: var(--accent-dark); }
+.btn-submit:disabled { opacity: .55; cursor: not-allowed; }
+.form-msg { text-align: center; font-size: .88rem; min-height: 1.2rem; }
+.form-msg.ok  { color: var(--green); }
+.form-msg.err { color: #c0392b; }
+ 
+/* lock notice */
+.lock-notice {
+  text-align: center; padding: 2.5rem 1.5rem; color: var(--muted);
+}
+.lock-notice svg { display: block; margin: 0 auto .75rem; opacity: .35; }
+ 
+/* ── VISITS LIST ── */
+.visit-card {
+  border-bottom: 1px solid #f2f4f6; padding: 1rem 1.2rem;
+  transition: background .14s; animation: fadeUp .2s ease both;
+}
+.visit-card:last-child { border-bottom: none; }
+.visit-card:hover { background: #f7f9fb; }
+.v-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .4rem; }
+.v-farm { font-size: .95rem; font-weight: 700; }
+.v-date { font-size: .75rem; color: var(--muted); }
+.v-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.v-tag {
+  font-size: .72rem; font-weight: 600; padding: .2rem .6rem; border-radius: 12px;
+  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
+}
+.v-tag.area { background: #fff3cd; color: #856404; border-color: #ffeeba; }
+.v-tag.good { background: var(--green-bg); color: var(--green); border-color: #b6d9c8; }
+.v-tag.bad  { background: var(--red-bg); color: var(--red); border-color: #f0b8bc; }
+ 
+/* under dev */
+.under-dev { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
+.ud-header { padding: .9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .5rem; }
+.ud-title  { font-size: .95rem; font-weight: 700; color: var(--accent); }
+.ud-badge  { font-size: .68rem; font-weight: 600; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 20px; padding: .15rem .6rem; }
+.ud-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee; }
+.ud-cell   { background: var(--surface); padding: 1.1rem 1.3rem; }
+.ud-icon   { font-size: 1.3rem; margin-bottom: .3rem; }
+.ud-label  { font-size: .75rem; color: var(--muted); }
+.ud-val    { font-size: 1.05rem; font-weight: 700; color: #bbb; margin-top: .2rem; }
+.ud-sub    { font-size: .68rem; color: #c0a98b; font-style: italic; margin-top: .15rem; }
+ 
+mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--text); }
+
+/* ── LAST VISIT BADGE IN FARMER LIST ── */
+.lv-badge {
+  display: inline-flex; align-items: center; gap: .28rem;
+  font-size: .7rem; font-weight: 600; padding: .18rem .55rem;
+  border-radius: 20px; white-space: nowrap;
+}
+.lv-badge.recent  { background: #d1e7dd; color: #198754; border: 1px solid #b6d9c8; }
+.lv-badge.medium  { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.lv-badge.old     { background: #f8d7da; color: #842029; border: 1px solid #f0b8bc; }
+.lv-badge.none    { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* ── VISIT HISTORY DRAWER ── */
+.vh-drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.35);
+  z-index: 300; opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.vh-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+.vh-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(440px,100vw);
+  background: var(--surface); z-index: 301; box-shadow: -4px 0 24px rgba(0,0,0,.18);
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.vh-drawer.open { transform: translateX(0); }
+
+.vh-head {
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  padding: 1.1rem 1.2rem;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem;
+  flex-shrink: 0;
+}
+.vh-head-info h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
+.vh-head-info p  { font-size: .75rem; color: rgba(255,255,255,.75); }
+.vh-close {
+  background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 8px;
+  width: 32px; height: 32px; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; transition: background .15s;
+}
+.vh-close:hover { background: rgba(255,255,255,.35); }
+
+.vh-summary {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee;
+  flex-shrink: 0;
+}
+.vh-sum-cell { background: #fff; padding: .75rem 1rem; text-align: center; }
+.vh-sum-lbl  { font-size: .68rem; color: var(--muted); margin-bottom: .2rem; }
+.vh-sum-val  { font-size: 1rem; font-weight: 700; color: var(--accent-dark); }
+
+.vh-body { flex: 1; overflow-y: auto; padding: 1rem; }
+.vh-body::-webkit-scrollbar { width: 4px; }
+.vh-body::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
+
+.vh-card {
+  background: var(--bg); border-radius: 11px; border: 1px solid var(--border);
+  padding: .85rem 1rem; margin-bottom: .65rem;
+  animation: fadeUp .2s ease both;
+}
+.vh-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; }
+.vh-card-num { font-size: .7rem; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: .15rem .5rem; border-radius: 20px; border: 1px solid #c4d9ea; }
+.vh-card-date { font-size: .75rem; color: var(--muted); font-weight: 600; }
+.vh-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+.vh-tag {
+  font-size: .7rem; font-weight: 600; padding: .18rem .55rem; border-radius: 12px;
+  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
+}
+.vh-tag.area { background: #fff3cd; color: #856404; border-color: #ffeeba; }
+.vh-tag.good { background: var(--green-bg); color: var(--green); border-color: #b6d9c8; }
+.vh-tag.bad  { background: var(--red-bg); color: var(--red); border-color: #f0b8bc; }
+
+.vh-empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
+
+/* ── VISIT HISTORY BUTTON ── */
+.btn-history {
+  display: flex; align-items: center; gap: 3px; padding: .3rem .65rem;
+  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
+  border-radius: 7px; font-family: inherit; font-size: .75rem; font-weight: 600;
+  cursor: pointer; transition: background .18s, color .18s; white-space: nowrap;
+}
+.btn-history:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+@media (max-width:540px) {
+  header h1 { font-size: 1.25rem; }
+  .tab-btn  { font-size: .78rem; padding: .7rem .3rem; }
+  .btn-map span { display: none; }
+  .btn-map  { padding: .3rem .55rem; }
+  .badge    { min-width: 72px; font-size: .73rem; }
+  .btn-history span { display: none; }
+  .btn-history { padding: .3rem .5rem; }
+}
 </style>
 </head>
 <body>
  
 <header>
-  <h1>دليلك للأسامي</h1>
-  <p>ابحث عن راعي المزرعة وافتح موقعها بضغطة "هنا"</p>
+  <h1>🌾 دليلك للأسامي</h1>
+  <p>إدارة رعاة المزارع وتسجيل الزيارات</p>
 </header>
+ 
+<!-- رمز الموظف -->
+<div class="pwd-bar" id="pwdBar">
+  <input type="password" id="empPwd" placeholder="رمز الموظف" />
+  <button onclick="doLogin()">دخول</button>
+  <span id="loginStatus"></span>
+</div>
+ 
+<!-- التبويبات -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('farmers')">👥 الرعاة</button>
+  <button class="tab-btn" id="tabVisitBtn" onclick="switchTab('visit')" disabled>📝 تسجيل زيارة</button>
+  <button class="tab-btn" id="tabLogBtn"   onclick="switchTab('log')"   disabled>📋 سجل الزيارات</button>
+</div>
  
 <div class="page">
  
-  <!-- ══ قائمة الأسماء ══ -->
-  <div class="section-card">
- 
-    <!-- رمز الموظفين -->
-    <div class="pwd-wrap" id="passwordSection">
-      <input type="password" id="empPassword" placeholder="رمز الموظفين" />
-      <button onclick="attemptLogin()">دخول</button>
-      <span id="loginError"></span>
-    </div>
- 
-    <div class="section-header">
-      <div class="section-title">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-        </svg>
-        قائمة الرعاة
+  <!-- ══ TAB 1: الرعاة ══ -->
+  <div class="tab-panel active" id="panel-farmers">
+    <div class="box">
+      <div class="box-header">
+        <div class="box-title">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+          قائمة الرعاة
+        </div>
+        <span class="box-count" id="farmersCount">...</span>
       </div>
-      <span class="section-count" id="statsLabel">جاري التحميل...</span>
-    </div>
- 
-    <div class="search-inner">
-      <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input type="text" id="searchInput" placeholder="ابحث بالاسم..." autocomplete="off" />
-    </div>
- 
-    <!-- شاشة تحميل -->
-    <div class="loading-inner" id="loadingScreen">
-      <div class="loading-spinner"></div>
-      <p>جاري تحميل البيانات...</p>
-    </div>
- 
-    <!-- رسالة خطأ -->
-    <div class="error-inner" id="errorMsg" style="display:none;">
-      ⚠️ تعذّر الاتصال — تحقق من رابط الـ API أو الإنترنت.
-    </div>
- 
-    <!-- القائمة -->
-    <div class="list-scroll" id="listScroll">
-      <div id="list"></div>
-      <div class="empty-inner" id="empty">
-        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <div class="search-bar">
+        <input type="text" id="farmSearch" placeholder="ابحث بالاسم..." autocomplete="off" />
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
-        <p>ما لقينا نتائج</p>
       </div>
-    </div>
- 
-  </div><!-- end section-card -->
- 
-  <!-- ══ قيد التطوير: الزيارات ══ -->
-  <div class="dev-section">
-    <div class="dev-header">
-      <span>📊 إحصائيات الزيارات</span>
-      <div class="dev-badge">قيد التطوير</div>
-    </div>
-    <div class="dev-grid">
-      <div class="dev-card">
-        <div class="dev-card-icon"></div>
-        <div class="dev-card-label">عدد الزيارات الكلي</div>
-        <div class="dev-card-value">— —</div>
-        <div class="dev-card-note">سيتوفر قريباً</div>
+      <div class="spinner-wrap" id="farmersLoading"><div class="spinner"></div><p>جاري التحميل...</p></div>
+      <div class="err-box" id="farmersErr" style="display:none">⚠️ فشل التحميل</div>
+      <div class="list-scroll">
+        <div id="farmersList"></div>
+        <div class="empty-row" id="farmersEmpty">ما لقينا نتائج</div>
       </div>
-      <div class="dev-card">
-        <div class="dev-card-icon"></div>
-        <div class="dev-card-label">آخر زيارة</div>
-        <div class="dev-card-value">— —</div>
-        <div class="dev-card-note">سيتوفر قريباً</div>
-      </div>
-    
     </div>
   </div>
  
+  <!-- ══ TAB 2: تسجيل زيارة ══ -->
+  <div class="tab-panel" id="panel-visit">
+    <div class="box">
+      <div class="box-header">
+        <div class="box-title">📝 نموذج تسجيل زيارة</div>
+      </div>
+      <div class="form-body" id="visitForm">
+ 
+        <!-- س١: اسم المزرعة -->
+        <div class="f-group">
+          <label><span class="q-num">١</span> المزرعة المقصودة</label>
+          <div class="sel-wrap">
+            <input class="sel-input" id="selInput" placeholder="اكتب أو اختر المزرعة..." autocomplete="off" readonly />
+            <div class="sel-dropdown" id="selDropdown"></div>
+          </div>
+        </div>
+ 
+        <!-- س٢: المنطقة -->
+        <div class="f-group">
+          <label><span class="q-num">٢</span> المنطقة</label>
+          <div class="pills" id="areaGroup">
+            <div class="pill" data-val="السيح الجنوبي"  onclick="pickPill(this,'areaGroup')">السيح الجنوبي</div>
+            <div class="pill" data-val="السيح الشمالي"  onclick="pickPill(this,'areaGroup')">السيح الشمالي</div>
+            <div class="pill" data-val="الفاضلية"        onclick="pickPill(this,'areaGroup')">الفاضلية</div>
+            <div class="pill" data-val="الريمان"          onclick="pickPill(this,'areaGroup')">الريمان</div>
+          </div>
+        </div>
+ 
+        <!-- س٣: حالة المزرعة -->
+        <div class="f-group">
+          <label><span class="q-num">٣</span> حالة المزرعة</label>
+          <div class="pills" id="condGroup">
+            <div class="pill" data-val="جيدة"    onclick="pickPill(this,'condGroup')">● جيدة</div>
+            <div class="pill" data-val="سيئة"    onclick="pickPill(this,'condGroup')">● سيئة</div>
+            <div class="pill" data-val="مهملة"   onclick="pickPill(this,'condGroup')">● مهملة</div>
+          </div>
+        </div>
+ 
+        <!-- س٤: كفاءة شبكة الري -->
+        <div class="f-group">
+          <label><span class="q-num">٤</span> كفاءة شبكة الري</label>
+          <div class="pills" id="irrigGroup">
+            <div class="pill" data-val="جيدة"     onclick="pickPill(this,'irrigGroup')">● جيدة</div>
+            <div class="pill" data-val="سيئة"     onclick="pickPill(this,'irrigGroup')">● سيئة</div>
+            <div class="pill" data-val="لا يوجد"  onclick="pickPill(this,'irrigGroup')">● لا يوجد</div>
+          </div>
+        </div>
+ 
+        <!-- س٥: نوع المزروعات (متعدد) -->
+        <div class="f-group">
+          <label><span class="q-num">٥</span> نوع المزروعات <small style="font-weight:400;color:var(--muted)">(يمكن اختيار أكثر من واحد)</small></label>
+          <div class="pills" id="cropsGroup">
+            <div class="pill multi" data-val="نخيل"      onclick="togglePill(this)">نخيل</div>
+            <div class="pill multi" data-val="محيضات"    onclick="togglePill(this)">محيضات</div>
+            <div class="pill multi" data-val="__other__" onclick="togglePill(this)">غير ذلك</div>
+          </div>
+          <input class="other-input" id="cropsOther" placeholder="اكتب هنا..." />
+        </div>
+ 
+        <!-- س٦: حجم الممارسات السيئة -->
+        <div class="f-group">
+          <label><span class="q-num">٦</span> حجم الممارسات السيئة</label>
+          <div class="pills" id="badGroup">
+            <div class="pill" data-val="كبيرة"    onclick="pickPill(this,'badGroup')">● كبيرة</div>
+            <div class="pill" data-val="متوسطة"   onclick="pickPill(this,'badGroup')">● متوسطة</div>
+            <div class="pill" data-val="بسيطة"    onclick="pickPill(this,'badGroup')">● بسيطة</div>
+            <div class="pill" data-val="لا يوجد"  onclick="pickPill(this,'badGroup')">● لا يوجد</div>
+          </div>
+        </div>
+ 
+        <!-- س٧: حجم أحواض النخيل -->
+        <div class="f-group">
+          <label><span class="q-num">٧</span> حجم أحواض النخيل</label>
+          <div class="pills" id="basinGroup">
+            <div class="pill" data-val="مناسب"        onclick="pickPill(this,'basinGroup')">● مناسب</div>
+            <div class="pill" data-val="غير مقبول"    onclick="pickPill(this,'basinGroup')">● غير مقبول</div>
+            <div class="pill" data-val="غير مناسب"    onclick="pickPill(this,'basinGroup')">● غير مناسب</div>
+          </div>
+        </div>
+ 
+        <div class="form-msg" id="formMsg"></div>
+        <button class="btn-submit" id="submitBtn" onclick="submitVisit()">✅ حفظ الزيارة</button>
+ 
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ══ TAB 3: سجل الزيارات ══ -->
+  <div class="tab-panel" id="panel-log">
+    <div class="box">
+      <div class="box-header">
+        <div class="box-title">📋 سجل الزيارات</div>
+        <span class="box-count" id="visitsCount">...</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="visitSearch" placeholder="ابحث باسم المزرعة..." autocomplete="off" oninput="renderVisits()" />
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <div class="spinner-wrap" id="visitsLoading" style="display:none"><div class="spinner"></div><p>جاري التحميل...</p></div>
+      <div class="list-scroll" style="max-height:520px">
+        <div id="visitsList"></div>
+        <div class="empty-row" id="visitsEmpty">لا توجد زيارات مسجلة</div>
+      </div>
+    </div>
+ 
+    <!-- قيد التطوير -->
+    <div class="under-dev">
+      <div class="ud-header">
+        <span class="ud-title">📊 إحصائيات الزيارات</span>
+        <div class="ud-badge">قيد التطوير</div>
+      </div>
+      <div class="ud-grid">
+        <div class="ud-cell"><div class="ud-icon">🏡</div><div class="ud-label">إجمالي الزيارات</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+        <div class="ud-cell"><div class="ud-icon">✅</div><div class="ud-label">تم ترشيدهم</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+        <div class="ud-cell"><div class="ud-icon">📅</div><div class="ud-label">آخر زيارة</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+        <div class="ud-cell"><div class="ud-icon">⏳</div><div class="ud-label">لم يتم ترشيدهم</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
+      </div>
+    </div>
+ 
+  </div>
+ 
 </div><!-- end page -->
+
+<!-- ══ VISIT HISTORY DRAWER ══ -->
+<div class="vh-drawer-overlay" id="vhOverlay" onclick="closeVhDrawer()"></div>
+<div class="vh-drawer" id="vhDrawer">
+  <div class="vh-head">
+    <div class="vh-head-info">
+      <h3 id="vhFarmerName">—</h3>
+      <p id="vhFarmerSub">سجل الزيارات</p>
+    </div>
+    <button class="vh-close" onclick="closeVhDrawer()">✕</button>
+  </div>
+  <div class="vh-summary">
+    <div class="vh-sum-cell">
+      <div class="vh-sum-lbl">إجمالي الزيارات</div>
+      <div class="vh-sum-val" id="vhTotal">—</div>
+    </div>
+    <div class="vh-sum-cell">
+      <div class="vh-sum-lbl">آخر زيارة</div>
+      <div class="vh-sum-val" id="vhLastDate">—</div>
+    </div>
+  </div>
+  <div class="vh-body" id="vhBody"></div>
+</div>
  
 <script>
-// ══════════════════════════════════════════
+// ══════════════════════════════════════
 const API_URL  = 'https://script.google.com/macros/s/AKfycbxDTTUe0WtxyLloDP9HPYcvxrZ6D_HocsA7E1kr4zXMH1K7uH8OXGPMJoV2wR9R_R1NVQ/exec';
 const PASSWORD = '12345';
-// ══════════════════════════════════════════
+// ══════════════════════════════════════
  
-let isEditing = false;
-let farmers   = [];
- 
-// ── تسجيل الدخول ──
-function attemptLogin() {
-  const pw    = document.getElementById('empPassword').value;
-  const error = document.getElementById('loginError');
+let isLoggedIn = false;
+let farmers    = [];
+let visits     = [];
+
+/* ── LAST VISIT MAP: farmName → latest Date ── */
+let lastVisitMap = {};
+
+/* ── BUILD LAST VISIT MAP ── */
+function buildLastVisitMap() {
+  lastVisitMap = {};
+  visits.forEach(v => {
+    if (!v.farmName || !v.timestamp) return;
+    const d = new Date(v.timestamp);
+    if (!lastVisitMap[v.farmName] || d > lastVisitMap[v.farmName]) {
+      lastVisitMap[v.farmName] = d;
+    }
+  });
+}
+
+/* ── FORMAT LAST VISIT BADGE ── */
+function lastVisitBadge(farmName) {
+  const d = lastVisitMap[farmName];
+  if (!d) return `<span class="lv-badge none">
+    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    لم تُزر بعد
+  </span>`;
+
+  const now      = new Date();
+  const diffDays = Math.floor((now - d) / 86400000);
+  const label    = d.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' });
+
+  let cls = 'recent';
+  if (diffDays > 30)  cls = 'medium';
+  if (diffDays > 90)  cls = 'old';
+
+  const icon = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  return `<span class="lv-badge ${cls}">${icon} ${label}</span>`;
+}
+
+/* ── LOGIN ── */
+function doLogin() {
+  const pw  = document.getElementById('empPwd').value;
+  const st  = document.getElementById('loginStatus');
   if (pw === PASSWORD) {
-    isEditing = true;
-    document.body.classList.add('editable');
-    document.getElementById('passwordSection').style.display = 'none';
-    error.textContent = '';
+    isLoggedIn = true;
+    document.getElementById('pwdBar').style.display = 'none';
+    document.getElementById('tabVisitBtn').disabled = false;
+    document.getElementById('tabLogBtn').disabled   = false;
+    st.className = 'ok';
+    st.textContent = '';
+    loadVisits();
   } else {
-    error.textContent = '❌ رمز خاطئ';
+    st.className = 'err';
+    st.textContent = '❌ رمز خاطئ';
+  }
+}
+document.getElementById('empPwd').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+ 
+/* ── TABS ── */
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+ 
+/* ── FARMERS ── */
+async function loadFarmers() {
+  try {
+    const res  = await fetch(API_URL);
+    farmers    = await res.json();
+    farmers    = farmers.map(f => ({ ...f, visited: f.visited === true || f.visited === 'TRUE' }));
+    document.getElementById('farmersLoading').style.display = 'none';
+    buildSelDropdown();
+    renderFarmers('');
+  } catch(e) {
+    document.getElementById('farmersLoading').style.display = 'none';
+    document.getElementById('farmersErr').style.display     = 'block';
   }
 }
  
-// ── جلب البيانات من الشيت ──
-async function fetchAll() {
-  const res  = await fetch(API_URL);
-  const data = await res.json();
-  return data.map(item => ({
-    id:      item.id      || item.ID,
-    name:    item.name,
-    lat:     item.lat,
-    lng:     item.lng,
-    visited: item.visited === true || item.visited === 'TRUE' || item.visited === 'نعم'
-  }));
+function hl(t, q) {
+  if (!q) return t;
+  const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return String(t).replace(new RegExp(esc, 'gi'), m => `<mark>${m}</mark>`);
 }
  
-// ── تمييز نص البحث ──
-function highlight(text, query) {
-  if (!query) return text;
-  const esc = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return String(text).replace(new RegExp(esc, 'gi'), m => `<mark>${m}</mark>`);
-}
- 
-function openMaps(lat, lng) {
-  window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`, '_blank');
-}
- 
-// ── رسم القائمة ──
-function render(query) {
-  const q        = query.trim();
-  const filtered = q
-    ? farmers.filter(f => String(f.name).includes(q))
-    : farmers;
- 
-  const list  = document.getElementById('list');
-  const empty = document.getElementById('empty');
-  const stats = document.getElementById('statsLabel');
- 
-  list.innerHTML = '';
- 
-  if (filtered.length === 0) {
-    empty.style.display = 'block';
-    stats.textContent   = '٠ نتيجة';
-    return;
-  }
- 
+function renderFarmers(q) {
+  const filtered = q ? farmers.filter(f => String(f.name).includes(q)) : farmers;
+  const el       = document.getElementById('farmersList');
+  const empty    = document.getElementById('farmersEmpty');
+  document.getElementById('farmersCount').textContent = `${filtered.length} / ${farmers.length}`;
+  el.innerHTML = '';
+  if (!filtered.length) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
-  stats.textContent   = `${filtered.length} من ${farmers.length}`;
- 
   filtered.forEach((f, i) => {
     const row = document.createElement('div');
-    row.className = 'card';
-    row.style.animationDelay = `${i * 20}ms`;
- 
-    const visited = f.visited === true;
- 
+    row.className = 'f-row';
+    row.style.animationDelay = `${i * 18}ms`;
+
+    /* آخر زيارة — تظهر دائماً، حتى قبل تسجيل الدخول */
+    const lvBadge = lastVisitBadge(f.name);
+
+    /* زر سجل الزيارات — يظهر فقط بعد تسجيل الدخول وإذا كانت هناك زيارات */
+    const farmerVisits = visits.filter(v => v.farmName === f.name);
+    const histBtn = isLoggedIn && farmerVisits.length > 0
+      ? `<button class="btn-history" onclick="openVhDrawer('${f.name.replace(/'/g,"\\'")}')">
+           <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+           <span>السجل</span>
+         </button>`
+      : '';
+
     row.innerHTML = `
-      <div class="card-left">
-        <div class="name">${highlight(f.name, q)}</div>
+      <div class="f-info">
+        <div class="f-name">${hl(f.name, q)}</div>
+        <div class="f-last-visit">${lvBadge}</div>
       </div>
-      <div class="card-right">
-        <span class="status-badge ${visited ? 'visited' : 'not-visited'}">
-          ${visited ? 'تم الترشيد' : 'لم يتم'}
-        </span>
-        <button class="btn-map" onclick="openMaps(${f.lat}, ${f.lng})">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <div class="f-right">
+        ${histBtn}
+        <span class="badge ${f.visited ? 'yes' : 'no'}">${f.visited ? 'تم الترشيد' : 'لم يتم'}</span>
+        <button class="btn-map" onclick="openMaps(${f.lat},${f.lng})">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
           <span>هنا</span>
         </button>
       </div>`;
+    el.appendChild(row);
+  });
+}
+document.getElementById('farmSearch').addEventListener('input', e => renderFarmers(e.target.value.trim()));
+function openMaps(lat, lng) { window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`, '_blank'); }
  
-    list.appendChild(row);
+/* ── SEARCHABLE SELECT ── */
+function buildSelDropdown() {
+  const dd = document.getElementById('selDropdown');
+  dd.innerHTML = '';
+  farmers.forEach(f => {
+    const opt = document.createElement('div');
+    opt.className = 'sel-option';
+    opt.textContent = f.name;
+    opt.dataset.val = f.name;
+    opt.onclick = () => pickFarm(f.name);
+    dd.appendChild(opt);
   });
 }
  
-// ── تشغيل الصفحة ──
-(async function init() {
-  try {
-    farmers = await fetchAll();
-    document.getElementById('loadingScreen').style.display = 'none';
-    render('');
-  } catch (e) {
-    document.getElementById('loadingScreen').style.display = 'none';
-    document.getElementById('errorMsg').style.display      = 'block';
-    document.getElementById('statsLabel').textContent      = 'خطأ';
-    console.error(e);
-  }
+let selVal = '';
+const selInput = document.getElementById('selInput');
+const selDD    = document.getElementById('selDropdown');
  
-  document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
-})();
+selInput.addEventListener('click', () => { filterDrop(''); selDD.classList.add('open'); selInput.readOnly = false; selInput.value = ''; });
+selInput.addEventListener('input', () => filterDrop(selInput.value));
+document.addEventListener('click', e => { if (!e.target.closest('.sel-wrap')) { selDD.classList.remove('open'); if (!selVal) selInput.value = ''; else selInput.value = selVal; selInput.readOnly = true; } });
+ 
+function filterDrop(q) {
+  selDD.classList.add('open');
+  Array.from(selDD.children).forEach(opt => {
+    const match = !q || opt.dataset.val.includes(q);
+    opt.style.display = match ? '' : 'none';
+    opt.innerHTML = match ? hl(opt.dataset.val, q) : opt.dataset.val;
+  });
+}
+ 
+function pickFarm(name) {
+  selVal            = name;
+  selInput.value    = name;
+  selInput.readOnly = true;
+  selDD.classList.remove('open');
+  Array.from(selDD.children).forEach(o => o.classList.toggle('selected', o.dataset.val === name));
+}
+ 
+/* ── PILLS ── */
+function pickPill(el, groupId) {
+  document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('sel-pill'));
+  el.classList.add('sel-pill');
+}
+ 
+function togglePill(el) {
+  el.classList.toggle('sel-pill');
+  const otherPill = document.querySelector('#cropsGroup .pill[data-val="__other__"]');
+  document.getElementById('cropsOther').classList.toggle('show', otherPill.classList.contains('sel-pill'));
+}
+ 
+function getGroupVal(groupId) {
+  const sel = document.querySelector(`#${groupId} .pill.sel-pill`);
+  return sel ? sel.dataset.val : '';
+}
+ 
+function getMultiVal(groupId) {
+  const vals = [];
+  document.querySelectorAll(`#${groupId} .pill.sel-pill`).forEach(p => {
+    if (p.dataset.val === '__other__') {
+      const t = document.getElementById('cropsOther').value.trim();
+      if (t) vals.push(t);
+    } else {
+      vals.push(p.dataset.val);
+    }
+  });
+  return vals.join('، ');
+}
+ 
+/* ── SUBMIT VISIT ── */
+async function submitVisit() {
+  const farmName     = selVal;
+  const area         = getGroupVal('areaGroup');
+  const farmCond     = getGroupVal('condGroup');
+  const irrigation   = getGroupVal('irrigGroup');
+  const crops        = getMultiVal('cropsGroup');
+  const badPractices = getGroupVal('badGroup');
+  const palmBasin    = getGroupVal('basinGroup');
+  const msg          = document.getElementById('formMsg');
+  const btn          = document.getElementById('submitBtn');
+ 
+  if (!farmName)    { showMsg('⚠️ اختر المزرعة', 'err'); return; }
+  if (!area)        { showMsg('⚠️ اختر المنطقة', 'err'); return; }
+  if (!farmCond)    { showMsg('⚠️ اختر حالة المزرعة', 'err'); return; }
+  if (!irrigation)  { showMsg('⚠️ اختر كفاءة شبكة الري', 'err'); return; }
+  if (!crops)       { showMsg('⚠️ اختر نوع المزروعات', 'err'); return; }
+  if (!badPractices){ showMsg('⚠️ اختر حجم الممارسات السيئة', 'err'); return; }
+  if (!palmBasin)   { showMsg('⚠️ اختر حجم أحواض النخيل', 'err'); return; }
+ 
+  btn.disabled = true;
+  showMsg('⏳ جاري الحفظ...', '');
+ 
+  try {
+    await fetch(API_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type:'visit', farmName, area, farmCondition: farmCond, irrigation, crops, badPractices, palmBasin })
+    });
+    showMsg('✅ تم حفظ الزيارة بنجاح!', 'ok');
+    resetForm();
+    await loadVisits();
+  } catch(e) {
+    showMsg('❌ فشل الحفظ — تحقق من الاتصال', 'err');
+  }
+  btn.disabled = false;
+}
+ 
+function showMsg(t, cls) {
+  const el = document.getElementById('formMsg');
+  el.textContent  = t;
+  el.className    = 'form-msg ' + cls;
+}
+ 
+function resetForm() {
+  selVal = ''; selInput.value = ''; selInput.readOnly = true;
+  ['areaGroup','condGroup','irrigGroup','badGroup','basinGroup'].forEach(g =>
+    document.querySelectorAll(`#${g} .pill`).forEach(p => p.classList.remove('sel-pill'))
+  );
+  document.querySelectorAll('#cropsGroup .pill').forEach(p => p.classList.remove('sel-pill'));
+  document.getElementById('cropsOther').classList.remove('show');
+  document.getElementById('cropsOther').value = '';
+}
+ 
+/* ── VISITS ── */
+async function loadVisits() {
+  document.getElementById('visitsLoading').style.display = 'block';
+  try {
+    const res = await fetch(`${API_URL}?type=visits`);
+    visits    = await res.json();
+    visits.reverse(); // أحدث أولاً
+    document.getElementById('visitsLoading').style.display = 'none';
+    buildLastVisitMap();   // ← بناء خريطة آخر الزيارات
+    renderVisits();
+    renderFarmers(document.getElementById('farmSearch').value.trim()); // ← تحديث قائمة الرعاة
+  } catch(e) {
+    document.getElementById('visitsLoading').style.display = 'none';
+  }
+}
+ 
+function condColor(v) {
+  if (!v) return '';
+  if (v === 'جيدة' || v === 'مناسب') return 'good';
+  if (v === 'سيئة' || v === 'كبيرة' || v === 'غير مناسب') return 'bad';
+  return '';
+}
+ 
+function renderVisits() {
+  const q        = document.getElementById('visitSearch').value.trim();
+  const filtered = q ? visits.filter(v => String(v.farmName).includes(q)) : visits;
+  const el       = document.getElementById('visitsList');
+  const empty    = document.getElementById('visitsEmpty');
+  document.getElementById('visitsCount').textContent = `${filtered.length} زيارة`;
+  el.innerHTML = '';
+  if (!filtered.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  filtered.forEach((v, i) => {
+    const date = v.timestamp ? new Date(v.timestamp).toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' }) : '—';
+    const card = document.createElement('div');
+    card.className = 'visit-card';
+    card.style.animationDelay = `${i * 15}ms`;
+    card.innerHTML = `
+      <div class="v-top">
+        <div class="v-farm">${hl(v.farmName || '—', q)}</div>
+        <div class="v-date">${date}</div>
+      </div>
+      <div class="v-tags">
+        ${v.area         ? `<span class="v-tag area">${v.area}</span>` : ''}
+        ${v.farmCondition? `<span class="v-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
+        ${v.irrigation   ? `<span class="v-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
+        ${v.crops        ? `<span class="v-tag">🌱 ${v.crops}</span>` : ''}
+        ${v.badPractices ? `<span class="v-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
+        ${v.palmBasin    ? `<span class="v-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
+      </div>`;
+    el.appendChild(card);
+  });
+}
+
+/* ══ VISIT HISTORY DRAWER ══ */
+function openVhDrawer(farmName) {
+  const farmerVisits = visits.filter(v => v.farmName === farmName);
+
+  document.getElementById('vhFarmerName').textContent = farmName;
+  document.getElementById('vhFarmerSub').textContent  = `${farmerVisits.length} زيارة مسجلة`;
+  document.getElementById('vhTotal').textContent      = farmerVisits.length;
+
+  const lastD = lastVisitMap[farmName];
+  document.getElementById('vhLastDate').textContent = lastD
+    ? lastD.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' })
+    : '—';
+
+  const body = document.getElementById('vhBody');
+  body.innerHTML = '';
+
+  if (!farmerVisits.length) {
+    body.innerHTML = '<div class="vh-empty">لا توجد زيارات مسجلة لهذا الراعي</div>';
+  } else {
+    farmerVisits.forEach((v, i) => {
+      const date = v.timestamp
+        ? new Date(v.timestamp).toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric', weekday:'short' })
+        : '—';
+      const card = document.createElement('div');
+      card.className = 'vh-card';
+      card.style.animationDelay = `${i * 30}ms`;
+      card.innerHTML = `
+        <div class="vh-card-top">
+          <span class="vh-card-num">زيارة #${farmerVisits.length - i}</span>
+          <span class="vh-card-date">📅 ${date}</span>
+        </div>
+        <div class="vh-tags">
+          ${v.area         ? `<span class="vh-tag area">${v.area}</span>` : ''}
+          ${v.farmCondition? `<span class="vh-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
+          ${v.irrigation   ? `<span class="vh-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
+          ${v.crops        ? `<span class="vh-tag">🌱 ${v.crops}</span>` : ''}
+          ${v.badPractices ? `<span class="vh-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
+          ${v.palmBasin    ? `<span class="vh-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
+        </div>`;
+      body.appendChild(card);
+    });
+  }
+
+  document.getElementById('vhOverlay').classList.add('open');
+  document.getElementById('vhDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVhDrawer() {
+  document.getElementById('vhOverlay').classList.remove('open');
+  document.getElementById('vhDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ESC key closes drawer */
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVhDrawer(); });
+ 
+/* ── INIT ── */
+loadFarmers();
 </script>
 </body>
 </html>
