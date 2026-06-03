@@ -192,30 +192,41 @@ function attemptLogin() {
   }
 }
 
-async function updateVisitInSheet(farmId, visited) {
-  console.log(`📤 إرسال (GET): id=${farmId}, visited=${visited}`);
-  try {
-    const url = `${API_URL}?id=${farmId}&visited=${visited}`;
-    const response = await fetch(url);
-    const result = await response.json();
-    console.log('رد الخادم:', result);
-    if (result.result !== 'success') throw new Error(result.message);
-    
-    // تحديث الواجهة محلياً
-    const badge = document.querySelector(`.status-badge[data-id="${farmId}"]`);
-    if (badge) {
-      badge.className = `status-badge ${visited ? 'visited' : 'not-visited'}`;
-      badge.textContent = visited ? 'تم الترشيد' : 'لم يتم';
-    }
-    const farmer = farmers.find(f => String(f.id) === String(farmId));
-    if (farmer) farmer.visited = visited;
-    
-    console.log('✅ تم الحفظ بنجاح');
-  } catch (e) {
-    console.error('❌ فشل التحديث:', e);
-    alert('حدث خطأ في حفظ الحالة: ' + e.message);
-  }
+function updateVisitInSheet(farmId, visited) {
+  console.log(`📤 إرسال: id=${farmId}, visited=${visited}`);
+  const url = `${API_URL}?id=${farmId}&visited=${visited}`;
+  
+  fetch(url)
+    .then(response => response.json())
+    .then(result => {
+      console.log('رد الخادم:', result);
+      if (result.result === 'success') {
+        console.log('✅ تم الحفظ بنجاح في Google Sheets');
+        // تحديث البيانات المحلية
+        const farmer = farmers.find(f => String(f.id) === String(farmId));
+        if (farmer) farmer.visited = visited;
+      } else {
+        throw new Error(result.message || 'خطأ غير معروف');
+      }
+    })
+    .catch(error => {
+      console.error('❌ فشل التحديث:', error);
+      alert('حدث خطأ في حفظ الحالة: ' + error.message);
+      // إعادة الواجهة إلى الحالة السابقة (عكس التغيير المحلي)
+      const badge = document.querySelector(`.status-badge[data-id="${farmId}"]`);
+      if (badge) {
+        const oldVisited = !visited;
+        badge.className = `status-badge ${oldVisited ? 'visited' : 'not-visited'}`;
+        badge.textContent = oldVisited ? 'تم الترشيد' : 'لم يتم';
+      }
+    });
 }
+xhr.onerror = function() {
+    console.error('فشل الاتصال بالخادم');
+    alert('حدث خطأ في حفظ الحالة: فشل الاتصال');
+  };
+  xhr.send();
+  
 // ── تمييز نص البحث ──
 function highlight(text, query) {
   if (!query) return text;
