@@ -29,12 +29,10 @@
  
 body { font-family: 'El Messiri', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
  
-/* ── HEADER ── */
 header { background: var(--accent); padding: 1.4rem 1.5rem; text-align: center; position: relative; }
 header h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: .15rem; }
 header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
  
-/* ── PASSWORD BAR ── */
 .pwd-bar {
   background: #fff; border-bottom: 1px solid var(--border);
   padding: .7rem 1.5rem; display: flex; align-items: center;
@@ -57,7 +55,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 #loginStatus.ok  { color: var(--green); }
 #loginStatus.err { color: #c0392b; }
  
-/* ── TABS ── */
 .tabs { display: flex; background: #fff; border-bottom: 2px solid var(--border); }
 .tab-btn {
   flex: 1; padding: .8rem .5rem; font-family: inherit; font-size: .88rem;
@@ -68,12 +65,10 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .tab-btn.active       { color: var(--accent); border-bottom-color: var(--accent); }
 .tab-btn:disabled     { opacity: .4; cursor: not-allowed; }
  
-/* ── PAGE LAYOUT ── */
 .page { max-width: 780px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
  
-/* ── CARD BOX ── */
 .box { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
 .box-header {
   padding: .9rem 1.2rem; border-bottom: 1px solid var(--border);
@@ -82,7 +77,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .box-title { font-size: .95rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: .4rem; }
 .box-count { font-size: .75rem; color: var(--muted); background: var(--bg); padding: .2rem .65rem; border-radius: 20px; border: 1px solid var(--border); }
  
-/* ── SEARCH ── */
 .search-bar { padding: .65rem 1.2rem; border-bottom: 1px solid var(--border); position: relative; }
 .search-bar input {
   width: 100%; padding: .6rem 2.4rem .6rem .85rem; font-size: .92rem;
@@ -92,12 +86,10 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .search-bar input:focus { border-color: var(--accent); background: #fff; }
 .search-bar svg { position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
  
-/* ── SCROLLABLE LIST ── */
 .list-scroll { max-height: 460px; overflow-y: auto; }
 .list-scroll::-webkit-scrollbar { width: 4px; }
 .list-scroll::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
  
-/* ── FARMER ROW ── */
 .f-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: .7rem 1.2rem; gap: .75rem; border-bottom: 1px solid #f2f4f6;
@@ -138,7 +130,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
  
 .empty-row { text-align: center; padding: 2.5rem 1rem; color: var(--muted); display: none; }
  
-/* ── FARMER ROW clickable name ── */
 .f-name-btn {
   background: none; border: none; font: inherit; font-size: .92rem; font-weight: 600;
   color: var(--text); text-align: right; cursor: pointer; min-width: 0; flex: 1;
@@ -147,7 +138,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 }
 .f-name-btn:hover { color: var(--accent); text-decoration: underline dotted; }
  
-/* ── DRAWER ── */
 .drawer-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.35);
   z-index: 200; opacity: 0; pointer-events: none; transition: opacity .25s;
@@ -204,19 +194,16 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
  
 .dw-empty { text-align: center; padding: 1.8rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
  
-/* ── LOADING ── */
 .spinner-wrap { text-align: center; padding: 2rem; color: var(--muted); font-size: .88rem; }
 .spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto .75rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .err-box { text-align: center; padding: 1.25rem; color: #842029; font-size: .85rem; }
  
-/* ── VISIT FORM ── */
 .form-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 1.2rem; }
  
 .f-group label { display: block; font-size: .82rem; font-weight: 700; color: var(--muted); margin-bottom: .5rem; }
 .f-group .q-num { display: inline-block; background: var(--accent); color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 20px; height: 20px; line-height: 20px; text-align: center; margin-left: .4rem; }
  
-/* searchable select */
 .sel-wrap { position: relative; }
 .sel-input {
   width: 100%; padding: .6rem .85rem; font-size: .92rem; font-family: inherit;
@@ -237,7 +224,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .sel-option:hover, .sel-option.focused { background: var(--accent-light); }
 .sel-option.selected { color: var(--accent); font-weight: 700; }
  
-/* dots / pills */
 .pills { display: flex; flex-wrap: wrap; gap: .5rem; }
 .pill {
   padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; font-weight: 600;
@@ -248,7 +234,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .pill.sel-pill { background: var(--accent); color: #fff; border-color: var(--accent); }
 .pill.multi.sel-pill { background: var(--accent-dark); border-color: var(--accent-dark); }
  
-/* other text */
 .other-input {
   margin-top: .5rem; width: 100%; padding: .55rem .85rem; font-size: .9rem;
   font-family: inherit; border: 1.5px solid var(--border); border-radius: 9px;
@@ -258,7 +243,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .other-input:focus { border-color: var(--accent); background: #fff; }
 .other-input.show { display: block; }
  
-/* submit */
 .btn-submit {
   width: 100%; padding: .8rem; background: var(--accent); color: #fff;
   border: none; border-radius: 10px; font-family: inherit; font-size: 1rem;
@@ -271,13 +255,11 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .form-msg.ok  { color: var(--green); }
 .form-msg.err { color: #c0392b; }
  
-/* lock notice */
 .lock-notice {
   text-align: center; padding: 2.5rem 1.5rem; color: var(--muted);
 }
 .lock-notice svg { display: block; margin: 0 auto .75rem; opacity: .35; }
  
-/* ── VISITS LIST ── */
 .visit-card {
   border-bottom: 1px solid #f2f4f6; padding: 1rem 1.2rem;
   transition: background .14s; animation: fadeUp .2s ease both;
@@ -296,7 +278,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
 .v-tag.good { background: var(--green-bg); color: var(--green); border-color: #b6d9c8; }
 .v-tag.bad  { background: var(--red-bg); color: var(--red); border-color: #f0b8bc; }
  
-/* under dev */
 .under-dev { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
 .ud-header { padding: .9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .5rem; }
 .ud-title  { font-size: .95rem; font-weight: 700; color: var(--accent); }
@@ -310,7 +291,6 @@ header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
  
 mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--text); }
 
-/* ── LAST VISIT BADGE IN FARMER LIST ── */
 .lv-badge {
   display: inline-flex; align-items: center; gap: .28rem;
   font-size: .7rem; font-weight: 600; padding: .18rem .55rem;
@@ -321,7 +301,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
 .lv-badge.old     { background: #f8d7da; color: #842029; border: 1px solid #f0b8bc; }
 .lv-badge.none    { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
 
-/* ── VISIT HISTORY DRAWER ── */
 .vh-drawer-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.35);
   z-index: 300; opacity: 0; pointer-events: none; transition: opacity .25s;
@@ -382,7 +361,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
 
 .vh-empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
 
-/* ── VISIT HISTORY BUTTON ── */
 .btn-history {
   display: flex; align-items: center; gap: 3px; padding: .3rem .65rem;
   background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
@@ -409,14 +387,12 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
   <p>إدارة رعاة المزارع وتسجيل الزيارات</p>
 </header>
  
-<!-- رمز الموظف -->
 <div class="pwd-bar" id="pwdBar">
   <input type="password" id="empPwd" placeholder="رمز الموظف" />
   <button onclick="doLogin()">دخول</button>
   <span id="loginStatus"></span>
 </div>
  
-<!-- التبويبات -->
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('farmers')">👥 الرعاة</button>
   <button class="tab-btn" id="tabVisitBtn" onclick="switchTab('visit')" disabled>📝 تسجيل زيارة</button>
@@ -425,7 +401,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
  
 <div class="page">
  
-  <!-- ══ TAB 1: الرعاة ══ -->
   <div class="tab-panel active" id="panel-farmers">
     <div class="box">
       <div class="box-header">
@@ -453,7 +428,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
     </div>
   </div>
  
-  <!-- ══ TAB 2: تسجيل زيارة ══ -->
   <div class="tab-panel" id="panel-visit">
     <div class="box">
       <div class="box-header">
@@ -461,7 +435,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
       </div>
       <div class="form-body" id="visitForm">
  
-        <!-- س١: اسم المزرعة -->
         <div class="f-group">
           <label><span class="q-num">١</span> المزرعة المقصودة</label>
           <div class="sel-wrap">
@@ -470,7 +443,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           </div>
         </div>
  
-        <!-- س٢: المنطقة -->
         <div class="f-group">
           <label><span class="q-num">٢</span> المنطقة</label>
           <div class="pills" id="areaGroup">
@@ -481,7 +453,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           </div>
         </div>
  
-        <!-- س٣: حالة المزرعة -->
         <div class="f-group">
           <label><span class="q-num">٣</span> حالة المزرعة</label>
           <div class="pills" id="condGroup">
@@ -491,7 +462,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           </div>
         </div>
  
-        <!-- س٤: كفاءة شبكة الري -->
         <div class="f-group">
           <label><span class="q-num">٤</span> كفاءة شبكة الري</label>
           <div class="pills" id="irrigGroup">
@@ -501,7 +471,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           </div>
         </div>
  
-        <!-- س٥: نوع المزروعات (متعدد) -->
         <div class="f-group">
           <label><span class="q-num">٥</span> نوع المزروعات <small style="font-weight:400;color:var(--muted)">(يمكن اختيار أكثر من واحد)</small></label>
           <div class="pills" id="cropsGroup">
@@ -512,7 +481,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           <input class="other-input" id="cropsOther" placeholder="اكتب هنا..." />
         </div>
  
-        <!-- س٦: حجم الممارسات السيئة -->
         <div class="f-group">
           <label><span class="q-num">٦</span> حجم الممارسات السيئة</label>
           <div class="pills" id="badGroup">
@@ -523,7 +491,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
           </div>
         </div>
  
-        <!-- س٧: حجم أحواض النخيل -->
         <div class="f-group">
           <label><span class="q-num">٧</span> حجم أحواض النخيل</label>
           <div class="pills" id="basinGroup">
@@ -540,7 +507,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
     </div>
   </div>
  
-  <!-- ══ TAB 3: سجل الزيارات ══ -->
   <div class="tab-panel" id="panel-log">
     <div class="box">
       <div class="box-header">
@@ -560,7 +526,6 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
       </div>
     </div>
  
-    <!-- قيد التطوير -->
     <div class="under-dev">
       <div class="ud-header">
         <span class="ud-title">📊 إحصائيات الزيارات</span>
@@ -574,9 +539,8 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
  
   </div>
  
-</div><!-- end page -->
+</div>
 
-<!-- ══ VISIT HISTORY DRAWER ══ -->
 <div class="vh-drawer-overlay" id="vhOverlay" onclick="closeVhDrawer()"></div>
 <div class="vh-drawer" id="vhDrawer">
   <div class="vh-head">
@@ -600,19 +564,14 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
 </div>
  
 <script>
-// ══════════════════════════════════════
-const API_URL  = 'https://script.google.com/macros/s/AKfycbxDTTUe0WtxyLloDP9HPYcvxrZ6D_HocsA7E1kr4zXMH1K7uH8OXGPMJoV2wR9R_R1NVQ/exec';
+const API_URL  = 'https://script.google.com/macros/s/AKfycbz8oYHu2LRtpR6hh6Y1bODFcEMuShNGXaATL3lwqvdYZQJSCJ4Ky7hnAEjFDDTG6sTNsg/exec';
 const PASSWORD = '12345';
-// ══════════════════════════════════════
  
 let isLoggedIn = false;
 let farmers    = [];
 let visits     = [];
-
-/* ── LAST VISIT MAP: farmName → latest Date ── */
 let lastVisitMap = {};
 
-/* ── BUILD LAST VISIT MAP ── */
 function buildLastVisitMap() {
   lastVisitMap = {};
   visits.forEach(v => {
@@ -624,27 +583,22 @@ function buildLastVisitMap() {
   });
 }
 
-/* ── FORMAT LAST VISIT BADGE ── */
 function lastVisitBadge(farmName) {
   const d = lastVisitMap[farmName];
   if (!d) return `<span class="lv-badge none">
     <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     لم تُزر بعد
   </span>`;
-
   const now      = new Date();
   const diffDays = Math.floor((now - d) / 86400000);
   const label    = d.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' });
-
   let cls = 'recent';
   if (diffDays > 30)  cls = 'medium';
   if (diffDays > 90)  cls = 'old';
-
   const icon = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
   return `<span class="lv-badge ${cls}">${icon} ${label}</span>`;
 }
 
-/* ── LOGIN ── */
 function doLogin() {
   const pw  = document.getElementById('empPwd').value;
   const st  = document.getElementById('loginStatus');
@@ -658,12 +612,11 @@ function doLogin() {
     loadVisits();
   } else {
     st.className = 'err';
-    st.textContent = ' رمز خاطئ';
+    st.textContent = '❌ رمز خاطئ';
   }
 }
 document.getElementById('empPwd').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
  
-/* ── TABS ── */
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -671,7 +624,6 @@ function switchTab(name) {
   event.currentTarget.classList.add('active');
 }
  
-/* ── FARMERS ── */
 async function loadFarmers() {
   try {
     const res  = await fetch(API_URL);
@@ -704,11 +656,7 @@ function renderFarmers(q) {
     const row = document.createElement('div');
     row.className = 'f-row';
     row.style.animationDelay = `${i * 18}ms`;
-
-    /* آخر زيارة — تظهر دائماً، حتى قبل تسجيل الدخول */
     const lvBadge = lastVisitBadge(f.name);
-
-    /* زر سجل الزيارات — يظهر فقط بعد تسجيل الدخول وإذا كانت هناك زيارات */
     const farmerVisits = visits.filter(v => v.farmName === f.name);
     const histBtn = isLoggedIn && farmerVisits.length > 0
       ? `<button class="btn-history" onclick="openVhDrawer('${f.name.replace(/'/g,"\\'")}')">
@@ -716,7 +664,6 @@ function renderFarmers(q) {
            <span>السجل</span>
          </button>`
       : '';
-
     row.innerHTML = `
       <div class="f-info">
         <div class="f-name">${hl(f.name, q)}</div>
@@ -739,7 +686,6 @@ function renderFarmers(q) {
 document.getElementById('farmSearch').addEventListener('input', e => renderFarmers(e.target.value.trim()));
 function openMaps(lat, lng) { window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`, '_blank'); }
  
-/* ── SEARCHABLE SELECT ── */
 function buildSelDropdown() {
   const dd = document.getElementById('selDropdown');
   dd.innerHTML = '';
@@ -778,7 +724,6 @@ function pickFarm(name) {
   Array.from(selDD.children).forEach(o => o.classList.toggle('selected', o.dataset.val === name));
 }
  
-/* ── PILLS ── */
 function pickPill(el, groupId) {
   document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('sel-pill'));
   el.classList.add('sel-pill');
@@ -808,7 +753,6 @@ function getMultiVal(groupId) {
   return vals.join('، ');
 }
  
-/* ── SUBMIT VISIT ── */
 async function submitVisit() {
   const farmName     = selVal;
   const area         = getGroupVal('areaGroup');
@@ -817,16 +761,15 @@ async function submitVisit() {
   const crops        = getMultiVal('cropsGroup');
   const badPractices = getGroupVal('badGroup');
   const palmBasin    = getGroupVal('basinGroup');
-  const msg          = document.getElementById('formMsg');
   const btn          = document.getElementById('submitBtn');
  
-  if (!farmName)    { showMsg(' اختر المزرعة', 'err'); return; }
-  if (!area)        { showMsg(' اختر المنطقة', 'err'); return; }
-  if (!farmCond)    { showMsg(' اختر حالة المزرعة', 'err'); return; }
-  if (!irrigation)  { showMsg(' اختر كفاءة شبكة الري', 'err'); return; }
-  if (!crops)       { showMsg(' اختر نوع المزروعات', 'err'); return; }
-  if (!badPractices){ showMsg(' اختر حجم الممارسات السيئة', 'err'); return; }
-  if (!palmBasin)   { showMsg(' اختر حجم أحواض النخيل', 'err'); return; }
+  if (!farmName)    { showMsg('اختر المزرعة', 'err'); return; }
+  if (!area)        { showMsg('اختر المنطقة', 'err'); return; }
+  if (!farmCond)    { showMsg('اختر حالة المزرعة', 'err'); return; }
+  if (!irrigation)  { showMsg('اختر كفاءة شبكة الري', 'err'); return; }
+  if (!crops)       { showMsg('اختر نوع المزروعات', 'err'); return; }
+  if (!badPractices){ showMsg('اختر حجم الممارسات السيئة', 'err'); return; }
+  if (!palmBasin)   { showMsg('اختر حجم أحواض النخيل', 'err'); return; }
  
   btn.disabled = true;
   showMsg('⏳ جاري الحفظ...', '');
@@ -838,7 +781,7 @@ async function submitVisit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type:'visit', farmName, area, farmCondition: farmCond, irrigation, crops, badPractices, palmBasin })
     });
-    showMsg(' تم حفظ الزيارة !', 'ok');
+    showMsg('✅ تم حفظ الزيارة!', 'ok');
     resetForm();
     await loadVisits();
   } catch(e) {
@@ -863,17 +806,16 @@ function resetForm() {
   document.getElementById('cropsOther').value = '';
 }
  
-/* ── VISITS ── */
 async function loadVisits() {
   document.getElementById('visitsLoading').style.display = 'block';
   try {
     const res = await fetch(`${API_URL}?type=visits`);
     visits    = await res.json();
-    visits.reverse(); // أحدث أولاً
+    visits.reverse();
     document.getElementById('visitsLoading').style.display = 'none';
-    buildLastVisitMap();   // ← بناء خريطة آخر الزيارات
+    buildLastVisitMap();
     renderVisits();
-    renderFarmers(document.getElementById('farmSearch').value.trim()); // ← تحديث قائمة الرعاة
+    renderFarmers(document.getElementById('farmSearch').value.trim());
   } catch(e) {
     document.getElementById('visitsLoading').style.display = 'none';
   }
@@ -909,7 +851,7 @@ function renderVisits() {
         ${v.area         ? `<span class="v-tag area">${v.area}</span>` : ''}
         ${v.farmCondition? `<span class="v-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
         ${v.irrigation   ? `<span class="v-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-        ${v.crops        ? `<span class="v-tag"> ${v.crops}</span>` : ''}
+        ${v.crops        ? `<span class="v-tag">🌱 ${v.crops}</span>` : ''}
         ${v.badPractices ? `<span class="v-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
         ${v.palmBasin    ? `<span class="v-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
       </div>`;
@@ -917,22 +859,17 @@ function renderVisits() {
   });
 }
 
-/* ══ VISIT HISTORY DRAWER ══ */
 function openVhDrawer(farmName) {
   const farmerVisits = visits.filter(v => v.farmName === farmName);
-
   document.getElementById('vhFarmerName').textContent = farmName;
   document.getElementById('vhFarmerSub').textContent  = `${farmerVisits.length} زيارة مسجلة`;
   document.getElementById('vhTotal').textContent      = farmerVisits.length;
-
   const lastD = lastVisitMap[farmName];
   document.getElementById('vhLastDate').textContent = lastD
     ? lastD.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' })
     : '—';
-
   const body = document.getElementById('vhBody');
   body.innerHTML = '';
-
   if (!farmerVisits.length) {
     body.innerHTML = '<div class="vh-empty">لا توجد زيارات مسجلة لهذا الراعي</div>';
   } else {
@@ -946,20 +883,19 @@ function openVhDrawer(farmName) {
       card.innerHTML = `
         <div class="vh-card-top">
           <span class="vh-card-num">زيارة #${farmerVisits.length - i}</span>
-          <span class="vh-card-date"> ${date}</span>
+          <span class="vh-card-date">📅 ${date}</span>
         </div>
         <div class="vh-tags">
           ${v.area         ? `<span class="vh-tag area">${v.area}</span>` : ''}
           ${v.farmCondition? `<span class="vh-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
           ${v.irrigation   ? `<span class="vh-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-          ${v.crops        ? `<span class="vh-tag"> ${v.crops}</span>` : ''}
+          ${v.crops        ? `<span class="vh-tag">🌱 ${v.crops}</span>` : ''}
           ${v.badPractices ? `<span class="vh-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
           ${v.palmBasin    ? `<span class="vh-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
         </div>`;
       body.appendChild(card);
     });
   }
-
   document.getElementById('vhOverlay').classList.add('open');
   document.getElementById('vhDrawer').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -971,10 +907,8 @@ function closeVhDrawer() {
   document.body.style.overflow = '';
 }
 
-/* ESC key closes drawer */
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVhDrawer(); });
  
-/* ── INIT ── */
 loadFarmers();
 </script>
 </body>
