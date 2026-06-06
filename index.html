@@ -658,7 +658,7 @@ function doLogin() {
     loadVisits();
   } else {
     st.className = 'err';
-    st.textContent = '❌ رمز خاطئ';
+    st.textContent = ' رمز خاطئ';
   }
 }
 document.getElementById('empPwd').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
@@ -820,13 +820,13 @@ async function submitVisit() {
   const msg          = document.getElementById('formMsg');
   const btn          = document.getElementById('submitBtn');
  
-  if (!farmName)    { showMsg('⚠️ اختر المزرعة', 'err'); return; }
-  if (!area)        { showMsg('⚠️ اختر المنطقة', 'err'); return; }
-  if (!farmCond)    { showMsg('⚠️ اختر حالة المزرعة', 'err'); return; }
-  if (!irrigation)  { showMsg('⚠️ اختر كفاءة شبكة الري', 'err'); return; }
-  if (!crops)       { showMsg('⚠️ اختر نوع المزروعات', 'err'); return; }
-  if (!badPractices){ showMsg('⚠️ اختر حجم الممارسات السيئة', 'err'); return; }
-  if (!palmBasin)   { showMsg('⚠️ اختر حجم أحواض النخيل', 'err'); return; }
+  if (!farmName)    { showMsg(' اختر المزرعة', 'err'); return; }
+  if (!area)        { showMsg(' اختر المنطقة', 'err'); return; }
+  if (!farmCond)    { showMsg(' اختر حالة المزرعة', 'err'); return; }
+  if (!irrigation)  { showMsg(' اختر كفاءة شبكة الري', 'err'); return; }
+  if (!crops)       { showMsg(' اختر نوع المزروعات', 'err'); return; }
+  if (!badPractices){ showMsg(' اختر حجم الممارسات السيئة', 'err'); return; }
+  if (!palmBasin)   { showMsg(' اختر حجم أحواض النخيل', 'err'); return; }
  
   btn.disabled = true;
   showMsg('⏳ جاري الحفظ...', '');
@@ -946,7 +946,7 @@ function openVhDrawer(farmName) {
       card.innerHTML = `
         <div class="vh-card-top">
           <span class="vh-card-num">زيارة #${farmerVisits.length - i}</span>
-          <span class="vh-card-date">📅 ${date}</span>
+          <span class="vh-card-date"> ${date}</span>
         </div>
         <div class="vh-tags">
           ${v.area         ? `<span class="vh-tag area">${v.area}</span>` : ''}
