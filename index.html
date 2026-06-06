@@ -564,7 +564,7 @@ mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--tex
 </div>
  
 <script>
-const API_URL  = 'https://script.google.com/macros/s/AKfycbyvydRcyVtZ25BKVwWlN--MTrP8qpgimXdZVZONvI7zwqHjhY3ViV41PAxeSSQwPWmGsg/exec';
+const API_URL  = 'https://script.google.com/macros/s/AKfycbzEpiAA2BBy9kJZTQRhOm0UX_JdUV-xa95x3X7QwNnjXxn186vUarwKOBpu99ju4DO3aA/exec';
 const PASSWORD = '12345';
  
 let isLoggedIn = false;
@@ -628,7 +628,7 @@ async function loadFarmers() {
   try {
     const res  = await fetch(API_URL);
     farmers    = await res.json();
-    farmers    = farmers.map(f => ({ ...f, visited: f.visited === true || f.visited === 'TRUE' }));
+    farmers = farmers.map(f => ({ ...f, visited: f.visited === true || f.visited === 'TRUE' || f.visited === 'نعم' || f.visited === 'yes' }));
     document.getElementById('farmersLoading').style.display = 'none';
     buildSelDropdown();
     renderFarmers('');
