@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
+<title>المدرج</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -27,9 +27,29 @@ nav {
   padding: 0 3rem;
 }
 
+.logo {
+  display: flex;
+  flex-direction:column;  /* يجعل العناصر تصطف عمودياً */
+  align-items:start;     /* يوسّط المحتوى أفقياً */
+  gap: 0px;               /* المسافة بين الأسطر */
+  text-align: center;      /* توسيط النص */
+}
+
+.logo .by-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;               /* المسافة بين "by" والصورة */
+  font-size: 10px;        /* حجم خط أصغر للملحق */
+  color: #acacac;            /* لون خفيف للملحق */
+}
+
+.logo .by-line img {
+  width: 40px;
+  height: 40px;
+}
 nav .logo {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 800;
   color: #ffffff;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -109,7 +129,7 @@ nav .logo {
 .timeline-section {
   padding: 120px 3rem;
   min-height: 100vh;
-  background-image: url('YOUR_BACKGROUND_IMAGE_HERE');
+  background-image: url('pic projects/Rectangle 2 (7).png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -204,7 +224,7 @@ nav .logo {
 }
 
 .diamond-wrap:hover .diamond-inner img {
-  transform: rotate(-45deg) translate(-21%, -21%) scale(1.1);
+  transform: rotate(-45deg) translate(0%, 0%) scale(1.1);
 }
 
 /* ===================== NAME ABOVE BLUR (outside diamond) ===================== */
@@ -346,8 +366,12 @@ footer p {
 <div class="page-blur-overlay" id="pageBlurOverlay"></div>
 
 <nav>
-  <div class="logo">محمد عجل محمد الدوسري 
-    <img src="pic projects\Rectangle 2 (7).png" alt="Flowers in Chania" style="width: 30px;height: 30px ;">
+  <div class="logo">
+    <span class ='main-title'>المدرج</span> 
+    <div class="by-line">
+        <span> لمحمد عجل محمد الدوسري</span>
+       <img src="pic projects\Rectangle 2 (7).png" alt="Flowers in Chania" ;>
+   </div>
   </div>
 </nav>
 
@@ -364,7 +388,7 @@ footer p {
 </section>
 
 <footer>
-  <p>&copy; 2024 Portfolio. All rights reserved.</p>
+  <p>&copy; 2026 المدرج. All rights reserved.</p>
 </footer>
 
 <script>
