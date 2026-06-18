@@ -3,863 +3,621 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>قائمة الأسامي</title>
-<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Portfolio</title>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:           #f0f4f8;
-  --surface:      #ffffff;
-  --border:       #dde3ea;
-  --text:         #1e2a35;
-  --muted:        #6b7a8d;
-  --accent:       #5688a8;
-  --accent-dark:  #304166;
-  --accent-light: #e8f1f8;
-  --maps:         #1356ad;
-  --maps-hover:   #0d3f85;
-  --green:        #198754;
-  --green-bg:     #d1e7dd;
-  --red:          #842029;
-  --red-bg:       #f8d7da;
-  --shadow:       0 2px 12px rgba(30,42,53,.09);
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
 }
-body { font-family: 'El Messiri', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-header { background: var(--accent); padding: 1.4rem 1.5rem; text-align: center; position: relative; }
-header h1 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: .15rem; }
-header p  { font-size: .82rem; color: rgba(255,255,255,.72); }
-.pwd-bar {
-  background: #fff; border-bottom: 1px solid var(--border);
-  padding: .7rem 1.5rem; display: flex; align-items: center;
-  justify-content: center; gap: .6rem; flex-wrap: wrap;
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
 }
-.pwd-bar input {
-  padding: .4rem .8rem; font-family: inherit; font-size: .88rem;
-  border: 1.5px solid var(--border); border-radius: 8px;
-  background: var(--bg); outline: none; width: 148px;
-  transition: border-color .2s;
+
+nav .logo {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Verdana, sans-serif';
 }
-.pwd-bar input:focus { border-color: var(--accent); background: #fff; }
-.pwd-bar button {
-  background: var(--accent); color: #fff; border: none; border-radius: 8px;
-  padding: .4rem 1rem; font-family: inherit; font-size: .88rem; cursor: pointer;
-  transition: background .18s;
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background: #0a0a0a;
 }
-.pwd-bar button:hover { background: var(--accent-dark); }
-#loginStatus { font-size: .8rem; }
-#loginStatus.ok  { color: var(--green); }
-#loginStatus.err { color: #c0392b; }
-.tabs { display: flex; background: #fff; border-bottom: 2px solid var(--border); }
-.tab-btn {
-  flex: 1; padding: .8rem .5rem; font-family: inherit; font-size: .88rem;
-  font-weight: 600; border: none; background: none; cursor: pointer;
-  color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px;
-  transition: color .18s, border-color .18s;
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
 }
-.tab-btn.active       { color: var(--accent); border-bottom-color: var(--accent); }
-.tab-btn:disabled     { opacity: .4; cursor: not-allowed; }
-.page { max-width: 780px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-.box { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.2rem; }
-.box-header {
-  padding: .9rem 1.2rem; border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
+
+.hero p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-.box-title { font-size: .95rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: .4rem; }
-.box-count { font-size: .75rem; color: var(--muted); background: var(--bg); padding: .2rem .65rem; border-radius: 20px; border: 1px solid var(--border); }
-.search-bar { padding: .65rem 1.2rem; border-bottom: 1px solid var(--border); position: relative; }
-.search-bar input {
-  width: 100%; padding: .6rem 2.4rem .6rem .85rem; font-size: .92rem;
-  font-family: inherit; border: 1.5px solid var(--border); border-radius: 9px;
-  background: var(--bg); outline: none; color: var(--text); transition: border-color .2s;
+
+.hero-btn {
+  padding: 14px 36px;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s, transform 0.15s ease;
+  background: transparent;
+  display: inline-block;
 }
-.search-bar input:focus { border-color: var(--accent); background: #fff; }
-.search-bar svg { position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-.list-scroll { max-height: 460px; overflow-y: auto; }
-.list-scroll::-webkit-scrollbar { width: 4px; }
-.list-scroll::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
-.f-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: .7rem 1.2rem; gap: .75rem; border-bottom: 1px solid #f2f4f6;
-  transition: background .14s; animation: fadeUp .2s ease both;
+
+.hero-btn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
 }
-.f-row:last-child { border-bottom: none; }
-.f-row:hover { background: #f7f9fb; }
-@keyframes fadeUp { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
-.f-info { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: .18rem; }
-.f-name { font-size: .92rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.f-last-visit { font-size: .72rem; color: var(--muted); display: flex; align-items: center; gap: .3rem; }
-.f-last-visit svg { flex-shrink: 0; }
-.f-last-visit.has-visit { color: #5688a8; }
-.f-last-visit.no-visit  { color: #b0bec5; }
-.f-right { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
-.badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 88px; padding: .28rem .8rem; border-radius: 20px;
-  font-size: .78rem; font-weight: 600; user-select: none;
+
+.hero-btn:active {
+  transform: scale(0.97);
 }
-.badge.yes { background: var(--green-bg); color: var(--green); border: 1px solid #b6d9c8; }
-.badge.no  { background: var(--red-bg);   color: var(--red);   border: 1px solid #f0b8bc; }
-.btn-map {
-  display: flex; align-items: center; gap: 4px; padding: .3rem .75rem;
-  background: var(--maps); color: #fff; border: none; border-radius: 7px;
-  font-family: inherit; font-size: .78rem; font-weight: 500; cursor: pointer;
-  transition: background .18s, transform .1s;
+
+/* ===================== PAGE BLUR OVERLAY ===================== */
+
+.page-blur-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  backdrop-filter: blur(18px) brightness(0.4);
+  -webkit-backdrop-filter: blur(18px) brightness(0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
 }
-.btn-map:hover  { background: var(--maps-hover); }
-.btn-map:active { transform: scale(.95); }
-.empty-row { text-align: center; padding: 2.5rem 1rem; color: var(--muted); display: none; }
-.f-name-btn {
-  background: none; border: none; font: inherit; font-size: .92rem; font-weight: 600;
-  color: var(--text); text-align: right; cursor: pointer; min-width: 0; flex: 1;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0;
-  transition: color .15s;
+
+.page-blur-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
-.f-name-btn:hover { color: var(--accent); text-decoration: underline dotted; }
-.drawer-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,.35);
-  z-index: 200; opacity: 0; pointer-events: none; transition: opacity .25s;
+
+/* ===================== TIMELINE ===================== */
+
+.timeline-section {
+  padding: 120px 3rem;
+  min-height: 100vh;
+  background-image: url('YOUR_BACKGROUND_IMAGE_HERE');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: #0a0a0a;
+  position: relative;
+  z-index: 1;
 }
-.drawer-overlay.open { opacity: 1; pointer-events: all; }
-.drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; width: min(420px,100vw);
-  background: var(--surface); z-index: 201; box-shadow: -4px 0 24px rgba(0,0,0,.18);
-  transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
-  display: flex; flex-direction: column; overflow: hidden;
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  opacity: 0.9;
 }
-.drawer.open { transform: translateX(0); }
-.drawer-head {
-  background: var(--accent); padding: 1.1rem 1.2rem;
-  display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem;
-  flex-shrink: 0;
+
+.timeline-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 210px; /* مسافة أكبر بين الصفوف */
 }
-.drawer-head h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .15rem; }
-.drawer-head p  { font-size: .75rem; color: rgba(255,255,255,.75); }
-.drawer-close {
-  background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 8px;
-  width: 32px; height: 32px; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; transition: background .15s;
+
+/* صف واحد في المنتصف */
+.row-single {
+  display: flex;
+  justify-content: center;
 }
-.drawer-close:hover { background: rgba(255,255,255,.35); }
-.drawer-body { flex: 1; overflow-y: auto; padding: 1.1rem; }
-.drawer-body::-webkit-scrollbar { width: 4px; }
-.drawer-body::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
-.dw-sec { font-size: .72rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; margin: 1rem 0 .55rem; }
-.dw-sec:first-child { margin-top: 0; }
-.dw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: .65rem; }
-.dw-cell { background: var(--bg); border-radius: 10px; padding: .65rem .85rem; border: 1px solid var(--border); }
-.dw-cell-lbl { font-size: .68rem; color: var(--muted); margin-bottom: .18rem; }
-.dw-cell-val { font-size: .88rem; font-weight: 700; }
-.dw-cell-val.good { color: var(--green); }
-.dw-cell-val.bad  { color: var(--red); }
-.dw-cell-val.mid  { color: #856404; }
-.dw-full { background: var(--bg); border-radius: 10px; padding: .65rem .85rem; border: 1px solid var(--border); margin-bottom: .65rem; }
-.dw-full-lbl { font-size: .68rem; color: var(--muted); margin-bottom: .18rem; }
-.dw-full-val { font-size: .88rem; font-weight: 600; }
-.dw-prev {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: .5rem .85rem; background: var(--bg); border-radius: 9px;
-  border: 1px solid var(--border); margin-bottom: .4rem; font-size: .82rem;
+
+/* صف ثنين جنب بعض */
+.row-double {
+  display: flex;
+  justify-content: center;
+  gap: 110px; /* مسافة أكبر بين المعينات في نفس الصف */
 }
-.dw-prev-date { color: var(--muted); font-size: .74rem; }
-.dw-empty { text-align: center; padding: 1.8rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
-.spinner-wrap { text-align: center; padding: 2rem; color: var(--muted); font-size: .88rem; }
-.spinner { width: 30px; height: 30px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto .75rem; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.err-box { text-align: center; padding: 1.25rem; color: #842029; font-size: .85rem; }
-.form-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 1.2rem; }
-.f-group label { display: block; font-size: .82rem; font-weight: 700; color: var(--muted); margin-bottom: .5rem; }
-.f-group .q-num { display: inline-block; background: var(--accent); color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 20px; height: 20px; line-height: 20px; text-align: center; margin-left: .4rem; }
-.sel-wrap { position: relative; }
-.sel-input {
-  width: 100%; padding: .6rem .85rem; font-size: .92rem; font-family: inherit;
-  border: 1.5px solid var(--border); border-radius: 9px; background: var(--bg);
-  outline: none; color: var(--text); cursor: pointer; transition: border-color .2s;
+
+/* ===================== DIAMOND ===================== */
+
+.diamond-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  /* رفعه فوق الـ overlay عند الضغط */
+  position: relative;
+  z-index: 1;
+  transition: z-index 0s;
 }
-.sel-input:focus { border-color: var(--accent); background: #fff; }
-.sel-dropdown {
-  position: absolute; top: calc(100% + 4px); right: 0; left: 0; z-index: 50;
-  background: #fff; border: 1.5px solid var(--accent); border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 220px; overflow-y: auto;
-  display: none;
+
+.diamond-wrap.active-diamond {
+  z-index: 600; /* فوق الـ blur overlay */
 }
-.sel-dropdown.open { display: block; }
-.sel-option {
-  padding: .6rem 1rem; font-size: .9rem; cursor: pointer; transition: background .12s;
+
+.diamond-outer {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  transform: rotate(45deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.sel-option:hover, .sel-option.focused { background: var(--accent-light); }
-.sel-option.selected { color: var(--accent); font-weight: 700; }
-.pills { display: flex; flex-wrap: wrap; gap: .5rem; }
-.pill {
-  padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; font-weight: 600;
-  border: 1.5px solid var(--border); background: var(--bg); color: var(--muted);
-  cursor: pointer; transition: all .15s; user-select: none;
+
+.diamond-wrap:hover .diamond-outer {
+  transform: rotate(45deg) scale(1.08);
 }
-.pill:hover { border-color: var(--accent); color: var(--accent); }
-.pill.sel-pill { background: var(--accent); color: #fff; border-color: var(--accent); }
-.pill.multi.sel-pill { background: var(--accent-dark); border-color: var(--accent-dark); }
-.other-input {
-  margin-top: .5rem; width: 100%; padding: .55rem .85rem; font-size: .9rem;
-  font-family: inherit; border: 1.5px solid var(--border); border-radius: 9px;
-  background: var(--bg); outline: none; color: var(--text); display: none;
-  transition: border-color .2s;
+
+.diamond-inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: border-color 0.3s;
+  position: relative;
 }
-.other-input:focus { border-color: var(--accent); background: #fff; }
-.other-input.show { display: block; }
-.btn-submit {
-  width: 100%; padding: .8rem; background: var(--accent); color: #fff;
-  border: none; border-radius: 10px; font-family: inherit; font-size: 1rem;
-  font-weight: 700; cursor: pointer; transition: background .18s;
-  margin-top: .5rem;
+
+.diamond-wrap:hover .diamond-inner {
+  border-color: rgba(255,255,255,0.7);
 }
-.btn-submit:hover    { background: var(--accent-dark); }
-.btn-submit:disabled { opacity: .55; cursor: not-allowed; }
-.form-msg { text-align: center; font-size: .88rem; min-height: 1.2rem; }
-.form-msg.ok  { color: var(--green); }
-.form-msg.err { color: #c0392b; }
-.lock-notice {
-  text-align: center; padding: 2.5rem 1.5rem; color: var(--muted);
+
+.diamond-inner img {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  transform: rotate(-45deg) translate(0%, 0%);
+  transition: transform 0.5s ease;
+  pointer-events: none;
 }
-.lock-notice svg { display: block; margin: 0 auto .75rem; opacity: .35; }
-.visit-card {
-  border-bottom: 1px solid #f2f4f6; padding: 1rem 1.2rem;
-  transition: background .14s; animation: fadeUp .2s ease both;
+
+.diamond-wrap:hover .diamond-inner img {
+  transform: rotate(-45deg) translate(-21%, -21%) scale(1.1);
 }
-.visit-card:last-child { border-bottom: none; }
-.visit-card:hover { background: #f7f9fb; }
-.v-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .4rem; }
-.v-farm { font-size: .95rem; font-weight: 700; }
-.v-date { font-size: .75rem; color: var(--muted); }
-.v-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
-.v-tag {
-  font-size: .72rem; font-weight: 600; padding: .2rem .6rem; border-radius: 12px;
-  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
+
+/* ===================== NAME ABOVE BLUR (outside diamond) ===================== */
+
+/* wrapper يحتوي المعين + الاسم معاً */
+.diamond-and-name {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.v-tag.area { background: #fff3cd; color: #856404; border-color: #ffeeba; }
-.v-tag.good { background: var(--green-bg); color: var(--green); border-color: #b6d9c8; }
-.v-tag.bad  { background: var(--red-bg); color: var(--red); border-color: #f0b8bc; }
-.under-dev { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
-.ud-header { padding: .9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .5rem; }
-.ud-title  { font-size: .95rem; font-weight: 700; color: var(--accent); }
-.ud-badge  { font-size: .68rem; font-weight: 600; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 20px; padding: .15rem .6rem; }
-.ud-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee; }
-.ud-cell   { background: var(--surface); padding: 1.1rem 1.3rem; }
-.ud-icon   { font-size: 1.3rem; margin-bottom: .3rem; }
-.ud-label  { font-size: .75rem; color: var(--muted); }
-.ud-val    { font-size: 1.05rem; font-weight: 700; color: #bbb; margin-top: .2rem; }
-.ud-sub    { font-size: .68rem; color: #c0a98b; font-style: italic; margin-top: .15rem; }
-mark { background: #fff3a3; border-radius: 3px; padding: 0 1px; color: var(--text); }
-.lv-badge {
-  display: inline-flex; align-items: center; gap: .28rem;
-  font-size: .7rem; font-weight: 600; padding: .18rem .55rem;
-  border-radius: 20px; white-space: nowrap;
+
+/* الاسم يطفو فوق المعين في المنتصف، z-index أعلى من الـ overlay */
+.diamond-name-overlay {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  z-index: 700;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.lv-badge.recent  { background: #d1e7dd; color: #198754; border: 1px solid #b6d9c8; }
-.lv-badge.medium  { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-.lv-badge.old     { background: #f8d7da; color: #842029; border: 1px solid #f0b8bc; }
-.lv-badge.none    { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
-.vh-drawer-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,.35);
-  z-index: 300; opacity: 0; pointer-events: none; transition: opacity .25s;
+
+.ascii-container {
+  position: relative;
+  width: 230px;
+  height: 80px;
+  opacity: 0;
+  transform: scale(0.85) translateY(6px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.vh-drawer-overlay.open { opacity: 1; pointer-events: all; }
-.vh-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; width: min(440px,100vw);
-  background: var(--surface); z-index: 301; box-shadow: -4px 0 24px rgba(0,0,0,.18);
-  transform: translateX(100%); transition: transform .28s cubic-bezier(.4,0,.2,1);
-  display: flex; flex-direction: column; overflow: hidden;
+
+.ascii-container.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
 }
-.vh-drawer.open { transform: translateX(0); }
-.vh-head {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
-  padding: 1.1rem 1.2rem;
-  display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem;
-  flex-shrink: 0;
+
+.ascii-pre {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  line-height: 1em;
+  white-space: pre;
+  background-image: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
 }
-.vh-head-info h3 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
-.vh-head-info p  { font-size: .75rem; color: rgba(255,255,255,.75); }
-.vh-close {
-  background: rgba(255,255,255,.2); border: none; color: #fff; border-radius: 8px;
-  width: 32px; height: 32px; font-size: 1.1rem; cursor: pointer; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; transition: background .15s;
+
+.name-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.35s ease, color 0.2s;
+  z-index: 10;
+  text-shadow:
+    0 0 20px rgba(255,100,100,0.6),
+    0 0 8px rgba(0,0,0,1),
+    0 2px 4px rgba(0,0,0,0.9);
 }
-.vh-close:hover { background: rgba(255,255,255,.35); }
-.vh-summary {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #eee;
-  flex-shrink: 0;
+
+.name-link.show {
+  opacity: 1;
 }
-.vh-sum-cell { background: #fff; padding: .75rem 1rem; text-align: center; }
-.vh-sum-lbl  { font-size: .68rem; color: var(--muted); margin-bottom: .2rem; }
-.vh-sum-val  { font-size: 1rem; font-weight: 700; color: var(--accent-dark); }
-.vh-body { flex: 1; overflow-y: auto; padding: 1rem; }
-.vh-body::-webkit-scrollbar { width: 4px; }
-.vh-body::-webkit-scrollbar-thumb { background: #c9d8e4; border-radius: 10px; }
-.vh-card {
-  background: var(--bg); border-radius: 11px; border: 1px solid var(--border);
-  padding: .85rem 1rem; margin-bottom: .65rem;
-  animation: fadeUp .2s ease both;
+
+.name-link:hover {
+  color: #ffd866;
 }
-.vh-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; }
-.vh-card-num { font-size: .7rem; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: .15rem .5rem; border-radius: 20px; border: 1px solid #c4d9ea; }
-.vh-card-date { font-size: .75rem; color: var(--muted); font-weight: 600; }
-.vh-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
-.vh-tag {
-  font-size: .7rem; font-weight: 600; padding: .18rem .55rem; border-radius: 12px;
-  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
+
+/* ===================== FOOTER ===================== */
+
+footer {
+  background: #050505;
+  color: #fff;
+  padding: 60px 3rem 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 1;
 }
-.vh-tag.area { background: #fff3cd; color: #856404; border-color: #ffeeba; }
-.vh-tag.good { background: var(--green-bg); color: var(--green); border-color: #b6d9c8; }
-.vh-tag.bad  { background: var(--red-bg); color: var(--red); border-color: #f0b8bc; }
-.vh-empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: .88rem; background: var(--bg); border-radius: 12px; border: 1.5px dashed var(--border); }
-.btn-history {
-  display: flex; align-items: center; gap: 3px; padding: .3rem .65rem;
-  background: var(--accent-light); color: var(--accent); border: 1px solid #c4d9ea;
-  border-radius: 7px; font-family: inherit; font-size: .75rem; font-weight: 600;
-  cursor: pointer; transition: background .18s, color .18s; white-space: nowrap;
+
+footer p {
+  color: #444;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
 }
-.btn-history:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-@media (max-width:700px) {
-  header h1 { font-size: 1.25rem; }
-  .tab-btn  { font-size: .78rem; padding: .7rem .3rem; }
-  .btn-map span { display: none; }
-  .btn-map  { padding: .3rem .55rem; }
-  .badge    { min-width: 90px; font-size: .73rem; }
-  .btn-history span { display: none; }
-  .btn-history { padding: .3rem .5rem; }
+
+/* ===================== MOBILE ===================== */
+
+@media (max-width: 768px) {
+  /* كل الصفوف تصير عمود واحد */
+  .row-double {
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+  }
+  .row-single {
+    justify-content: center;
+  }
+  .timeline-container {
+    gap: 80px;
+  }
+  .diamond-outer { width: 140px; height: 140px; }
+  .ascii-container { width: 180px; height: 60px; }
+  .ascii-pre { font-size: 7px; }
+  .name-link { font-size: 9px; }
+  .hero h1 { font-size: 2.2rem; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <h1> دليلك للأسامي</h1>
-  <p>إدارة رعاة المزارع وتسجيل الزيارات</p>
-</header>
+<!-- Blur Overlay — يغطي كل الصفحة ما عدا المعين المفتوح -->
+<div class="page-blur-overlay" id="pageBlurOverlay"></div>
 
-<div class="pwd-bar" id="pwdBar">
-  <input type="password" id="empPwd" placeholder="رمز الموظف" />
-  <button onclick="doLogin()">دخول</button>
-  <span id="loginStatus"></span>
-</div>
-
-<div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('farmers', event)">👥 الرعاة</button>
-  <button class="tab-btn" id="tabVisitBtn" onclick="switchTab('visit', event)" disabled>📝 تسجيل زيارة</button>
-  <button class="tab-btn" id="tabLogBtn"   onclick="switchTab('log', event)"   disabled>📋 سجل الزيارات</button>
-</div>
-
-<div class="page">
-
-  <div class="tab-panel active" id="panel-farmers">
-    <div class="box">
-      <div class="box-header">
-        <div class="box-title">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-          </svg>
-          قائمة الرعاة
-        </div>
-        <span class="box-count" id="farmersCount">...</span>
-      </div>
-      <div class="search-bar">
-        <input type="text" id="farmSearch" placeholder="ابحث بالاسم..." autocomplete="off" />
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </div>
-      <div class="spinner-wrap" id="farmersLoading"><div class="spinner"></div><p>جاري التحميل...</p></div>
-      <div class="err-box" id="farmersErr" style="display:none">⚠️ فشل التحميل</div>
-      <div class="list-scroll">
-        <div id="farmersList"></div>
-        <div class="empty-row" id="farmersEmpty">ما لقينا نتائج</div>
-      </div>
-    </div>
+<nav>
+  <div class="logo">محمد عجل محمد الدوسري 
+    <img src="pic projects\Rectangle 2 (7).png" alt="Flowers in Chania" style="width: 30px;height: 30px ;">
   </div>
+</nav>
 
-  <div class="tab-panel" id="panel-visit">
-    <div class="box">
-      <div class="box-header">
-        <div class="box-title">📝 نموذج تسجيل زيارة</div>
-      </div>
-      <div class="form-body" id="visitForm">
+<section class="hero">
+  <h1>صفحة تجمع تجاربي العملية بالخط زمني</h1>
+  <p>اضغط على المعين بعدها الاسم لترى اكثر</p>
+  <a href="#timeline" class="hero-btn">الخط الزمني
+  </a>
+</section>
 
-        <div class="f-group">
-          <label><span class="q-num">١</span> المزرعة المقصودة</label>
-          <div class="sel-wrap">
-            <input class="sel-input" id="selInput" placeholder="اكتب أو اختر المزرعة..." autocomplete="off" readonly />
-            <div class="sel-dropdown" id="selDropdown"></div>
-          </div>
-        </div>
+<section class="timeline-section" id="timeline">
+  <h2 class="section-title">Projects</h2>
+  <div class="timeline-container" id="timelineContainer"></div>
+</section>
 
-        <div class="f-group">
-          <label><span class="q-num">٢</span> المنطقة</label>
-          <div class="pills" id="areaGroup">
-            <div class="pill" data-val="السيح الجنوبي"  onclick="pickPill(this,'areaGroup')">السيح الجنوبي</div>
-            <div class="pill" data-val="السيح الشمالي"  onclick="pickPill(this,'areaGroup')">السيح الشمالي</div>
-            <div class="pill" data-val="الفاضلية"        onclick="pickPill(this,'areaGroup')">الفاضلية</div>
-            <div class="pill" data-val="الريمان"          onclick="pickPill(this,'areaGroup')">الريمان</div>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label><span class="q-num">٣</span> حالة المزرعة</label>
-          <div class="pills" id="condGroup">
-            <div class="pill" data-val="جيدة"    onclick="pickPill(this,'condGroup')">● جيدة</div>
-            <div class="pill" data-val="سيئة"    onclick="pickPill(this,'condGroup')">● سيئة</div>
-            <div class="pill" data-val="مهملة"   onclick="pickPill(this,'condGroup')">● مهملة</div>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label><span class="q-num">٤</span> كفاءة شبكة الري</label>
-          <div class="pills" id="irrigGroup">
-            <div class="pill" data-val="جيدة"     onclick="pickPill(this,'irrigGroup')">● جيدة</div>
-            <div class="pill" data-val="سيئة"     onclick="pickPill(this,'irrigGroup')">● سيئة</div>
-            <div class="pill" data-val="لا يوجد"  onclick="pickPill(this,'irrigGroup')">● لا يوجد</div>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label><span class="q-num">٥</span> نوع المزروعات <small style="font-weight:400;color:var(--muted)">(يمكن اختيار أكثر من واحد)</small></label>
-          <div class="pills" id="cropsGroup">
-            <div class="pill multi" data-val="نخيل"      onclick="togglePill(this)">نخيل</div>
-            <div class="pill multi" data-val="محيضات"    onclick="togglePill(this)">محيضات</div>
-            <div class="pill multi" data-val="__other__" onclick="togglePill(this)">غير ذلك</div>
-          </div>
-          <input class="other-input" id="cropsOther" placeholder="اكتب هنا..." />
-        </div>
-
-        <div class="f-group">
-          <label><span class="q-num">٦</span> حجم الممارسات السيئة</label>
-          <div class="pills" id="badGroup">
-            <div class="pill" data-val="كبيرة"    onclick="pickPill(this,'badGroup')">● كبيرة</div>
-            <div class="pill" data-val="متوسطة"   onclick="pickPill(this,'badGroup')">● متوسطة</div>
-            <div class="pill" data-val="بسيطة"    onclick="pickPill(this,'badGroup')">● بسيطة</div>
-            <div class="pill" data-val="لا يوجد"  onclick="pickPill(this,'badGroup')">● لا يوجد</div>
-          </div>
-        </div>
-
-        <div class="f-group">
-          <label><span class="q-num">٧</span> حجم أحواض النخيل</label>
-          <div class="pills" id="basinGroup">
-            <div class="pill" data-val="مناسب"        onclick="pickPill(this,'basinGroup')">● مناسب</div>
-            <div class="pill" data-val="غير مقبول"    onclick="pickPill(this,'basinGroup')">● غير مقبول</div>
-            <div class="pill" data-val="غير مناسب"    onclick="pickPill(this,'basinGroup')">● غير مناسب</div>
-          </div>
-        </div>
-
-        <div class="form-msg" id="formMsg"></div>
-        <button class="btn-submit" id="submitBtn" onclick="submitVisit()">✅ حفظ الزيارة</button>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="tab-panel" id="panel-log">
-    <div class="box">
-      <div class="box-header">
-        <div class="box-title">📋 سجل الزيارات</div>
-        <span class="box-count" id="visitsCount">...</span>
-      </div>
-      <div class="search-bar">
-        <input type="text" id="visitSearch" placeholder="ابحث باسم المزرعة..." autocomplete="off" oninput="renderVisits()" />
-        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </div>
-      <div class="spinner-wrap" id="visitsLoading" style="display:none"><div class="spinner"></div><p>جاري التحميل...</p></div>
-      <div class="list-scroll" style="max-height:520px">
-        <div id="visitsList"></div>
-        <div class="empty-row" id="visitsEmpty">لا توجد زيارات مسجلة</div>
-      </div>
-    </div>
-
-    <div class="under-dev">
-      <div class="ud-header">
-        <span class="ud-title">📊 إحصائيات الزيارات</span>
-        <div class="ud-badge">قيد التطوير</div>
-      </div>
-      <div class="ud-grid">
-        <div class="ud-cell"><div class="ud-icon"></div><div class="ud-label">إجمالي الزيارات</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
-        <div class="ud-cell"><div class="ud-icon"></div><div class="ud-label">آخر زيارة</div><div class="ud-val">— —</div><div class="ud-sub">سيتوفر قريباً</div></div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="vh-drawer-overlay" id="vhOverlay" onclick="closeVhDrawer()"></div>
-<div class="vh-drawer" id="vhDrawer">
-  <div class="vh-head">
-    <div class="vh-head-info">
-      <h3 id="vhFarmerName">—</h3>
-      <p id="vhFarmerSub">سجل الزيارات</p>
-    </div>
-    <button class="vh-close" onclick="closeVhDrawer()">✕</button>
-  </div>
-  <div class="vh-summary">
-    <div class="vh-sum-cell">
-      <div class="vh-sum-lbl">إجمالي الزيارات</div>
-      <div class="vh-sum-val" id="vhTotal">—</div>
-    </div>
-    <div class="vh-sum-cell">
-      <div class="vh-sum-lbl">آخر زيارة</div>
-      <div class="vh-sum-val" id="vhLastDate">—</div>
-    </div>
-  </div>
-  <div class="vh-body" id="vhBody"></div>
-</div>
+<footer>
+  <p>&copy; 2024 Portfolio. All rights reserved.</p>
+</footer>
 
 <script>
-const PASSWORD = '12345';
-let isLoggedIn = false;
-let farmers    = [];
-let visits     = [];
-let lastVisitMap = {};
+/* =========================================================
+   بيانات المشاريع — عدّل هنا
+   ========================================================= */
+const projects = [
+  {
+    id: 1,
+    name: "11111",
+    url: "https://github.com/m00495/AL_ibrarymanagement",
+    image: "pic projects/al_li.png"
+  },
+  {
+    id: 2,
+    name: "Project Two",
+    url: "https://example.com/project2",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop"
+  },
+  {
+    id: 3,
+    name: "Project Three",
+    url: "https://example.com/project3",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=500&fit=crop"
+  },
+  {
+    id: 4,
+    name: "Project Four",
+    url: "https://example.com/project4",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&h=500&fit=crop"
+  },
+  {
+    id: 5,
+    name: "Project Five",
+    url: "https://example.com/project5",
+    image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=500&fit=crop"
+  },
+  {
+    id: 6,
+    name: "Project Six",
+    url: "https://example.com/project6",
+    image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=500&h=500&fit=crop"
+  }
+];
 
-function buildLastVisitMap() {
-  lastVisitMap = {};
-  visits.forEach(v => {
-    if (!v.farmName || !v.timestamp) return;
-    const d = new Date(v.timestamp);
-    if (!lastVisitMap[v.farmName] || d > lastVisitMap[v.farmName]) {
-      lastVisitMap[v.farmName] = d;
+/* =========================================================
+   ASCII Filter
+   ========================================================= */
+const CHARSET = ' .\'`^",:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
+
+class AsciiRenderer {
+  constructor(containerEl, text, fontSize = 8) {
+    this.container = containerEl;
+    this.text = text;
+    this.fontSize = fontSize;
+    this.animId = null;
+    this.startTime = null;
+
+    this.offCanvas = document.createElement('canvas');
+    this.offCtx = this.offCanvas.getContext('2d');
+
+    this.pre = containerEl.querySelector('.ascii-pre');
+    this._drawText();
+  }
+
+  _drawText() {
+    const fs = 60;
+    this.offCanvas.width = 400;
+    this.offCanvas.height = 80;
+    const ctx = this.offCtx;
+    ctx.clearRect(0, 0, 400, 80);
+    ctx.font = `700 ${fs}px 'Courier New', monospace`;
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(this.text, 200, 40);
+  }
+
+  _sample(t) {
+    const w = this.offCanvas.width;
+    const h = this.offCanvas.height;
+    const cols = Math.floor(230 / (this.fontSize * 0.6));
+    const rows = Math.floor(80 / this.fontSize);
+    const imgData = this.offCtx.getImageData(0, 0, w, h).data;
+    let str = '';
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const px = Math.floor((x / cols) * w);
+        const py = Math.floor((y / rows) * h);
+        const i = (py * w + px) * 4;
+        const a = imgData[i + 3];
+        if (a < 10) { str += ' '; continue; }
+        const wave = Math.sin(t * 3 + x * 0.5 + y * 0.3) * 0.15;
+        const r = imgData[i], g = imgData[i+1], b = imgData[i+2];
+        let gray = ((0.3*r + 0.6*g + 0.1*b) / 255) + wave;
+        gray = Math.max(0, Math.min(1, gray));
+        const idx = Math.floor((1 - gray) * (CHARSET.length - 1));
+        str += CHARSET[CHARSET.length - idx - 1];
+      }
+      str += '\n';
     }
-  });
-}
-
-function lastVisitBadge(farmName) {
-  const d = lastVisitMap[farmName];
-  if (!d) return `<span class="lv-badge none">
-    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    لم تُزر بعد
-  </span>`;
-  const now      = new Date();
-  const diffDays = Math.floor((now - d) / 86400000);
-  const label    = d.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' });
-  let cls = 'recent';
-  if (diffDays > 30)  cls = 'medium';
-  if (diffDays > 90)  cls = 'old';
-  const icon = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
-  return `<span class="lv-badge ${cls}">${icon} ${label}</span>`;
-}
-
-function doLogin() {
-  const pw  = document.getElementById('empPwd').value;
-  const st  = document.getElementById('loginStatus');
-  if (pw === PASSWORD) {
-    isLoggedIn = true;
-    document.getElementById('pwdBar').style.display = 'none';
-    document.getElementById('tabVisitBtn').disabled = false;
-    document.getElementById('tabLogBtn').disabled   = false;
-    st.className = 'ok';
-    st.textContent = '';
-    loadVisits();
-  } else {
-    st.className = 'err';
-    st.textContent = '❌ رمز خاطئ';
+    this.pre.textContent = str;
   }
-}
-document.getElementById('empPwd').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-function switchTab(name, ev) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
-  ev.currentTarget.classList.add('active');
-}
+  start() {
+    this.startTime = performance.now();
+    const loop = (now) => {
+      const t = (now - this.startTime) / 1000;
+      this._sample(t);
+      this.animId = requestAnimationFrame(loop);
+    };
+    this.animId = requestAnimationFrame(loop);
+  }
 
-async function loadFarmers() {
-  try {
-    const res  = await fetch('?type=farmers');
-    farmers    = await res.json();
-    farmers = farmers.map(f => ({
-      ...f,
-      visited: f.visited === true || f.visited === 'TRUE' || f.visited === 'نعم' || f.visited === 'yes'
-    }));
-    document.getElementById('farmersLoading').style.display = 'none';
-    buildSelDropdown();
-    renderFarmers('');
-  } catch(e) {
-    document.getElementById('farmersLoading').style.display = 'none';
-    document.getElementById('farmersErr').style.display     = 'block';
+  stop() {
+    if (this.animId) cancelAnimationFrame(this.animId);
+    this.animId = null;
   }
 }
 
-function hl(t, q) {
-  if (!q) return t;
-  const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return String(t).replace(new RegExp(esc, 'gi'), m => `<mark>${m}</mark>`);
+/* =========================================================
+   Build Layout  1 - 2 - 1 - 2 pattern
+   ========================================================= */
+const container = document.getElementById('timelineContainer');
+const blurOverlay = document.getElementById('pageBlurOverlay');
+const renderers = {};
+const activeProject = { id: null };
+
+function closeActive() {
+  if (!activeProject.id) return;
+  const id = activeProject.id;
+  const oldWrap  = document.querySelector(`.diamond-wrap[data-id="${id}"]`);
+  const oldAscii = document.getElementById(`ascii-${id}`);
+  const oldLink  = document.getElementById(`link-${id}`);
+
+  oldAscii.classList.remove('visible');
+  oldLink.classList.remove('show');
+  if (renderers[id]) renderers[id].stop();
+  if (oldWrap) oldWrap.classList.remove('active-diamond');
+
+  blurOverlay.classList.remove('active');
+  activeProject.id = null;
 }
 
-function renderFarmers(q) {
-  const filtered = q ? farmers.filter(f => String(f.name).includes(q)) : farmers;
-  const el       = document.getElementById('farmersList');
-  const empty    = document.getElementById('farmersEmpty');
-  document.getElementById('farmersCount').textContent = `${filtered.length} / ${farmers.length}`;
-  el.innerHTML = '';
-  if (!filtered.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  filtered.forEach((f, i) => {
-    const row = document.createElement('div');
-    row.className = 'f-row';
-    row.style.animationDelay = `${i * 18}ms`;
-    const lvBadge = lastVisitBadge(f.name);
-    const farmerVisits = visits.filter(v => v.farmName === f.name);
-    const histBtn = isLoggedIn && farmerVisits.length > 0
-      ? `<button class="btn-history" onclick="openVhDrawer('${f.name.replace(/'/g,"\\'")}')">
-           <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-           <span>السجل</span>
-         </button>`
-      : '';
-    row.innerHTML = `
-      <div class="f-info">
-        <div class="f-name">${hl(f.name, q)}</div>
-        <div class="f-last-visit">${lvBadge}</div>
-      </div>
-      <div class="f-right">
-        ${histBtn}
-        <span class="badge ${f.visited ? 'yes' : 'no'}">${f.visited ? 'تم الترشيد' : 'لم يتم'}</span>
-        <button class="btn-map" onclick="openMaps(${f.lat},${f.lng})">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          <span>هنا</span>
-        </button>
-      </div>`;
-    el.appendChild(row);
-  });
-}
-document.getElementById('farmSearch').addEventListener('input', e => renderFarmers(e.target.value.trim()));
-function openMaps(lat, lng) { window.open(`https://www.google.com/maps?q=${lat},${lng}&z=15&hl=ar`, '_blank'); }
+/* إغلاق عند الضغط على الـ overlay */
+blurOverlay.addEventListener('click', closeActive);
 
-function buildSelDropdown() {
-  const dd = document.getElementById('selDropdown');
-  dd.innerHTML = '';
-  farmers.forEach(f => {
-    const opt = document.createElement('div');
-    opt.className = 'sel-option';
-    opt.textContent = f.name;
-    opt.dataset.val = f.name;
-    opt.onclick = () => pickFarm(f.name);
-    dd.appendChild(opt);
-  });
-}
-
-let selVal = '';
-const selInput = document.getElementById('selInput');
-const selDD    = document.getElementById('selDropdown');
-
-selInput.addEventListener('click', () => { filterDrop(''); selDD.classList.add('open'); selInput.readOnly = false; selInput.value = ''; });
-selInput.addEventListener('input', () => filterDrop(selInput.value));
-document.addEventListener('click', e => { if (!e.target.closest('.sel-wrap')) { selDD.classList.remove('open'); if (!selVal) selInput.value = ''; else selInput.value = selVal; selInput.readOnly = true; } });
-
-function filterDrop(q) {
-  selDD.classList.add('open');
-  Array.from(selDD.children).forEach(opt => {
-    const match = !q || opt.dataset.val.includes(q);
-    opt.style.display = match ? '' : 'none';
-    opt.innerHTML = match ? hl(opt.dataset.val, q) : opt.dataset.val;
-  });
-}
-
-function pickFarm(name) {
-  selVal            = name;
-  selInput.value    = name;
-  selInput.readOnly = true;
-  selDD.classList.remove('open');
-  Array.from(selDD.children).forEach(o => o.classList.toggle('selected', o.dataset.val === name));
-}
-
-function pickPill(el, groupId) {
-  document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('sel-pill'));
-  el.classList.add('sel-pill');
-}
-
-function togglePill(el) {
-  el.classList.toggle('sel-pill');
-  const otherPill = document.querySelector('#cropsGroup .pill[data-val="__other__"]');
-  document.getElementById('cropsOther').classList.toggle('show', otherPill.classList.contains('sel-pill'));
-}
-
-function getGroupVal(groupId) {
-  const sel = document.querySelector(`#${groupId} .pill.sel-pill`);
-  return sel ? sel.dataset.val : '';
-}
-
-function getMultiVal(groupId) {
-  const vals = [];
-  document.querySelectorAll(`#${groupId} .pill.sel-pill`).forEach(p => {
-    if (p.dataset.val === '__other__') {
-      const t = document.getElementById('cropsOther').value.trim();
-      if (t) vals.push(t);
-    } else {
-      vals.push(p.dataset.val);
-    }
-  });
-  return vals.join('، ');
-}
-
-async function submitVisit() {
-  const farmName     = selVal;
-  const area         = getGroupVal('areaGroup');
-  const farmCond     = getGroupVal('condGroup');
-  const irrigation   = getGroupVal('irrigGroup');
-  const crops        = getMultiVal('cropsGroup');
-  const badPractices = getGroupVal('badGroup');
-  const palmBasin    = getGroupVal('basinGroup');
-  const btn          = document.getElementById('submitBtn');
-
-  if (!farmName)    { showMsg('اختر المزرعة', 'err'); return; }
-  if (!area)        { showMsg('اختر المنطقة', 'err'); return; }
-  if (!farmCond)    { showMsg('اختر حالة المزرعة', 'err'); return; }
-  if (!irrigation)  { showMsg('اختر كفاءة شبكة الري', 'err'); return; }
-  if (!crops)       { showMsg('اختر نوع المزروعات', 'err'); return; }
-  if (!badPractices){ showMsg('اختر حجم الممارسات السيئة', 'err'); return; }
-  if (!palmBasin)   { showMsg('اختر حجم أحواض النخيل', 'err'); return; }
-
-  btn.disabled = true;
-  showMsg('⏳ جاري الحفظ...', '');
-
-  try {
-    await fetch(window.location.href, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type:'visit', farmName, area, farmCondition: farmCond, irrigation, crops, badPractices, palmBasin })
-    });
-    showMsg('✅ تم حفظ الزيارة!', 'ok');
-    resetForm();
-    await loadVisits();
-  } catch(e) {
-    showMsg('❌ فشل الحفظ — تحقق من الاتصال', 'err');
-  }
-  btn.disabled = false;
-}
-
-function showMsg(t, cls) {
-  const el = document.getElementById('formMsg');
-  el.textContent  = t;
-  el.className    = 'form-msg ' + cls;
-}
-
-function resetForm() {
-  selVal = ''; selInput.value = ''; selInput.readOnly = true;
-  ['areaGroup','condGroup','irrigGroup','badGroup','basinGroup'].forEach(g =>
-    document.querySelectorAll(`#${g} .pill`).forEach(p => p.classList.remove('sel-pill'))
-  );
-  document.querySelectorAll('#cropsGroup .pill').forEach(p => p.classList.remove('sel-pill'));
-  document.getElementById('cropsOther').classList.remove('show');
-  document.getElementById('cropsOther').value = '';
-}
-
-async function loadVisits() {
-  document.getElementById('visitsLoading').style.display = 'block';
-  try {
-    const res = await fetch('?type=visits');
-    visits    = await res.json();
-    visits.reverse();
-    document.getElementById('visitsLoading').style.display = 'none';
-    buildLastVisitMap();
-    renderVisits();
-    renderFarmers(document.getElementById('farmSearch').value.trim());
-  } catch(e) {
-    document.getElementById('visitsLoading').style.display = 'none';
-  }
-}
-
-function condColor(v) {
-  if (!v) return '';
-  if (v === 'جيدة' || v === 'مناسب') return 'good';
-  if (v === 'سيئة' || v === 'كبيرة' || v === 'غير مناسب') return 'bad';
-  return '';
-}
-
-function renderVisits() {
-  const q        = document.getElementById('visitSearch').value.trim();
-  const filtered = q ? visits.filter(v => String(v.farmName).includes(q)) : visits;
-  const el       = document.getElementById('visitsList');
-  const empty    = document.getElementById('visitsEmpty');
-  document.getElementById('visitsCount').textContent = `${filtered.length} زيارة`;
-  el.innerHTML = '';
-  if (!filtered.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  filtered.forEach((v, i) => {
-    const date = v.timestamp ? new Date(v.timestamp).toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' }) : '—';
-    const card = document.createElement('div');
-    card.className = 'visit-card';
-    card.style.animationDelay = `${i * 15}ms`;
-    card.innerHTML = `
-      <div class="v-top">
-        <div class="v-farm">${hl(v.farmName || '—', q)}</div>
-        <div class="v-date">${date}</div>
-      </div>
-      <div class="v-tags">
-        ${v.area         ? `<span class="v-tag area">${v.area}</span>` : ''}
-        ${v.farmCondition? `<span class="v-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
-        ${v.irrigation   ? `<span class="v-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-        ${v.crops        ? `<span class="v-tag">🌱 ${v.crops}</span>` : ''}
-        ${v.badPractices ? `<span class="v-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
-        ${v.palmBasin    ? `<span class="v-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
-      </div>`;
-    el.appendChild(card);
-  });
-}
-
-function openVhDrawer(farmName) {
-  const farmerVisits = visits.filter(v => v.farmName === farmName);
-  document.getElementById('vhFarmerName').textContent = farmName;
-  document.getElementById('vhFarmerSub').textContent  = `${farmerVisits.length} زيارة مسجلة`;
-  document.getElementById('vhTotal').textContent      = farmerVisits.length;
-  const lastD = lastVisitMap[farmName];
-  document.getElementById('vhLastDate').textContent = lastD
-    ? lastD.toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric' })
-    : '—';
-  const body = document.getElementById('vhBody');
-  body.innerHTML = '';
-  if (!farmerVisits.length) {
-    body.innerHTML = '<div class="vh-empty">لا توجد زيارات مسجلة لهذا الراعي</div>';
-  } else {
-    farmerVisits.forEach((v, i) => {
-      const date = v.timestamp
-        ? new Date(v.timestamp).toLocaleDateString('ar-SA', { year:'numeric', month:'short', day:'numeric', weekday:'short' })
-        : '—';
-      const card = document.createElement('div');
-      card.className = 'vh-card';
-      card.style.animationDelay = `${i * 30}ms`;
-      card.innerHTML = `
-        <div class="vh-card-top">
-          <span class="vh-card-num">زيارة #${farmerVisits.length - i}</span>
-          <span class="vh-card-date">📅 ${date}</span>
+function makeDiamond(project) {
+  const wrap = document.createElement('div');
+  wrap.className = 'diamond-wrap';
+  wrap.dataset.id = project.id;
+  wrap.innerHTML = `
+    <div class="diamond-and-name">
+      <div class="diamond-outer">
+        <div class="diamond-inner">
+          <img src="${project.image}" alt="${project.name}" loading="lazy">
         </div>
-        <div class="vh-tags">
-          ${v.area         ? `<span class="vh-tag area">${v.area}</span>` : ''}
-          ${v.farmCondition? `<span class="vh-tag ${condColor(v.farmCondition)}">حالة: ${v.farmCondition}</span>` : ''}
-          ${v.irrigation   ? `<span class="vh-tag ${condColor(v.irrigation)}">ري: ${v.irrigation}</span>` : ''}
-          ${v.crops        ? `<span class="vh-tag">🌱 ${v.crops}</span>` : ''}
-          ${v.badPractices ? `<span class="vh-tag ${condColor(v.badPractices)}">ممارسات: ${v.badPractices}</span>` : ''}
-          ${v.palmBasin    ? `<span class="vh-tag ${condColor(v.palmBasin)}">أحواض: ${v.palmBasin}</span>` : ''}
-        </div>`;
-      body.appendChild(card);
-    });
+      </div>
+      <!-- الاسم خارج المعين، يطفو فوقه بـ z-index أعلى من الـ blur overlay -->
+      <div class="diamond-name-overlay">
+        <div class="ascii-container" id="ascii-${project.id}">
+          <pre class="ascii-pre"></pre>
+          <a class="name-link" id="link-${project.id}" href="${project.url}" target="_blank" rel="noopener">${project.name}</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  wrap.addEventListener('click', (e) => {
+    const asciiEl = document.getElementById(`ascii-${project.id}`);
+    const linkEl  = document.getElementById(`link-${project.id}`);
+    const alreadyOpen = activeProject.id === project.id;
+
+    /* أغلق الي مفتوح */
+    if (activeProject.id && activeProject.id !== project.id) {
+      closeActive();
+    }
+
+    if (alreadyOpen) {
+      closeActive();
+      return;
+    }
+
+    /* افتح الجديد */
+    wrap.classList.add('active-diamond');
+    blurOverlay.classList.add('active');
+
+    asciiEl.classList.add('visible');
+    setTimeout(() => {
+      linkEl.classList.add('show');
+      linkEl.style.pointerEvents = 'auto';
+    }, 500);
+
+    /* امنع الـ link من إغلاق المعين */
+    linkEl.addEventListener('click', e => e.stopPropagation(), { once: false });
+
+    if (!renderers[project.id]) {
+      renderers[project.id] = new AsciiRenderer(asciiEl, project.name);
+    }
+    renderers[project.id].start();
+    activeProject.id = project.id;
+  });
+
+  return wrap;
+}
+
+function buildLayout() {
+  const pattern = [1, 2, 1, 2];
+  let idx = 0;
+
+  pattern.forEach(count => {
+    const row = document.createElement('div');
+    row.className = count === 1 ? 'row-single' : 'row-double';
+
+    for (let i = 0; i < count && idx < projects.length; i++, idx++) {
+      row.appendChild(makeDiamond(projects[idx]));
+    }
+    container.appendChild(row);
+  });
+}
+
+buildLayout();
+
+/* =========================================================
+   Smooth Scroll — زر View Timeline
+   ========================================================= */
+document.querySelector('.hero-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const target = document.getElementById('timeline');
+  if (!target) return;
+
+  const startY   = window.scrollY;
+  const endY     = target.getBoundingClientRect().top + startY - 70; /* 70 = nav height */
+  const distance = endY - startY;
+  const duration = 1100; /* ms — خفيف وسلس */
+  let startTime  = null;
+
+  function easeInOutQuart(t) {
+    return t < 0.5
+      ? 8 * t * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 4) / 2;
   }
-  document.getElementById('vhOverlay').classList.add('open');
-  document.getElementById('vhDrawer').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
 
-function closeVhDrawer() {
-  document.getElementById('vhOverlay').classList.remove('open');
-  document.getElementById('vhDrawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed  = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, startY + distance * easeInOutQuart(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVhDrawer(); });
-
-loadFarmers();
+  requestAnimationFrame(step);
+});
 </script>
 </body>
 </html>
