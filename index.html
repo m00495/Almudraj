@@ -14,6 +14,7 @@ body {
   overflow-x: hidden;
 }
 
+/* ===================== NAV ===================== */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -24,38 +25,39 @@ nav {
   height: 70px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 3rem;
 }
 
-.logo {
-  display: flex;
-  flex-direction:column;  /* يجعل العناصر تصطف عمودياً */
-  align-items:start;     /* يوسّط المحتوى أفقياً */
-  gap: 0px;               /* المسافة بين الأسطر */
-  text-align: center;      /* توسيط النص */
-}
-
-.logo .by-line {
+/* اللوجو على اليمين */
+.nav-logo-group {
   display: flex;
   align-items: center;
-  gap: 8px;               /* المسافة بين "by" والصورة */
-  font-size: 10px;        /* حجم خط أصغر للملحق */
-  color: #acacac;            /* لون خفيف للملحق */
+  gap: 12px;
 }
-
-.logo .by-line img {
-  width: 40px;
-  height: 40px;
+.nav-logo-group img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.1);
 }
-nav .logo {
-  font-size: 30px;
+.nav-logo-group .main-title {
+  font-size: 26px;
   font-weight: 800;
-  color: #ffffff;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-family: 'Verdana, sans-serif';
+  color: #fff;
+  letter-spacing: 2px;
+  font-family: 'Verdana', sans-serif;
+  line-height: 1;
+}
+.nav-logo-group .by-line {
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
 }
 
+/* ===================== HERO ===================== */
 .hero {
   height: 100vh;
   display: flex;
@@ -63,583 +65,675 @@ nav .logo {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  background: #0a0a0a;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: #fff;
-  margin-bottom: 1rem;
-  letter-spacing: -1px;
-}
-
-.hero p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 2.5rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.hero-btn {
-  padding: 14px 36px;
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s, transform 0.15s ease;
-  background: transparent;
-  display: inline-block;
-}
-
-.hero-btn:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.6);
-}
-
-.hero-btn:active {
-  transform: scale(0.97);
-}
-
-/* ===================== PAGE BLUR OVERLAY ===================== */
-
-.page-blur-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  backdrop-filter: blur(18px) brightness(0.4);
-  -webkit-backdrop-filter: blur(18px) brightness(0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.45s ease;
-}
-
-.page-blur-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ===================== TIMELINE ===================== */
-
-.timeline-section {
-  padding: 120px 3rem;
-  min-height: 100vh;
-  background-image: url('pic projects/Rectangle 2 (7).png');
+  background-image: url('pictures/pic back/gmu.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-color: #0a0a0a;
   position: relative;
-  z-index: 1;
 }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.58);
+}
+.hero > * { position: relative; z-index: 1; }
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+.hero p {
+  font-size: 1rem;
+  color: #bbb;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-btn {
+  padding: 14px 36px;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  background: transparent;
+  display: inline-block;
+}
+.hero-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+.hero-btn.secondary {
+  border-color: rgba(255,255,255,0.18);
+  color: #aaa;
+}
+.hero-btn.secondary:hover { color: #fff; border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
 
+/* ===================== PROJECTS SECTION ===================== */
+.projects-section {
+  padding: 120px 3rem 100px;
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .section-title {
   font-size: 2rem;
   font-weight: 900;
   color: #fff;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 4px;
   opacity: 0.9;
 }
 
-.timeline-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 210px; /* مسافة أكبر بين الصفوف */
-}
-
-/* صف واحد في المنتصف */
-.row-single {
-  display: flex;
-  justify-content: center;
-}
-
-/* صف ثنين جنب بعض */
-.row-double {
-  display: flex;
-  justify-content: center;
-  gap: 110px; /* مسافة أكبر بين المعينات في نفس الصف */
-}
-
-/* ===================== DIAMOND ===================== */
-
-.diamond-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  cursor: pointer;
-  /* رفعه فوق الـ overlay عند الضغط */
+/* ===================== SCROLL LIST ===================== */
+.scroll-list-container {
   position: relative;
-  z-index: 1;
-  transition: z-index 0s;
-}
-
-.diamond-wrap.active-diamond {
-  z-index: 600; /* فوق الـ blur overlay */
-}
-
-.diamond-outer {
-  width: 180px;
-  height: 180px;
-  position: relative;
-  transform: rotate(45deg);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.diamond-wrap:hover .diamond-outer {
-  transform: rotate(45deg) scale(1.08);
-}
-
-.diamond-inner {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.25);
-  transition: border-color 0.3s;
-  position: relative;
+  max-width: 700px;
+}
+.scroll-list {
+  max-height: 580px;
+  overflow-y: auto;
+  overflow-x: visible;
+  padding: 8px 4px;
+}
+.scroll-list::-webkit-scrollbar { width: 5px; }
+.scroll-list::-webkit-scrollbar-track { background: transparent; }
+.scroll-list::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
+
+.list-gradient-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, #0a0a0a, transparent);
+  pointer-events: none; z-index: 2; transition: opacity 0.3s;
+}
+.list-gradient-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
+  background: linear-gradient(to top, #0a0a0a, transparent);
+  pointer-events: none; z-index: 2; transition: opacity 0.3s;
 }
 
-.diamond-wrap:hover .diamond-inner {
-  border-color: rgba(255,255,255,0.7);
-}
-
-.diamond-inner img {
-  width: 150%;
-  height: 150%;
-  object-fit: cover;
-  transform: rotate(-45deg) translate(0%, 0%);
-  transition: transform 0.5s ease;
-  pointer-events: none;
-}
-
-.diamond-wrap:hover .diamond-inner img {
-  transform: rotate(-45deg) translate(0%, 0%) scale(1.1);
-}
-
-/* ===================== NAME ABOVE BLUR (outside diamond) ===================== */
-
-/* wrapper يحتوي المعين + الاسم معاً */
-.diamond-and-name {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* الاسم يطفو فوق المعين في المنتصف، z-index أعلى من الـ overlay */
-.diamond-name-overlay {
-  position: absolute;
-  top: 100%;
-  left: 100%;
-  transform: translate(-50%, -50%);
-  z-index: 700;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ascii-container {
-  position: relative;
-  width: 230px;
-  height: 80px;
+/* ===================== ITEM WRAPPER ===================== */
+.list-item-wrapper {
+  margin-bottom: 12px;
   opacity: 0;
-  transform: scale(0.85) translateY(6px);
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transform: scale(0.93) translateY(12px);
+  transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.34,1.3,0.64,1);
+  position: relative;
+  overflow: visible;
+}
+.list-item-wrapper.in-view { opacity: 1; transform: scale(1) translateY(0); }
+
+/* ===================== LIST ITEM ===================== */
+/*
+  الكارد نفسه يكون background-image = صورة المشروع
+  مع overlay داكن فوقها عشان النص يقرأ
+*/
+.list-item {
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+  transition: border-color 0.25s, transform 0.22s ease;
+  position: relative;
+  overflow: hidden; /* الصورة ما تطلع برا */
+  min-height: 72px;
+}
+
+/* طبقة الصورة */
+.item-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease, opacity 0.3s;
+  opacity: 0.18;
+  z-index: 0;
+}
+.list-item:hover .item-bg,
+.list-item.hovered .item-bg {
+  opacity: 0.32;
+  transform: scale(1.04);
+}
+
+/* overlay داكن فوق الصورة */
+.item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.85) 100%);
+  z-index: 1;
+}
+
+.list-item:hover, .list-item.hovered {
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* ===================== الجزء الرئيسي ===================== */
+.item-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  position: relative;
+  z-index: 2; /* فوق الصورة */
+}
+
+.item-number {
+  font-size: 10px;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  min-width: 22px;
+  flex-shrink: 0;
+  transition: color 0.25s;
+}
+.list-item:hover .item-number,
+.list-item.hovered .item-number { color: #555; }
+
+/* ===================== اسم + التاريخ من وراءه ===================== */
+.item-name-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  overflow: visible;
+}
+
+.item-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ccc;
+  white-space: nowrap;
+  transition: color 0.25s;
+  position: relative;
+  z-index: 2;
+}
+.list-item:hover .item-name,
+.list-item.hovered .item-name { color: #fff; }
+
+/*
+  التاريخ يجلس مباشرة بعد الاسم (يسار الاسم في RTL)
+  يبدأ مخفي خلف الاسم (translateX يجعله خلف الاسم)
+  ويخرج للخارج على اليسار عند الـ hover
+*/
+.item-date {
+  position: absolute;
+  right: 90%;           /* يبدأ عند يمين الـ name-group = خلف الاسم */
+  top: 50%;
+  transform: translateY(-50%) translateX(40px);
+  padding-left: 14px;    /* مسافة بين الاسم والتاريخ */
+
+  font-size: 10px;
+  color: #a8a8a8;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  opacity: 0;
   pointer-events: none;
+  z-index: 1;
+
+  transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
+}
+.list-item:hover .item-date,
+.list-item.hovered .item-date {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ===================== زر السهم ===================== */
+.item-link-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  color: #2e2e2e;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  border-radius: 10px 0 0 10px;
+}
+.item-link-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  border-color: rgba(255,255,255,0.15);
 }
 
-.ascii-container.visible {
+/* ===================== BLUR OVERLAY ===================== */
+.page-blur-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  backdrop-filter: blur(20px) brightness(0.3);
+  -webkit-backdrop-filter: blur(20px) brightness(0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.page-blur-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===================== PROJECT MODAL ===================== */
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.93) translateY(18px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
+}
+.project-modal.active {
   opacity: 1;
   transform: scale(1) translateY(0);
   pointer-events: auto;
 }
 
-.ascii-pre {
+.modal-card {
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #1e1e1e transparent;
+}
+.modal-card::-webkit-scrollbar { width: 4px; }
+.modal-card::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
+
+/* زر الإغلاق */
+.modal-close {
   position: absolute;
-  inset: 0;
-  text-align: center;
-  font-family: 'Courier New', monospace;
-  font-size: 8px;
-  line-height: 1em;
-  white-space: pre;
-  background-image: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  user-select: none;
-  z-index: 9;
+  top: 14px;
+  left: 14px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 8px;
-}
-
-.name-link {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Courier New', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: none;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.35s ease, color 0.2s;
+  transition: all 0.2s;
   z-index: 10;
-  text-shadow:
-    0 0 20px rgba(255,100,100,0.6),
-    0 0 8px rgba(0,0,0,1),
-    0 2px 4px rgba(0,0,0,0.9);
+}
+.modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
+
+/* صور المشروع */
+.modal-images {
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  gap: 0;
+  scrollbar-width: none;
+  border-radius: 16px 16px 0 0;
+}
+.modal-images::-webkit-scrollbar { display: none; }
+.modal-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 16px 16px 0 0;
+}
+.modal-images.multi .modal-img {
+  width: 85%;
+  border-radius: 0;
+}
+.modal-images.multi .modal-img:first-child { border-radius: 16px 0 0 0; }
+.modal-images.multi .modal-img:last-child  { border-radius: 0 16px 0 0; }
+
+/* محتوى المودال */
+.modal-body {
+  padding: 28px 32px 32px;
 }
 
-.name-link.show {
-  opacity: 1;
+.modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
 }
-
-.name-link:hover {
-  color: #ffd866;
+.modal-desc {
+  font-size: 14px;
+  color: #777;
+  line-height: 1.85;
+  margin-bottom: 22px;
 }
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.modal-tag {
+  padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  background: rgba(255,255,255,0.02);
+}
+.modal-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.25s;
+  background: transparent;
+}
+.modal-enter-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.45); }
 
 /* ===================== FOOTER ===================== */
-
 footer {
   background: #050505;
-  color: #fff;
   padding: 60px 3rem 40px;
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  position: relative;
-  z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
-
-footer p {
-  color: #444;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-}
+footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 /* ===================== MOBILE ===================== */
-
 @media (max-width: 768px) {
-  /* كل الصفوف تصير عمود واحد */
-  .row-double {
-    flex-direction: column;
-    align-items: center;
-    gap: 80px;
-  }
-  .row-single {
-    justify-content: center;
-  }
-  .timeline-container {
-    gap: 80px;
-  }
-  .diamond-outer { width: 140px; height: 140px; }
-  .ascii-container { width: 180px; height: 60px; }
-  .ascii-pre { font-size: 7px; }
-  .name-link { font-size: 9px; }
-  .hero h1 { font-size: 2.2rem; }
+  .hero h1 { font-size: 2rem; }
+  .projects-section { padding: 100px 1.2rem 80px; }
+  .modal-body { padding: 20px; }
+  .modal-img { height: 180px; }
+  nav { padding: 0 1.5rem; }
+  .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Blur Overlay — يغطي كل الصفحة ما عدا المعين المفتوح -->
-<div class="page-blur-overlay" id="pageBlurOverlay"></div>
+<div class="page-blur-overlay" id="pageBlur"></div>
+
+<!-- المودال -->
+<div class="project-modal" id="projectModal">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-images" id="modalImages"></div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p  class="modal-desc"  id="modalDesc"></p>
+      <div class="modal-tags" id="modalTags"></div>
+      <a  class="modal-enter-btn" id="modalEnterBtn" href="#" target="_blank" rel="noopener">
+        دخول للمشروع <span>↗</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <nav>
-  <div class="logo">
-    <span class ='main-title'>المدرج</span> 
-    <div class="by-line">
-        <span> لمحمد عجل محمد الدوسري</span>
-       <img src="pic projects\Rectangle 2 (7).png" alt="Flowers in Chania" ;>
-   </div>
+  <!-- اللوجو على اليمين -->
+  <div class="nav-logo-group">
+    <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
+    <div>
+      <div class="main-title">المدرج</div>
+      <div class="by-line">لمحمد عجل محمد الدوسري</div>
+    </div>
   </div>
 </nav>
 
 <section class="hero">
   <h1>صفحة تجمع تجاربي العملية بالخط زمني</h1>
-  <p>اضغط على المعين بعدها الاسم لترى اكثر</p>
-  <a href="#timeline" class="hero-btn">الخط الزمني
-  </a>
+  <p>اضغط على المشروع لتشوف التفاصيل</p>
+  <div class="hero-btns">
+    <a href="#projects" class="hero-btn" id="timelineBtn">الخط الزمني</a>
+    <a href="cv.pdf"    class="hero-btn secondary" target="_blank" rel="noopener">السيرة الذاتية</a>
+  </div>
 </section>
 
-<section class="timeline-section" id="timeline">
-  <h2 class="section-title">Projects</h2>
-  <div class="timeline-container" id="timelineContainer"></div>
+<section class="projects-section" id="projects">
+  <h2 class="section-title">التجارب</h2>
+  <div class="scroll-list-container">
+    <div class="list-gradient-top"    id="gradTop"    style="opacity:0"></div>
+    <div class="scroll-list"          id="scrollList"></div>
+    <div class="list-gradient-bottom" id="gradBottom"></div>
+  </div>
 </section>
 
 <footer>
-  <p>&copy; 2026 المدرج. All rights reserved.</p>
+  <p>&copy; 2026 المدرج. جميع الحقوق محفوظة.</p>
 </footer>
 
 <script>
 /* =========================================================
-   بيانات المشاريع — عدّل هنا
+   بيانات المشاريع
+   - thumb   : مسار الصورة (تظهر كـ background للكارد)
+   - images  : صور تظهر في شاشة التفاصيل
+   - desc    : وصف المشروع
+   - tags    : التقنيات
    ========================================================= */
 const projects = [
   {
     id: 1,
-    name: "11111",
+    name: "إدارة المكتبة",
     url: "https://github.com/m00495/AL_ibrarymanagement",
-    image: "pic projects/al_li.png"
+    date: "يناير 2024",
+    thumb: "pictures/pic projects/al_li.png",
+    images: ["pictures/pic projects/al_li.png"],
+    desc: "نظام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.",
+    tags: ["Python", "SQLite", "Tkinter"]
   },
   {
     id: 2,
     name: "Project Two",
     url: "https://example.com/project2",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop"
+    date: "مارس 2024",
+    thumb: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الثاني — عدّل هذا النص.",
+    tags: ["JavaScript", "HTML", "CSS"]
   },
   {
     id: 3,
     name: "Project Three",
     url: "https://example.com/project3",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=500&fit=crop"
+    date: "مايو 2024",
+    thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الثالث — عدّل هذا النص.",
+    tags: ["React", "Node.js"]
   },
   {
     id: 4,
     name: "Project Four",
     url: "https://example.com/project4",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&h=500&fit=crop"
+    date: "يوليو 2024",
+    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الرابع — عدّل هذا النص.",
+    tags: ["Python", "Flask"]
   },
   {
     id: 5,
     name: "Project Five",
     url: "https://example.com/project5",
-    image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=500&fit=crop"
+    date: "سبتمبر 2024",
+    thumb: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الخامس — عدّل هذا النص.",
+    tags: ["Vue.js", "Firebase"]
   },
   {
     id: 6,
     name: "Project Six",
     url: "https://example.com/project6",
-    image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=500&h=500&fit=crop"
+    date: "نوفمبر 2024",
+    thumb: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع السادس — عدّل هذا النص.",
+    tags: ["TypeScript", "Next.js"]
   }
 ];
 
 /* =========================================================
-   ASCII Filter
+   Modal
    ========================================================= */
-const CHARSET = ' .\'`^",:;Il!i~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
+const pageBlur   = document.getElementById('pageBlur');
+const modal      = document.getElementById('projectModal');
+const modalCard  = document.getElementById('modalCard');
+const modalClose = document.getElementById('modalClose');
 
-class AsciiRenderer {
-  constructor(containerEl, text, fontSize = 8) {
-    this.container = containerEl;
-    this.text = text;
-    this.fontSize = fontSize;
-    this.animId = null;
-    this.startTime = null;
+function openModal(p) {
+  const imgCont = document.getElementById('modalImages');
+  imgCont.innerHTML = '';
+  (p.images||[]).forEach(src => {
+    const img = document.createElement('img');
+    img.src = src; img.className = 'modal-img'; img.alt = p.name;
+    imgCont.appendChild(img);
+  });
+  imgCont.classList.toggle('multi', (p.images||[]).length > 1);
 
-    this.offCanvas = document.createElement('canvas');
-    this.offCtx = this.offCanvas.getContext('2d');
+  document.getElementById('modalTitle').textContent = p.name;
+  document.getElementById('modalDesc').textContent  = p.desc || '';
 
-    this.pre = containerEl.querySelector('.ascii-pre');
-    this._drawText();
-  }
+  const tagsEl = document.getElementById('modalTags');
+  tagsEl.innerHTML = '';
+  (p.tags||[]).forEach(t => {
+    const s = document.createElement('span');
+    s.className = 'modal-tag'; s.textContent = t;
+    tagsEl.appendChild(s);
+  });
 
-  _drawText() {
-    const fs = 60;
-    this.offCanvas.width = 400;
-    this.offCanvas.height = 80;
-    const ctx = this.offCtx;
-    ctx.clearRect(0, 0, 400, 80);
-    ctx.font = `700 ${fs}px 'Courier New', monospace`;
-    ctx.fillStyle = '#fff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(this.text, 200, 40);
-  }
+  document.getElementById('modalEnterBtn').href = p.url;
 
-  _sample(t) {
-    const w = this.offCanvas.width;
-    const h = this.offCanvas.height;
-    const cols = Math.floor(230 / (this.fontSize * 0.6));
-    const rows = Math.floor(80 / this.fontSize);
-    const imgData = this.offCtx.getImageData(0, 0, w, h).data;
-    let str = '';
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        const px = Math.floor((x / cols) * w);
-        const py = Math.floor((y / rows) * h);
-        const i = (py * w + px) * 4;
-        const a = imgData[i + 3];
-        if (a < 10) { str += ' '; continue; }
-        const wave = Math.sin(t * 3 + x * 0.5 + y * 0.3) * 0.15;
-        const r = imgData[i], g = imgData[i+1], b = imgData[i+2];
-        let gray = ((0.3*r + 0.6*g + 0.1*b) / 255) + wave;
-        gray = Math.max(0, Math.min(1, gray));
-        const idx = Math.floor((1 - gray) * (CHARSET.length - 1));
-        str += CHARSET[CHARSET.length - idx - 1];
-      }
-      str += '\n';
-    }
-    this.pre.textContent = str;
-  }
-
-  start() {
-    this.startTime = performance.now();
-    const loop = (now) => {
-      const t = (now - this.startTime) / 1000;
-      this._sample(t);
-      this.animId = requestAnimationFrame(loop);
-    };
-    this.animId = requestAnimationFrame(loop);
-  }
-
-  stop() {
-    if (this.animId) cancelAnimationFrame(this.animId);
-    this.animId = null;
-  }
+  pageBlur.classList.add('active');
+  modal.classList.add('active');
+  modalCard.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
 }
+
+function closeModal() {
+  pageBlur.classList.remove('active');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+pageBlur.addEventListener('click', closeModal);
+modalCard.addEventListener('click', e => e.stopPropagation());
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 
 /* =========================================================
-   Build Layout  1 - 2 - 1 - 2 pattern
+   Build List
    ========================================================= */
-const container = document.getElementById('timelineContainer');
-const blurOverlay = document.getElementById('pageBlurOverlay');
-const renderers = {};
-const activeProject = { id: null };
+const scrollList = document.getElementById('scrollList');
+const gradTop    = document.getElementById('gradTop');
+const gradBottom = document.getElementById('gradBottom');
 
-function closeActive() {
-  if (!activeProject.id) return;
-  const id = activeProject.id;
-  const oldWrap  = document.querySelector(`.diamond-wrap[data-id="${id}"]`);
-  const oldAscii = document.getElementById(`ascii-${id}`);
-  const oldLink  = document.getElementById(`link-${id}`);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    e.isIntersecting
+      ? e.target.classList.add('in-view')
+      : e.target.classList.remove('in-view');
+  });
+}, { threshold: 0.15, root: scrollList });
 
-  oldAscii.classList.remove('visible');
-  oldLink.classList.remove('show');
-  if (renderers[id]) renderers[id].stop();
-  if (oldWrap) oldWrap.classList.remove('active-diamond');
+projects.forEach((project, index) => {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'list-item-wrapper';
 
-  blurOverlay.classList.remove('active');
-  activeProject.id = null;
-}
+  wrapper.innerHTML = `
+    <div class="list-item" data-id="${project.id}">
+      <!-- باكغراوند صورة المشروع -->
+      <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
+      <div class="item-overlay"></div>
 
-/* إغلاق عند الضغط على الـ overlay */
-blurOverlay.addEventListener('click', closeActive);
-
-function makeDiamond(project) {
-  const wrap = document.createElement('div');
-  wrap.className = 'diamond-wrap';
-  wrap.dataset.id = project.id;
-  wrap.innerHTML = `
-    <div class="diamond-and-name">
-      <div class="diamond-outer">
-        <div class="diamond-inner">
-          <img src="${project.image}" alt="${project.name}" loading="lazy">
+      <!-- الجزء الرئيسي — يفتح المودال -->
+      <div class="item-main">
+        <span class="item-number">${String(index+1).padStart(2,'0')}</span>
+        <div class="item-name-group">
+          <!-- التاريخ يخرج من وراء الاسم على اليسار -->
+          <span class="item-date">${project.date}</span>
+          <span class="item-name">${project.name}</span>
         </div>
       </div>
-      <!-- الاسم خارج المعين، يطفو فوقه بـ z-index أعلى من الـ blur overlay -->
-      <div class="diamond-name-overlay">
-        <div class="ascii-container" id="ascii-${project.id}">
-          <pre class="ascii-pre"></pre>
-          <a class="name-link" id="link-${project.id}" href="${project.url}" target="_blank" rel="noopener">${project.name}</a>
-        </div>
-      </div>
+
+      <!-- السهم — يفتح الرابط مباشرة -->
+      <a class="item-link-btn" href="${project.url}" target="_blank" rel="noopener">↗</a>
     </div>
   `;
 
-  wrap.addEventListener('click', (e) => {
-    const asciiEl = document.getElementById(`ascii-${project.id}`);
-    const linkEl  = document.getElementById(`link-${project.id}`);
-    const alreadyOpen = activeProject.id === project.id;
+  const itemEl  = wrapper.querySelector('.list-item');
+  const mainEl  = wrapper.querySelector('.item-main');
+  const linkBtn = wrapper.querySelector('.item-link-btn');
 
-    /* أغلق الي مفتوح */
-    if (activeProject.id && activeProject.id !== project.id) {
-      closeActive();
-    }
+  itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
+  itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
+  mainEl.addEventListener('click', () => openModal(project));
+  linkBtn.addEventListener('click', e => e.stopPropagation());
 
-    if (alreadyOpen) {
-      closeActive();
-      return;
-    }
+  scrollList.appendChild(wrapper);
+  observer.observe(wrapper);
+});
 
-    /* افتح الجديد */
-    wrap.classList.add('active-diamond');
-    blurOverlay.classList.add('active');
+/* gradient */
+scrollList.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = scrollList;
+  gradTop.style.opacity = Math.min(scrollTop/50, 1);
+  const d = scrollHeight - (scrollTop + clientHeight);
+  gradBottom.style.opacity = scrollHeight <= clientHeight ? 0 : Math.min(d/50, 1);
+});
 
-    asciiEl.classList.add('visible');
-    setTimeout(() => {
-      linkEl.classList.add('show');
-      linkEl.style.pointerEvents = 'auto';
-    }, 500);
-
-    /* امنع الـ link من إغلاق المعين */
-    linkEl.addEventListener('click', e => e.stopPropagation(), { once: false });
-
-    if (!renderers[project.id]) {
-      renderers[project.id] = new AsciiRenderer(asciiEl, project.name);
-    }
-    renderers[project.id].start();
-    activeProject.id = project.id;
-  });
-
-  return wrap;
-}
-
-function buildLayout() {
-  const pattern = [1, 2, 1, 2];
-  let idx = 0;
-
-  pattern.forEach(count => {
-    const row = document.createElement('div');
-    row.className = count === 1 ? 'row-single' : 'row-double';
-
-    for (let i = 0; i < count && idx < projects.length; i++, idx++) {
-      row.appendChild(makeDiamond(projects[idx]));
-    }
-    container.appendChild(row);
-  });
-}
-
-buildLayout();
-
-/* =========================================================
-   Smooth Scroll — زر View Timeline
-   ========================================================= */
-document.querySelector('.hero-btn').addEventListener('click', function(e) {
+/* smooth scroll */
+document.getElementById('timelineBtn').addEventListener('click', function(e) {
   e.preventDefault();
-  const target = document.getElementById('timeline');
+  const target = document.getElementById('projects');
   if (!target) return;
-
-  const startY   = window.scrollY;
-  const endY     = target.getBoundingClientRect().top + startY - 70; /* 70 = nav height */
-  const distance = endY - startY;
-  const duration = 1100; /* ms — خفيف وسلس */
-  let startTime  = null;
-
-  function easeInOutQuart(t) {
-    return t < 0.5
-      ? 8 * t * t * t * t
-      : 1 - Math.pow(-2 * t + 2, 4) / 2;
-  }
-
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const elapsed  = timestamp - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo(0, startY + distance * easeInOutQuart(progress));
-    if (progress < 1) requestAnimationFrame(step);
-  }
-
+  const startY = window.scrollY;
+  const endY   = target.getBoundingClientRect().top + startY - 70;
+  const dist   = endY - startY;
+  let t0 = null;
+  const ease = t => t < 0.5 ? 8*t*t*t*t : 1-Math.pow(-2*t+2,4)/2;
+  const step = ts => {
+    if (!t0) t0 = ts;
+    const p = Math.min((ts-t0)/1100, 1);
+    window.scrollTo(0, startY + dist*ease(p));
+    if (p<1) requestAnimationFrame(step);
+  };
   requestAnimationFrame(step);
 });
 </script>
