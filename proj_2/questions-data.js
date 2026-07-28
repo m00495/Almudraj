@@ -23,14 +23,20 @@ const QUIZ_DATA = [
     ]
   },
   {
-    category: "مكياج",
-    base: "makeup",
+    category: "نباتات",
+    base: "plants",
     questions: [
-      { points: 200, question: "ما هو المكياج؟", answer: "مستحضرات تجميل" },
-      { points: 400, question: "ما هو الفاونديشن؟", answer: "كريم أساس" },
-      { points: 600, question: "ما هي أحمر الشفاه؟", answer: "روج" },
-      { points: 800, question: "ما هو الماسكارا؟", answer: "مستحضر لتطويل الرموش" },
-      { points: 1000, question: "ما هو الكحل؟", answer: "مستحضر لتحديد العينين" }
+      {
+        points: 200,
+        question: "ما هذا النبات؟",
+        image: "https://i.ibb.co/6wPqY90/flower-blur.jpg",   // استبدل برابط الصورة المشوشة
+        answer: "وردة",
+        answerImage: "https://i.ibb.co/2YzQ0dM/flower-clear.jpg" // صورة الوردة الواضحة
+      },
+      { points: 400, question: "ما هو أطول شجرة في العالم؟", answer: "شجرة السيكويا" },
+      { points: 600, question: "ما هو الغاز الذي تمتصه النباتات؟", answer: "ثاني أكسيد الكربون" },
+      { points: 800, question: "ما هي الفاكهة التي تلقب بملكة الفواكه؟", answer: "المانجو" },
+      { points: 1000, question: "كم عدد أنواع الورود في العالم تقريباً؟", answer: "أكثر من 300 نوع" }
     ]
   },
   {
