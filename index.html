@@ -177,10 +177,6 @@ nav {
 .list-item-wrapper.in-view { opacity: 1; transform: scale(1) translateY(0); }
 
 /* ===================== LIST ITEM ===================== */
-/*
-  الكارد نفسه يكون background-image = صورة المشروع
-  مع overlay داكن فوقها عشان النص يقرأ
-*/
 .list-item {
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 10px;
@@ -189,11 +185,10 @@ nav {
   align-items: stretch;
   transition: border-color 0.25s, transform 0.22s ease;
   position: relative;
-  overflow: hidden; /* الصورة ما تطلع برا */
+  overflow: hidden;
   min-height: 72px;
 }
 
-/* طبقة الصورة */
 .item-bg {
   position: absolute;
   inset: 0;
@@ -209,7 +204,6 @@ nav {
   transform: scale(1.04);
 }
 
-/* overlay داكن فوق الصورة */
 .item-overlay {
   position: absolute;
   inset: 0;
@@ -221,7 +215,6 @@ nav {
   border-color: rgba(255,255,255,0.18);
 }
 
-/* ===================== الجزء الرئيسي ===================== */
 .item-main {
   flex: 1;
   display: flex;
@@ -229,7 +222,7 @@ nav {
   gap: 16px;
   padding: 18px 22px;
   position: relative;
-  z-index: 2; /* فوق الصورة */
+  z-index: 2;
 }
 
 .item-number {
@@ -245,7 +238,6 @@ nav {
 .list-item:hover .item-number,
 .list-item.hovered .item-number { color: #555; }
 
-/* ===================== اسم + التاريخ من وراءه ===================== */
 .item-name-group {
   position: relative;
   display: flex;
@@ -267,18 +259,12 @@ nav {
 .list-item:hover .item-name,
 .list-item.hovered .item-name { color: #fff; }
 
-/*
-  التاريخ يجلس مباشرة بعد الاسم (يسار الاسم في RTL)
-  يبدأ مخفي خلف الاسم (translateX يجعله خلف الاسم)
-  ويخرج للخارج على اليسار عند الـ hover
-*/
 .item-date {
   position: absolute;
-  right: 90%;           /* يبدأ عند يمين الـ name-group = خلف الاسم */
+  right: 90%;
   top: 50%;
   transform: translateY(-50%) translateX(40px);
-  padding-left: 14px;    /* مسافة بين الاسم والتاريخ */
-
+  padding-left: 14px;
   font-size: 10px;
   color: #a8a8a8;
   letter-spacing: 2px;
@@ -287,7 +273,6 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1;
-
   transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
 }
 .list-item:hover .item-date,
@@ -296,7 +281,6 @@ nav {
   transform: translateY(-50%) translateX(0);
 }
 
-/* ===================== زر السهم ===================== */
 .item-link-btn {
   display: flex;
   align-items: center;
@@ -370,7 +354,6 @@ nav {
 .modal-card::-webkit-scrollbar { width: 4px; }
 .modal-card::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
 
-/* زر الإغلاق */
 .modal-close {
   position: absolute;
   top: 14px;
@@ -391,7 +374,6 @@ nav {
 }
 .modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
 
-/* صور المشروع */
 .modal-images {
   width: 100%;
   overflow-x: auto;
@@ -415,7 +397,6 @@ nav {
 .modal-images.multi .modal-img:first-child { border-radius: 16px 0 0 0; }
 .modal-images.multi .modal-img:last-child  { border-radius: 0 16px 0 0; }
 
-/* محتوى المودال */
 .modal-body {
   padding: 28px 32px 32px;
 }
@@ -462,10 +443,10 @@ nav {
   letter-spacing: 1px;
   transition: all 0.25s;
   background: transparent;
+  cursor: pointer;
 }
 .modal-enter-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.45); }
 
-/* ===================== FOOTER ===================== */
 footer {
   background: #050505;
   padding: 60px 3rem 40px;
@@ -474,7 +455,6 @@ footer {
 }
 footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
-/* ===================== MOBILE ===================== */
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
   .projects-section { padding: 100px 1.2rem 80px; }
@@ -489,7 +469,6 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <div class="page-blur-overlay" id="pageBlur"></div>
 
-<!-- المودال -->
 <div class="project-modal" id="projectModal">
   <div class="modal-card" id="modalCard">
     <button class="modal-close" id="modalClose">✕</button>
@@ -506,7 +485,6 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 </div>
 
 <nav>
-  <!-- اللوجو على اليمين -->
   <div class="nav-logo-group">
     <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
     <div>
@@ -540,7 +518,7 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <script>
 /* =========================================================
-   بيانات المشاريع
+   بيانات المشاريع (جميع المشاريع الستة)
    ========================================================= */
 const projects = [
   {
@@ -562,7 +540,46 @@ const projects = [
     desc: "لعبة مسابقة تفاعلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار.",
     tags: ["JavaScript", "HTML", "CSS", "Game"]
   },
-  // ... (باقي المشاريع كما هي)
+  {
+    id: 3,
+    name: "Project Three",
+    url: "https://example.com/project3",
+    date: "مايو 2024",
+    thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الثالث — عدّل هذا النص.",
+    tags: ["React", "Node.js"]
+  },
+  {
+    id: 4,
+    name: "Project Four",
+    url: "https://example.com/project4",
+    date: "يوليو 2024",
+    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الرابع — عدّل هذا النص.",
+    tags: ["Python", "Flask"]
+  },
+  {
+    id: 5,
+    name: "Project Five",
+    url: "https://example.com/project5",
+    date: "سبتمبر 2024",
+    thumb: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع الخامس — عدّل هذا النص.",
+    tags: ["Vue.js", "Firebase"]
+  },
+  {
+    id: 6,
+    name: "Project Six",
+    url: "https://example.com/project6",
+    date: "نوفمبر 2024",
+    thumb: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
+    images: ["https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop"],
+    desc: "وصف المشروع السادس — عدّل هذا النص.",
+    tags: ["TypeScript", "Next.js"]
+  }
 ];
 
 /* =========================================================
@@ -594,7 +611,6 @@ function openModal(p) {
     tagsEl.appendChild(s);
   });
 
-  // زر دخول المشروع – يفتح في نافذة جديدة
   const enterBtn = document.getElementById('modalEnterBtn');
   enterBtn.onclick = function() {
     window.open(p.url, '_blank');
@@ -636,7 +652,6 @@ projects.forEach((project, index) => {
   const wrapper = document.createElement('div');
   wrapper.className = 'list-item-wrapper';
 
-  // السهم يستخدم onclick لفتح الرابط في نافذة جديدة
   wrapper.innerHTML = `
     <div class="list-item" data-id="${project.id}">
       <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
@@ -661,10 +676,7 @@ projects.forEach((project, index) => {
   itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
   itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
 
-  // النقر على الجزء الرئيسي يفتح المودال
   mainEl.addEventListener('click', () => openModal(project));
-
-  // النقر على السهم يفتح الرابط في نافذة جديدة (تم تعريفه مباشرة فوق)
 
   scrollList.appendChild(wrapper);
   observer.observe(wrapper);
