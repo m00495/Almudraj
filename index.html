@@ -189,6 +189,7 @@ nav {
   min-height: 72px;
 }
 
+/* طبقة الصورة */
 .item-bg {
   position: absolute;
   inset: 0;
@@ -204,6 +205,7 @@ nav {
   transform: scale(1.04);
 }
 
+/* overlay داكن فوق الصورة */
 .item-overlay {
   position: absolute;
   inset: 0;
@@ -215,6 +217,7 @@ nav {
   border-color: rgba(255,255,255,0.18);
 }
 
+/* ===================== الجزء الرئيسي ===================== */
 .item-main {
   flex: 1;
   display: flex;
@@ -238,6 +241,7 @@ nav {
 .list-item:hover .item-number,
 .list-item.hovered .item-number { color: #555; }
 
+/* ===================== اسم + التاريخ من وراءه ===================== */
 .item-name-group {
   position: relative;
   display: flex;
@@ -259,12 +263,18 @@ nav {
 .list-item:hover .item-name,
 .list-item.hovered .item-name { color: #fff; }
 
+/*
+  التاريخ يجلس مباشرة بعد الاسم (يسار الاسم في RTL)
+  يبدأ مخفي خلف الاسم (translateX يجعله خلف الاسم)
+  ويخرج للخارج على اليسار عند الـ hover
+*/
 .item-date {
   position: absolute;
-  right: 90%;
+  right: 90%;           /* يبدأ عند يمين الـ name-group = خلف الاسم */
   top: 50%;
   transform: translateY(-50%) translateX(40px);
-  padding-left: 14px;
+  padding-left: 14px;    /* مسافة بين الاسم والتاريخ */
+
   font-size: 10px;
   color: #a8a8a8;
   letter-spacing: 2px;
@@ -273,6 +283,7 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1;
+
   transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
 }
 .list-item:hover .item-date,
@@ -281,6 +292,7 @@ nav {
   transform: translateY(-50%) translateX(0);
 }
 
+/* ===================== زر السهم ===================== */
 .item-link-btn {
   display: flex;
   align-items: center;
@@ -354,6 +366,7 @@ nav {
 .modal-card::-webkit-scrollbar { width: 4px; }
 .modal-card::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
 
+/* زر الإغلاق */
 .modal-close {
   position: absolute;
   top: 14px;
@@ -374,6 +387,7 @@ nav {
 }
 .modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
 
+/* صور المشروع */
 .modal-images {
   width: 100%;
   overflow-x: auto;
@@ -397,6 +411,7 @@ nav {
 .modal-images.multi .modal-img:first-child { border-radius: 16px 0 0 0; }
 .modal-images.multi .modal-img:last-child  { border-radius: 0 16px 0 0; }
 
+/* محتوى المودال */
 .modal-body {
   padding: 28px 32px 32px;
 }
@@ -447,6 +462,7 @@ nav {
 }
 .modal-enter-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.45); }
 
+/* ===================== FOOTER ===================== */
 footer {
   background: #050505;
   padding: 60px 3rem 40px;
@@ -455,6 +471,7 @@ footer {
 }
 footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
+/* ===================== MOBILE ===================== */
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
   .projects-section { padding: 100px 1.2rem 80px; }
@@ -469,6 +486,7 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <div class="page-blur-overlay" id="pageBlur"></div>
 
+<!-- المودال -->
 <div class="project-modal" id="projectModal">
   <div class="modal-card" id="modalCard">
     <button class="modal-close" id="modalClose">✕</button>
@@ -485,9 +503,10 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 </div>
 
 <nav>
+  <!-- اللوجو على اليمين -->
   <div class="nav-logo-group">
-    <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
-    <div>
+    <div>    <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
+
       <div class="main-title">المدرج</div>
       <div class="by-line">لمحمد عجل محمد الدوسري</div>
     </div>
@@ -499,7 +518,9 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
   <p>اضغط على المشروع لتشوف التفاصيل</p>
   <div class="hero-btns">
     <a href="#projects" class="hero-btn" id="timelineBtn">الخط الزمني</a>
-    <a href="cv.pdf"    class="hero-btn secondary" target="_blank" rel="noopener">السيرة الذاتية</a>
+    <a href="pictures/pic projects/MOHAMMED ALDAWSARI_CV.pdf"    class="hero-btn secondary" target="_blank" rel="noopener">السيرة الذاتية</a>
+    <a href="https://github.com/m00495"    class="hero-btn secondary" target="_blank" rel="noopener">Github</a>
+
   </div>
 </section>
 
@@ -518,7 +539,7 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <script>
 /* =========================================================
-   بيانات المشاريع (جميع المشاريع الستة)
+   بيانات المشاريع
    ========================================================= */
 const projects = [
   {
@@ -534,7 +555,7 @@ const projects = [
   {
     id: 2,
     name: "لعبة المسابقة",
-    url: "proj_2/index.html",   // ✅ المسار النسبي الصحيح
+    url: "proj_2/index.html",   
     date: "يوليو 2025",
     thumb: "https://images.unsplash.com/photo-1611996575749-79b9a5f5a77a?w=800&h=400&fit=crop",
     desc: "لعبة مسابقة تفاعلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار.",
@@ -611,6 +632,7 @@ function openModal(p) {
     tagsEl.appendChild(s);
   });
 
+  // زر دخول المشروع – يفتح في نافذة جديدة
   const enterBtn = document.getElementById('modalEnterBtn');
   enterBtn.onclick = function() {
     window.open(p.url, '_blank');
@@ -652,6 +674,7 @@ projects.forEach((project, index) => {
   const wrapper = document.createElement('div');
   wrapper.className = 'list-item-wrapper';
 
+  // السهم يستخدم onclick لفتح الرابط في نافذة جديدة
   wrapper.innerHTML = `
     <div class="list-item" data-id="${project.id}">
       <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
@@ -676,7 +699,10 @@ projects.forEach((project, index) => {
   itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
   itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
 
+  // النقر على الجزء الرئيسي يفتح المودال (وليس المشروع)
   mainEl.addEventListener('click', () => openModal(project));
+
+  // النقر على السهم يفتح الرابط في نافذة جديدة (تم تعريفه مباشرة فوق)
 
   scrollList.appendChild(wrapper);
   observer.observe(wrapper);
