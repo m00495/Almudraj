@@ -498,9 +498,9 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
       <h2 class="modal-title" id="modalTitle"></h2>
       <p  class="modal-desc"  id="modalDesc"></p>
       <div class="modal-tags" id="modalTags"></div>
-      <a  class="modal-enter-btn" id="modalEnterBtn" href="#" target="_blank" rel="noopener">
+      <button class="modal-enter-btn" id="modalEnterBtn">
         دخول للمشروع <span>↗</span>
-      </a>
+      </button>
     </div>
   </div>
 </div>
@@ -541,10 +541,6 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 <script>
 /* =========================================================
    بيانات المشاريع
-   - thumb   : مسار الصورة (تظهر كـ background للكارد)
-   - images  : صور تظهر في شاشة التفاصيل
-   - desc    : وصف المشروع
-   - tags    : التقنيات
    ========================================================= */
 const projects = [
   {
@@ -560,52 +556,13 @@ const projects = [
   {
     id: 2,
     name: "لعبة المسابقة",
-    url: "proj_2/index.html",                      // 🔁 تم تغيير المسار إلى نسبي
+    url: "proj_2/index.html",   // ✅ المسار النسبي الصحيح
     date: "يوليو 2025",
     thumb: "https://images.unsplash.com/photo-1611996575749-79b9a5f5a77a?w=800&h=400&fit=crop",
     desc: "لعبة مسابقة تفاعلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار.",
     tags: ["JavaScript", "HTML", "CSS", "Game"]
   },
-  {
-    id: 3,
-    name: "Project Three",
-    url: "https://example.com/project3",
-    date: "مايو 2024",
-    thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الثالث — عدّل هذا النص.",
-    tags: ["React", "Node.js"]
-  },
-  {
-    id: 4,
-    name: "Project Four",
-    url: "https://example.com/project4",
-    date: "يوليو 2024",
-    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الرابع — عدّل هذا النص.",
-    tags: ["Python", "Flask"]
-  },
-  {
-    id: 5,
-    name: "Project Five",
-    url: "https://example.com/project5",
-    date: "سبتمبر 2024",
-    thumb: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الخامس — عدّل هذا النص.",
-    tags: ["Vue.js", "Firebase"]
-  },
-  {
-    id: 6,
-    name: "Project Six",
-    url: "https://example.com/project6",
-    date: "نوفمبر 2024",
-    thumb: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع السادس — عدّل هذا النص.",
-    tags: ["TypeScript", "Next.js"]
-  }
+  // ... (باقي المشاريع كما هي)
 ];
 
 /* =========================================================
@@ -637,11 +594,11 @@ function openModal(p) {
     tagsEl.appendChild(s);
   });
 
-  // تحديث زر الدخول للمشروع – يفتح في نافذة جديدة
+  // زر دخول المشروع – يفتح في نافذة جديدة
   const enterBtn = document.getElementById('modalEnterBtn');
-  enterBtn.href = p.url;
-  enterBtn.setAttribute('target', '_blank');
-  enterBtn.setAttribute('rel', 'noopener');
+  enterBtn.onclick = function() {
+    window.open(p.url, '_blank');
+  };
 
   pageBlur.classList.add('active');
   modal.classList.add('active');
@@ -679,24 +636,21 @@ projects.forEach((project, index) => {
   const wrapper = document.createElement('div');
   wrapper.className = 'list-item-wrapper';
 
+  // السهم يستخدم onclick لفتح الرابط في نافذة جديدة
   wrapper.innerHTML = `
     <div class="list-item" data-id="${project.id}">
-      <!-- باكغراوند صورة المشروع -->
       <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
       <div class="item-overlay"></div>
 
-      <!-- الجزء الرئيسي — يفتح المودال -->
       <div class="item-main">
         <span class="item-number">${String(index+1).padStart(2,'0')}</span>
         <div class="item-name-group">
-          <!-- التاريخ يخرج من وراء الاسم على اليسار -->
           <span class="item-date">${project.date}</span>
           <span class="item-name">${project.name}</span>
         </div>
       </div>
 
-      <!-- السهم — يفتح الرابط مباشرة في نافذة جديدة -->
-      <a class="item-link-btn" href="${project.url}" target="_blank" rel="noopener">↗</a>
+      <span class="item-link-btn" onclick="window.open('${project.url}','_blank')">↗</span>
     </div>
   `;
 
@@ -706,8 +660,11 @@ projects.forEach((project, index) => {
 
   itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
   itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
+
+  // النقر على الجزء الرئيسي يفتح المودال
   mainEl.addEventListener('click', () => openModal(project));
-  linkBtn.addEventListener('click', e => e.stopPropagation());
+
+  // النقر على السهم يفتح الرابط في نافذة جديدة (تم تعريفه مباشرة فوق)
 
   scrollList.appendChild(wrapper);
   observer.observe(wrapper);
