@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المسابقة - الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== الأنماط العامة ========== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        #section-game {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 2400px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .game-title {
+            font-size: 36px;
+            color: #eb9c72;
+            font-weight: 700;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .team-indicator-header {
+            background: #eb9c72;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .btn-results, .btn-reset {
+            background-color: #eb9c72;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+        }
+        .btn-results:hover, .btn-reset:hover { background-color: #f0a87e; }
+        .btn-reset { background-color: #e74c3c; }
+        .btn-reset:hover { background-color: #c0392b; }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 2400px;
+            background-color: #29405b;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 24px;
+            padding: 24px;
+            background-color: #29405b;
+            box-shadow: 6px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            z-index: 2;
+            position: relative;
+        }
+
+        .category {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: -10px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .title {
+            background-color: #eb9c72;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 131px;
+            font-size: 40px;
+            font-weight: 700;
+            box-shadow: inset -12px 13px 4px 0px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .tiles {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 162.6px;
+            color: #e9f3ee;
+            font-size: 80px;
+            font-weight: 700;
+            box-shadow: inset 15px -15px 4px 0px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: transform 0.1s ease, opacity 0.3s ease;
+            user-select: none;
+            text-decoration: none; /* إزالة خط الرابط */
+        }
+
+        .tile:active { transform: scale(0.98); }
+
+        .tile-200 { background-color: #edb99d; }
+        .tile-400 { background-color: #eaac8b; }
+        .tile-600 { background-color: #ea9e8d; }
+        .tile-800 { background-color: #eb7e66; }
+        .tile-1000 { background-color: #ef233c; }
+
+        .tile.answered {
+            opacity: 0.3;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        .points-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 24px;
+            background-color: #29405b;
+            box-shadow: inset -23px 18px 4px 0px rgba(0, 0, 0, 0.25);
+            margin-top: -36px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            cursor: pointer;
+            transition: outline 0.2s;
+            border-radius: 16px;
+        }
+
+        .team.active-team {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+        }
+
+        .team-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            height: 77px;
+        }
+
+        .btn-subtract, .btn-add {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            border: 2px solid #e9f3ee;
+            border-radius: 11px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            background: none;
+            font-family: inherit;
+        }
+        .btn-subtract:hover, .btn-add:hover { opacity: 0.9; }
+        .btn-subtract { background-color: #eb7e66; }
+        .btn-add { background-color: #eaac8b; }
+
+        .team-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 167px;
+            padding: 20px;
+            box-shadow: inset -10px 11px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .team-red { background-color: #f57979; }
+        .team-orange { background-color: #f3933f; }
+        .team-green { background-color: #88e888; }
+        .team-blue { background-color: #98a8f5; }
+
+        .team-score {
+            color: #ffffff;
+            font-size: 80px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .team-name {
+            color: #29405b;
+            font-size: 32px;
+            font-weight: 700;
+            align-self: flex-end;
+        }
+
+        /* ========== صفحة النتائج ========== */
+        #section-results {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            background: #2d4b6e;
+            border-radius: 24px;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .results-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #eb9c72;
+        }
+
+        .results-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            margin-bottom: 10px;
+            border-radius: 16px;
+            font-size: 36px;
+            font-weight: 700;
+        }
+        .result-item.rank-1 { background-color: #f5a623; }
+        .result-item.rank-2 { background-color: #7f8c8d; }
+        .result-item.rank-3 { background-color: #cd7f32; }
+        .result-item.rank-4 { background-color: #29405b; }
+
+        .btn-back {
+            background-color: #eb9c72;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 28px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-back:hover { background-color: #f0a87e; }
+
+        /* ========== استجابة ========== */
+        @media (max-width: 1600px) {
+            .title { font-size: 32px; height: 100px; }
+            .tile { font-size: 64px; height: 130px; }
+            .team-score { font-size: 64px; }
+            .team-name { font-size: 24px; }
+            .btn-subtract, .btn-add { font-size: 24px; height: 60px; }
+            .team-actions { height: 60px; }
+            .team-info { height: 140px; }
+        }
+        @media (max-width: 1200px) {
+            .title { font-size: 24px; height: 80px; }
+            .tile { font-size: 48px; height: 100px; }
+            .btn-subtract, .btn-add { font-size: 20px; height: 50px; }
+            .team-actions { height: 50px; }
+            .team-info { height: 120px; padding: 12px; }
+            .team-score { font-size: 48px; }
+            .team-name { font-size: 20px; }
+            .board { gap: 16px; padding: 16px; }
+            .points-section { padding: 16px; gap: 8px; }
+        }
+        @media (max-width: 992px) {
+            .board { grid-template-columns: repeat(3, 1fr); }
+            .points-section { grid-template-columns: repeat(2, 1fr); margin-top: 0; }
+        }
+        @media (max-width: 576px) {
+            .board { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; }
+            .points-section { grid-template-columns: 1fr; padding: 12px; }
+            .title { font-size: 20px; height: 60px; }
+            .tile { font-size: 36px; height: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ صفحة اللعبة الرئيسية ═══════════ -->
+<div id="section-game">
+    <div class="game-header">
+        <div class="game-title">🏆 لوحة المسابقة</div>
+        <div class="header-controls">
+            <div class="team-indicator-header" id="teamIndicatorHeader">الدور: الفريق الأحمر</div>
+            <button class="btn-results" onclick="showResults()">📊 عرض النتائج</button>
+            <button class="btn-reset" onclick="resetGame()">🔄 إعادة ضبط</button>
+        </div>
+    </div>
+    <div class="game-container">
+        <!-- لوحة الأسئلة -->
+        <div class="board" id="boardContainer">
+            <!-- يتم إنشاء الفئات ديناميكياً لسهولة الصيانة -->
+        </div>
+
+        <!-- قسم الفرق والنقاط -->
+        <div class="points-section" id="teamsContainer">
+            <!-- يتم إنشاؤه ديناميكياً -->
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════ صفحة النتائج (مخفية) ═══════════ -->
+<div id="section-results">
+    <h1 class="results-title">📊 النتائج النهائية</h1>
+    <ul class="results-list" id="resultsList"></ul>
+    <button class="btn-back" onclick="hideResults()">🔙 العودة للعبة</button>
+</div>
+
+<!-- تحميل game.js (نفس المنطق المشترك) -->
+<script src="game.js"></script>
+<script>
+    // ========== تعريف الفئات والأسئلة ==========
+    const CATEGORIES = [
+        {
+            name: 'السعودية',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/saudi'
+        },
+        {
+            name: 'علوم',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/science'
+        },
+        {
+            name: 'مكياج',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/makeup'
+        },
+        {
+            name: 'يطير',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/fly'
+        },
+        {
+            name: 'اكل',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/food'
+        },
+        {
+            name: 'ايموجي',
+            points: [200, 400, 600, 800, 1000],
+            basePath: 'questions/emoji'
+        }
+    ];
+
+    const TEAMS = [
+        { id: 'red',    name: 'الفريق الأحمر',     cssClass: 'team-red' },
+        { id: 'orange', name: 'الفريق البرتقالي',   cssClass: 'team-orange' },
+        { id: 'green',  name: 'الفريق الأخضر',      cssClass: 'team-green' },
+        { id: 'blue',   name: 'الفريق الأزرق',      cssClass: 'team-blue' }
+    ];
+
+    // ========== بناء اللوحة ==========
+    function buildBoard() {
+        const board = document.getElementById('boardContainer');
+        board.innerHTML = '';
+
+        CATEGORIES.forEach(cat => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'category';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'title';
+            titleDiv.textContent = cat.name;
+            categoryDiv.appendChild(titleDiv);
+
+            const tilesDiv = document.createElement('div');
+            tilesDiv.className = 'tiles';
+
+            cat.points.forEach(p => {
+                const tile = document.createElement('a');
+                tile.className = `tile tile-${p}`;
+                tile.textContent = p;
+                tile.href = `${cat.basePath}-${p}.html`;
+                // نتحقق من localStorage إذا كانت البلاطة قد أجيب عليها
+                const key = `answered_${cat.name}_${p}`;
+                if (localStorage.getItem(key) === 'true') {
+                    tile.classList.add('answered');
+                }
+                tilesDiv.appendChild(tile);
+            });
+
+            categoryDiv.appendChild(tilesDiv);
+            board.appendChild(categoryDiv);
+        });
+    }
+
+    // ========== بناء قسم الفرق ==========
+    function buildTeams() {
+        const container = document.getElementById('teamsContainer');
+        container.innerHTML = '';
+
+        TEAMS.forEach(team => {
+            const teamDiv = document.createElement('div');
+            teamDiv.className = 'team';
+            teamDiv.dataset.team = team.id;
+
+            // تمييز الفريق النشط
+            const currentTeam = getCurrentTeam();
+            if (team.id === currentTeam) {
+                teamDiv.classList.add('active-team');
+            }
+
+            // أزرار +/- يدوية
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'team-actions';
+
+            const subBtn = document.createElement('button');
+            subBtn.className = 'btn-subtract';
+            subBtn.textContent = '-200';
+            subBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                adjustScoreManual(team.id, -200);
+            });
+
+            const addBtn = document.createElement('button');
+            addBtn.className = 'btn-add';
+            addBtn.textContent = '+200';
+            addBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                adjustScoreManual(team.id, 200);
+            });
+
+            actionsDiv.appendChild(subBtn);
+            actionsDiv.appendChild(addBtn);
+            teamDiv.appendChild(actionsDiv);
+
+            // معلومات الفريق
+            const infoDiv = document.createElement('div');
+            infoDiv.className = `team-info ${team.cssClass}`;
+
+            const scoreSpan = document.createElement('div');
+            scoreSpan.className = 'team-score';
+            scoreSpan.id = `score-${team.id}`;
+            // تحميل النقاط من localStorage
+            scoreSpan.textContent = getTeamScore(team.id);
+
+            const nameSpan = document.createElement('div');
+            nameSpan.className = 'team-name';
+            nameSpan.textContent = team.name;
+
+            infoDiv.appendChild(scoreSpan);
+            infoDiv.appendChild(nameSpan);
+            teamDiv.appendChild(infoDiv);
+
+            // تغيير الفريق النشط بالنقر (ليس على الأزرار)
+            teamDiv.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-add') || e.target.closest('.btn-subtract')) return;
+                setActiveTeam(team.id);
+                updateActiveTeamVisual();
+            });
+
+            container.appendChild(teamDiv);
+        });
+    }
+
+    // ========== إدارة النقاط ==========
+    function adjustScoreManual(teamId, amount) {
+        let score = getTeamScore(teamId);
+        score += amount;
+        localStorage.setItem(SCORE_PREFIX + teamId, score);
+        document.getElementById(`score-${teamId}`).textContent = score;
+    }
+
+    function updateScoresDisplay() {
+        TEAMS.forEach(team => {
+            const el = document.getElementById(`score-${team.id}`);
+            if (el) el.textContent = getTeamScore(team.id);
+        });
+    }
+
+    function setActiveTeam(teamId) {
+        setCurrentTeam(teamId);
+        const indicator = document.getElementById('teamIndicatorHeader');
+        if (indicator) {
+            const team = TEAMS.find(t => t.id === teamId);
+            indicator.textContent = `الدور: ${team ? team.name : teamId}`;
+        }
+    }
+
+    function updateActiveTeamVisual() {
+        const current = getCurrentTeam();
+        document.querySelectorAll('.team').forEach(t => {
+            t.classList.toggle('active-team', t.dataset.team === current);
+        });
+    }
+
+    // ========== النتائج ==========
+    function showResults() {
+        const resultsList = document.getElementById('resultsList');
+        resultsList.innerHTML = '';
+
+        const data = TEAMS.map(team => ({
+            name: team.name,
+            score: getTeamScore(team.id)
+        })).sort((a, b) => b.score - a.score);
+
+        data.forEach((item, idx) => {
+            const li = document.createElement('li');
+            li.className = `result-item rank-${idx+1}`;
+            li.innerHTML = `<span>${item.name}</span><span>${item.score} نقطة</span>`;
+            resultsList.appendChild(li);
+        });
+
+        document.getElementById('section-game').style.display = 'none';
+        document.getElementById('section-results').style.display = 'block';
+    }
+
+    function hideResults() {
+        document.getElementById('section-results').style.display = 'none';
+        document.getElementById('section-game').style.display = 'flex';
+    }
+
+    function resetGame() {
+        if (confirm('هل أنت متأكد من إعادة ضبط جميع النقاط والأسئلة المجاب عليها؟')) {
+            // مسح النقاط
+            TEAMS.forEach(team => localStorage.removeItem(SCORE_PREFIX + team.id));
+            // مسح البلاطات المجاب عليها
+            CATEGORIES.forEach(cat => {
+                cat.points.forEach(p => {
+                    localStorage.removeItem(`answered_${cat.name}_${p}`);
+                });
+            });
+            // إعادة الفريق النشط للأحمر
+            setCurrentTeam('red');
+            setActiveTeam('red');
+            // إعادة بناء الواجهة
+            buildBoard();
+            buildTeams();
+            updateActiveTeamVisual();
+        }
+    }
+
+    // ========== تهيئة الصفحة ==========
+    window.onload = function() {
+        buildBoard();
+        buildTeams();
+        const current = getCurrentTeam();
+        setActiveTeam(current);
+        updateActiveTeamVisual();
+    };
+
+    // تحديث دوري في حال عاد المستخدم من صفحة سؤال
+    window.addEventListener('focus', () => {
+        updateScoresDisplay();
+        buildBoard(); // إعادة بناء البلاطات لتحديث answered
+        const current = getCurrentTeam();
+        setActiveTeam(current);
+        updateActiveTeamVisual();
+    });
+
+    // تعريض الدوال للـ HTML
+    window.showResults = showResults;
+    window.hideResults = hideResults;
+    window.resetGame = resetGame;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السعودية - 200 نقطة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #1a1a1a;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: white;
+        }
+        .question-box {
+            background: #2d4b6e;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .category-title { font-size: 24px; color: #eb9c72; }
+        .points { font-size: 60px; font-weight: 700; margin: 10px 0; }
+        .question-text { font-size: 36px; margin: 20px 0; line-height: 1.5; }
+        .answer-section {
+            background: #1a2847;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .answer-label { font-size: 20px; color: #f59e0b; }
+        .answer-text { font-size: 32px; margin-top: 10px; font-weight: 700; }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 16px;
+            font-size: 28px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+        .btn-correct { background: #4caf50; color: white; }
+        .btn-wrong   { background: #f44336; color: white; }
+        .btn:hover { filter: brightness(1.2); }
+        .team-indicator {
+            background: #eb9c72;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="question-box">
+        <!-- الفريق الحالي سيُملأ عبر JavaScript -->
+        <div class="team-indicator" id="teamIndicator">الدور: الفريق الأحمر</div>
+
+        <div class="category-title">السعودية</div>
+        <div class="points">200 نقطة</div>
+        <div class="question-text">
+            ما هي عاصمة المملكة العربية السعودية؟
+        </div>
+
+        <div class="answer-section">
+            <div class="answer-label">🔑 الإجابة الصحيحة</div>
+            <div class="answer-text" id="correctAnswerDisplay">الرياض</div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-wrong" id="btnWrong">❌ إجابة خاطئة (خصم 200)</button>
+            <button class="btn btn-correct" id="btnCorrect">✅ إجابة صحيحة (إضافة 200)</button>
+        </div>
+
+        <a href="../index.html" class="back-link">🔙 العودة للوحة الرئيسية</a>
+    </div>
+
+    <!-- تحميل ملف اللعبة المشترك -->
+    <script src="../game.js"></script>
+    <script>
+        // تعيين قيمة النقاط (يمكن تمريرها أيضاً من URL)
+        const POINTS = 200;    // غيّرها يدوياً حسب الصفحة
+
+        // دمج مع game.js بعد تحميله
+        document.addEventListener('DOMContentLoaded', function() {
+            // إظهار الفريق الحالي
+            updateTeamDisplay();
+
+            // أزرار الإجابة
+            document.getElementById('btnCorrect').addEventListener('click', function() {
+                addCurrentTeamPoints(POINTS);
+                nextTeam();
+                window.location.href = '../index.html';   // أو اغلق الصفحة
+            });
+
+            document.getElementById('btnWrong').addEventListener('click', function() {
+                addCurrentTeamPoints(-POINTS);
+                nextTeam();
+                window.location.href = '../index.html';
+            });
+        });
+    </script>
+</body>
+</html>
