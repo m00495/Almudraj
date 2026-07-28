@@ -1,532 +1,783 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة المسابقة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #1a1a1a;
-            --board-bg: #29405b;
-            --tile-200: #edb99d;
-            --tile-400: #eaac8b;
-            --tile-600: #ea9e8d;
-            --tile-800: #eb7e66;
-            --tile-1000: #ef233c;
-            --team-red: #f57979;
-            --team-orange: #f3933f;
-            --team-green: #88e888;
-            --team-blue: #98a8f5;
-            --gold: #eb9c72;
-            --text: #ffffff;
-            --text-dark: #1a1a1a;
-            --modal-bg: #2d4b6e;
-            --border-radius: 14px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة المسابقة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --board-bg: #29405b;
+      --tile-200: #edb99d;
+      --tile-400: #eaac8b;
+      --tile-600: #ea9e8d;
+      --tile-800: #eb7e66;
+      --tile-1000: #ef233c;
+      --team-red: #f57979;
+      --team-orange: #f3933f;
+      --team-green: #88e888;
+      --team-blue: #98a8f5;
+      --gold: #eb9c72;
+      --text: #ffffff;
+      --text-dark: #1a1a1a;
+      --modal-bg: #2d4b6e;
+      --border-radius: 2vmin;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-        }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
 
-        /* الشريط العلوي */
-        .top-bar {
-            width: 100%;
-            max-width: 2400px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 24px;
-            margin-bottom: 5px;
-            color: var(--text);
-            font-size: 18px;
-            font-weight: 700;
-        }
-        .team-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--gold);
-            padding: 6px 18px;
-            border-radius: 30px;
-            color: var(--text-dark);
-            transition: background 0.3s;
-        }
-        .reset-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        .reset-btn:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.4);
-        }
+    .splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+      transition: opacity 0.8s ease;
+      overflow: hidden;
+    }
+    .splash-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+    .splash-btn {
+      position: relative;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 2.5vmin 6vmin;
+      border-radius: 2vmin;
+      font-size: 4vmin;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+      z-index: 2;
+    }
+    .splash-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 50px var(--gold);
+    }
 
-        /* اللعبة */
-        .game-container {
-            width: 100%;
-            max-width: 2400px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: var(--board-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
+    .top-bar {
+      width: 100%;
+      max-width: 3840px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5vmin 3vmin;
+      color: var(--text);
+      font-size: 2.4vmin;
+      font-weight: 700;
+    }
+    .team-indicator {
+      display: flex;
+      align-items: center;
+      gap: 1vmin;
+      background: var(--gold);
+      padding: 1vmin 3vmin;
+      border-radius: 5vmin;
+      color: var(--text-dark);
+      transition: background 0.3s;
+    }
+    .top-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1vmin;
+    }
+    .reset-btn, .rules-btn, .rounds-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text);
+      padding: 1.2vmin 2.5vmin;
+      border-radius: 5vmin;
+      font-size: 2vmin;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .reset-btn:hover, .rules-btn:hover, .rounds-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
 
-        .board {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 16px;
-            padding: 20px;
-            background: var(--board-bg);
-            z-index: 2;
-            position: relative;
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
-        }
+    .game-container {
+      width: 100%;
+      max-width: 3840px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--board-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 1vmin 3vmin rgba(0,0,0,0.4);
+      overflow: hidden;
+      margin: 0 1vmin 1vmin;
+    }
 
-        .category {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2vmin;
+      padding: 2vmin;
+      background: var(--board-bg);
+      z-index: 2;
+      flex: 1;
+    }
 
-        .title {
-            background: var(--gold);
-            color: var(--text);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            font-size: 32px;
-            font-weight: 700;
-            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
-        }
+    .category {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5vmin;
+    }
 
-        .tiles { display: flex; flex-direction: column; gap: 8px; }
+    .title {
+      background: var(--gold);
+      color: var(--text);
+      border-radius: 1.5vmin;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 12vmin;
+      font-size: 3.5vmin;
+      font-weight: 700;
+      box-shadow: inset 0 -0.5vmin 0 rgba(0,0,0,0.15);
+    }
 
-        .tile {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 110px;
-            color: var(--text);
-            font-size: 56px;
-            font-weight: 700;
-            border-radius: 12px;
-            background: #999;
-            cursor: pointer;
-            transition: transform 0.1s ease, opacity 0.3s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .tile:hover { transform: scale(1.03); box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
-        .tile:active { transform: scale(0.97); }
+    .tiles { display: flex; flex-direction: column; gap: 1vmin; flex: 1; }
 
-        .tile-200 { background: var(--tile-200); }
-        .tile-400 { background: var(--tile-400); }
-        .tile-600 { background: var(--tile-600); }
-        .tile-800 { background: var(--tile-800); }
-        .tile-1000 { background: var(--tile-1000); }
+    .tile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      color: var(--text);
+      font-size: 6vmin;
+      font-weight: 700;
+      border-radius: 1.5vmin;
+      cursor: pointer;
+      transition: transform 0.1s ease, opacity 0.3s, box-shadow 0.2s;
+      box-shadow: 0 0.5vmin 0.8vmin rgba(0,0,0,0.3);
+    }
+    .tile:hover { transform: scale(1.02); box-shadow: 0 1vmin 2vmin rgba(0,0,0,0.4); }
+    .tile:active { transform: scale(0.98); }
 
-        .tile.answered {
-            opacity: 0.35;
-            pointer-events: none;
-            filter: grayscale(0.3);
-        }
+    .tile-200 { background: var(--tile-200); }
+    .tile-400 { background: var(--tile-400); }
+    .tile-600 { background: var(--tile-600); }
+    .tile-800 { background: var(--tile-800); }
+    .tile-1000 { background: var(--tile-1000); }
 
-        .points-section {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            padding: 20px;
-            background: var(--board-bg);
-            box-shadow: inset 0 5px 8px rgba(0,0,0,0.2);
-            margin-top: -8px;
-            z-index: 1;
-            position: relative;
-            border-radius: 0 0 var(--border-radius) var(--border-radius);
-        }
+    .tile.answered {
+      opacity: 0.35;
+      pointer-events: none;
+      filter: grayscale(0.3);
+    }
 
-        .team {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .team.active-team {
-            transform: scale(1.02);
-            box-shadow: 0 0 0 3px #ffffff;
-        }
+    .points-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5vmin;
+      padding: 2vmin;
+      background: var(--board-bg);
+      box-shadow: inset 0 0.5vmin 1vmin rgba(0,0,0,0.2);
+      margin-top: -1vmin;
+      z-index: 1;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
 
-        .team-actions {
-            display: flex;
-            gap: 8px;
-            height: 60px;
-        }
+    .team {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2vmin;
+      border-radius: 1.5vmin;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .team.active-team {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 0.4vmin #ffffff;
+    }
 
-        .btn-subtract, .btn-add {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 24px;
-            font-weight: 700;
-            border: 2px solid rgba(255,255,255,0.5);
-            border-radius: 10px;
-            cursor: pointer;
-            background: rgba(0,0,0,0.15);
-            transition: background 0.2s;
-        }
-        .btn-subtract { background: rgba(0,0,0,0.25); }
-        .btn-add { background: rgba(255,255,255,0.1); }
-        .btn-subtract:hover, .btn-add:hover { filter: brightness(1.2); }
+    .team-actions { display: flex; gap: 1vmin; }
 
-        .team-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 140px;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .team-red { background: var(--team-red); }
-        .team-orange { background: var(--team-orange); }
-        .team-green { background: var(--team-green); }
-        .team-blue { background: var(--team-blue); }
+    .btn-subtract, .btn-add {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 3vmin;
+      font-weight: 700;
+      border: 0.2vmin solid rgba(255,255,255,0.5);
+      border-radius: 1.5vmin;
+      cursor: pointer;
+      background: rgba(0,0,0,0.15);
+      padding: 1vmin;
+      transition: transform 0.1s;
+    }
+    .btn-subtract { background: rgba(0,0,0,0.25); }
+    .btn-add { background: rgba(255,255,255,0.1); }
+    .btn-subtract:active, .btn-add:active { transform: scale(0.95); }
 
-        .team-score {
-            font-size: 64px;
-            font-weight: 700;
-            line-height: 1;
-        }
-        .team-name {
-            font-size: 22px;
-            font-weight: 700;
-            align-self: flex-end;
-            color: rgba(0,0,0,0.7);
-        }
+    .team-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2vmin;
+      border-radius: 1.5vmin;
+      box-shadow: inset 0 0.3vmin 0.5vmin rgba(0,0,0,0.2);
+      flex: 1;
+    }
+    .team-red { background: var(--team-red); }
+    .team-orange { background: var(--team-orange); }
+    .team-green { background: var(--team-green); }
+    .team-blue { background: var(--team-blue); }
 
-        /* المودال (السؤال) */
-        .modal-overlay {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(6px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.25s ease;
-        }
-        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .team-score {
+      font-size: 8vmin;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .team-score.pulse {
+      animation: scorePulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes scorePulse {
+      0% { transform: scale(1); color: #fff; }
+      30% { transform: scale(1.35); color: var(--gold); }
+      100% { transform: scale(1); color: #fff; }
+    }
 
-        .modal-card {
-            background: var(--modal-bg);
-            border-radius: 24px;
-            padding: 30px;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            color: var(--text);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            animation: scaleIn 0.3s cubic-bezier(0.34,1.3,0.64,1);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        @keyframes scaleIn { from{transform:scale(0.8)} to{transform:scale(1)} }
+    .team-name {
+      font-size: 3vmin;
+      font-weight: 700;
+      align-self: flex-end;
+      color: rgba(0,0,0,0.7);
+    }
 
-        .modal-question {
-            font-size: 28px;
-            margin: 20px 0;
-            line-height: 1.4;
-        }
+    /* المودال */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.25s ease;
+    }
+    .modal-card {
+      background: var(--modal-bg);
+      border-radius: 3vmin;
+      padding: 4vmin;
+      width: 90%;
+      max-width: 1200px;
+      text-align: center;
+      color: var(--text);
+      box-shadow: 0 2vmin 5vmin rgba(0,0,0,0.5);
+      animation: scaleIn 0.3s cubic-bezier(0.34,1.3,0.64,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
 
-        /* صورة السؤال */
-        .question-image {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 16px;
-            margin: 15px 0;
-            display: block;
-            object-fit: contain;
-        }
+    .question-image {
+      display: block;
+      margin: 2vmin auto;
+      max-width: 100%;
+      max-height: 40vmin;
+      border-radius: 2vmin;
+    }
 
-        .answer-box {
-            background: #1a2847;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            display: none;
-        }
-        .answer-label { color: var(--gold); font-size: 18px; margin-bottom: 10px; }
-        .answer-text { font-size: 30px; font-weight: 700; }
+    .answer-box {
+      background: #1a2847;
+      border-radius: 2vmin;
+      padding: 2vmin;
+      margin: 2vmin 0;
+      display: none;
+    }
 
-        /* صورة الإجابة */
-        .answer-image {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 16px;
-            margin: 10px 0;
-            display: block;
-            object-fit: contain;
-        }
+    .timer-display {
+      font-size: 5vmin;
+      font-weight: 700;
+      margin: 1vmin 0;
+      color: var(--gold);
+      transition: color 0.5s;
+    }
+    .timer-display.warning {
+      color: #f44336;
+      animation: blink 0.5s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.5; } }
 
-        .btn-show-answer {
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 30px;
-            font-size: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            margin: 15px 0;
-            transition: background 0.2s;
-        }
-        .btn-show-answer:hover { background: #f0a87e; }
+    .btn-show-answer {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 2vmin 5vmin;
+      border-radius: 4vmin;
+      font-size: 3vmin;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 2vmin 0;
+      transition: background 0.2s;
+    }
+    .btn-show-answer:hover { background: #f0a87e; }
 
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-            display: none;
-        }
-        .btn-correct, .btn-wrong {
-            flex: 1;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            transition: filter 0.2s;
-        }
-        .btn-correct { background: #4caf50; }
-        .btn-wrong { background: #f44336; }
-        .btn-correct:hover, .btn-wrong:hover { filter: brightness(1.1); }
+    .action-buttons {
+      display: flex;
+      gap: 2vmin;
+      justify-content: center;
+      margin-top: 2vmin;
+      display: none;
+    }
+    .btn-correct, .btn-wrong {
+      flex: 1;
+      border: none;
+      padding: 2vmin;
+      border-radius: 2vmin;
+      font-size: 3vmin;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .btn-correct { background: #4caf50; }
+    .btn-wrong { background: #f44336; }
+    .btn-correct:hover, .btn-wrong:hover { filter: brightness(1.1); }
 
-        @media (max-width: 1000px) {
-            .board { grid-template-columns: repeat(3, 1fr); }
-            .points-section { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .board { grid-template-columns: repeat(2, 1fr); }
-            .points-section { grid-template-columns: 1fr; }
-            .title { font-size: 24px; height: 70px; }
-            .tile { font-size: 40px; height: 80px; }
-        }
-    </style>
+    /* صفحة القوانين */
+    .rules-page {
+      position: fixed;
+      inset: 0;
+      background: #29405b;
+      z-index: 6000;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+    }
+    .rules-page.active { display: flex; }
+
+    .rules-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2vmin 4vmin;
+    }
+    .btn-back-small {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 1.5vmin 3vmin;
+      border-radius: 3vmin;
+      font-size: 2.5vmin;
+      cursor: pointer;
+    }
+    .rules-title {
+      background: #d9d9d9;
+      color: #29405b;
+      padding: 2vmin 4vmin;
+      border-radius: 2vmin;
+      font-size: 4vmin;
+      font-weight: 700;
+    }
+    .rules-main {
+      display: flex;
+      gap: 4vmin;
+      padding: 3vmin;
+      flex: 1;
+    }
+    .rules-text-box {
+      flex: 1;
+      background: #d9d9d9;
+      border-radius: 2vmin;
+      padding: 4vmin;
+      font-size: 2.5vmin;
+      color: #22344a;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .rules-images {
+      display: flex;
+      flex-direction: column;
+      gap: 3vmin;
+      width: 40%;
+    }
+    .rules-image-box {
+      background: #d9d9d9;
+      border-radius: 2vmin;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .rules-image-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* نافذة اختيار الجولات */
+    .round-select-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 7000;
+    }
+    .round-select-content {
+      background: var(--modal-bg);
+      border-radius: 2vmin;
+      padding: 4vmin;
+      text-align: center;
+      color: white;
+    }
+    .round-btn {
+      background: var(--gold);
+      color: #000;
+      border: none;
+      padding: 2vmin 4vmin;
+      border-radius: 2vmin;
+      font-size: 3vmin;
+      margin: 1vmin;
+      cursor: pointer;
+      font-weight: 700;
+    }
+  </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div class="team-indicator" id="teamIndicator">الدور: الفريق الأحمر</div>
-    <button class="reset-btn" onclick="resetGame()">🔄 إعادة الضبط</button>
+<!-- شاشة البدء -->
+<div class="splash-screen" id="splashScreen">
+  <img class="splash-bg-img" src="https://i.ibb.co/6wPqY90/flower-blur.jpg" alt="خلفية">
+  <button class="splash-btn" id="startBtn">ابدأ</button>
 </div>
 
-<div class="game-container">
+<!-- صفحة القوانين -->
+<div class="rules-page" id="rulesPage">
+  <div class="rules-header">
+    <button class="btn-back-small" onclick="closeRulesPage()">رجوع</button>
+    <div class="rules-title">القوانين</div>
+    <div></div>
+  </div>
+  <div class="rules-main">
+    <div class="rules-text-box">
+      اللعب ( ٤ فرق | ٦ فئات | ٢ جولات )  
+      يبدأ الفريق ١ (أقصى اليمين) → ثم الفريق ٢ → الفريق ٣ → الفريق ٤.
+      عند انتهاء الدور، تعاد الدورة بنفس الترتيب.
+      لازم فيه قائد لكل فريق لكي يتمم للحكام لأي سوأل ولأي إجابة
+      كل ما اخترت سؤالًا بنقاط أعلى ← يكون أصعب، لكن لو صححت إجابته تربح مكافأة أكبر . كل الفرق تلعب على جميع الأسئلة  ٦٠ سؤالًا على جولتان .
+      وقت الإجابة: ٩٠ ثانية لكل سؤال .
+      يجب أن تكون متطابقة حرفيًا مع المكتوب على الشاشة (مثال: "المحيط الهادي").
+      ممنوع استخدام الجوال إلا إذا طلب اتصال بصديق
+
+      العقوبات
+      1.خطأ/انتهاء الوقت وسماع صوت المنبه: خصم نقاط السؤال (قد تصبح سالبة!).
+      2.خطأ في السرقة: خصم النقاط من السارق.
+
+      نظام السرقة (بعد أي خطأ)
+      يُصرخ "نَسرق!" → الفريق السارق يُجيب خلال ١٥ ثانية.
+      الإجابة الصحيحة: + نقاط السؤال له.
+      الإجابة الخاطئة: - نقاط السؤال منه.
+
+      اتصال  (بصديق ٦٠ ثانية)
+      لكل فريق مرتين في اللعبة كاملة.
+      اتصال ٦٠ ثانية → الإجابة بعد انتهاء الوقت.
+      للفوز 
+      بعد جمع نقاط الجوله الاولى والجوله الثانيه أعلى فريق يجمع نقاط يفوز  
+    </div>
+    <div class="rules-images">
+      <div class="rules-image-box">
+        <img src="https://i.ibb.co/2YzQ0dM/flower-clear.jpg" alt="صورة 1">
+      </div>
+      <div class="rules-image-box">
+        <img src="https://i.ibb.co/2YzQ0dM/flower-clear.jpg" alt="صورة 2">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- محتوى اللعبة -->
+<div id="gameContent" style="display: none; width: 100%; height: 100%;">
+  <div class="top-bar">
+    <div class="team-indicator" id="teamIndicator">الدور: الفريق الأحمر</div>
+    <div class="top-buttons">
+      <button class="rounds-btn" onclick="showRoundSelector()">🔄 الجولات</button>
+      <button class="rules-btn" onclick="openRulesPage()">📜 القوانين</button>
+      <button class="reset-btn" onclick="resetGame()">🔄 إعادة الضبط</button>
+    </div>
+  </div>
+
+  <div class="game-container">
     <div class="board" id="boardContainer"></div>
     <div class="points-section" id="teamsContainer"></div>
+  </div>
 </div>
 
 <script src="questions-data.js"></script>
 <script src="game.js"></script>
 
 <script>
-    const TEAMS = [
-        { id: 'red',    name: 'الفريق الأحمر',   css: 'team-red', color: '#f57979' },
-        { id: 'orange', name: 'الفريق البرتقالي', css: 'team-orange', color: '#f3933f' },
-        { id: 'green',  name: 'الفريق الأخضر',    css: 'team-green', color: '#88e888' },
-        { id: 'blue',   name: 'الفريق الأزرق',    css: 'team-blue', color: '#98a8f5' }
-    ];
+  // ========== فريق ==========
+  const TEAMS = [
+    { id: 'red', name: 'الفريق الأحمر', css: 'team-red', color: '#f57979' },
+    { id: 'orange', name: 'الفريق البرتقالي', css: 'team-orange', color: '#f3933f' },
+    { id: 'green', name: 'الفريق الأخضر', css: 'team-green', color: '#88e888' },
+    { id: 'blue', name: 'الفريق الأزرق', css: 'team-blue', color: '#98a8f5' }
+  ];
 
-    function buildBoard() {
-        const board = document.getElementById('boardContainer');
-        board.innerHTML = '';
-        QUIZ_DATA.forEach(cat => {
-            const catDiv = document.createElement('div');
-            catDiv.className = 'category';
-            catDiv.innerHTML = `<div class="title">${cat.category}</div><div class="tiles" id="tiles-${cat.base}"></div>`;
-            board.appendChild(catDiv);
-            const tilesDiv = catDiv.querySelector('.tiles');
-            cat.questions.forEach(q => {
-                const tile = document.createElement('div');
-                tile.className = `tile tile-${q.points}`;
-                tile.textContent = q.points;
-                tile.addEventListener('click', () => openQuestion(cat, q));
-                if (localStorage.getItem(`answered_${cat.base}_${q.points}`) === 'true') {
-                    tile.classList.add('answered');
-                }
-                tilesDiv.appendChild(tile);
-            });
-        });
-    }
+  let timerInterval = null;
+  let currentRound = 1; // الجولة الحالية
 
-    function buildTeams() {
-        const container = document.getElementById('teamsContainer');
-        container.innerHTML = '';
-        TEAMS.forEach(team => {
-            const teamDiv = document.createElement('div');
-            teamDiv.className = 'team';
-            teamDiv.dataset.team = team.id;
-            if (getCurrentTeam() === team.id) teamDiv.classList.add('active-team');
+  // ========== مساعدات الجولة ==========
+  function getRoundKey() { return `round_${currentRound}_`; }
 
-            teamDiv.innerHTML = `
-                <div class="team-actions">
-                    <button class="btn-subtract" id="sub-${team.id}">-200</button>
-                    <button class="btn-add" id="add-${team.id}">+200</button>
-                </div>
-                <div class="team-info ${team.css}">
-                    <div class="team-score" id="score-${team.id}">${getTeamScore(team.id)}</div>
-                    <div class="team-name">${team.name}</div>
-                </div>
-            `;
-
-            teamDiv.querySelector('.btn-subtract').addEventListener('click', (e) => {
-                e.stopPropagation();
-                adjustScore(team.id, -200);
-            });
-            teamDiv.querySelector('.btn-add').addEventListener('click', (e) => {
-                e.stopPropagation();
-                adjustScore(team.id, 200);
-            });
-
-            teamDiv.addEventListener('click', () => {
-                setActiveTeam(team.id);
-            });
-
-            container.appendChild(teamDiv);
-        });
-    }
-
-    function adjustScore(teamId, amount) {
-        let score = getTeamScore(teamId);
-        score += amount;
-        localStorage.setItem('score_' + teamId, score);
-        document.getElementById('score-' + teamId).textContent = score;
-    }
-
-    function setActiveTeam(teamId) {
-        setCurrentTeam(teamId);
-        document.querySelectorAll('.team').forEach(t => t.classList.remove('active-team'));
-        const activeTeam = document.querySelector(`.team[data-team="${teamId}"]`);
-        if (activeTeam) activeTeam.classList.add('active-team');
-        const team = TEAMS.find(t => t.id === teamId);
-        const indicator = document.getElementById('teamIndicator');
-        if (indicator) {
-            indicator.textContent = `الدور: ${team.name}`;
-            indicator.style.background = team.color;
+  function buildBoard() {
+    const board = document.getElementById('boardContainer');
+    board.innerHTML = '';
+    const data = QUIZ_DATA[currentRound] || QUIZ_DATA[1]; // استخدام جولة 1 افتراضياً
+    data.forEach(cat => {
+      const catDiv = document.createElement('div');
+      catDiv.className = 'category';
+      catDiv.innerHTML = `<div class="title">${cat.category}</div><div class="tiles" id="tiles-${cat.base}"></div>`;
+      board.appendChild(catDiv);
+      const tilesDiv = catDiv.querySelector('.tiles');
+      cat.questions.forEach(q => {
+        const tile = document.createElement('div');
+        tile.className = `tile tile-${q.points}`;
+        tile.textContent = q.points;
+        tile.addEventListener('click', () => openQuestion(cat, q));
+        const key = getRoundKey() + `answered_${cat.base}_${q.points}`;
+        if (localStorage.getItem(key) === 'true') {
+          tile.classList.add('answered');
         }
-    }
-
-    function openQuestion(cat, question) {
-        const old = document.querySelector('.modal-overlay');
-        if (old) old.remove();
-
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-
-        // بناء محتوى المودال مع إمكانية وجود صور
-        let questionHTML = '';
-        if (question.image) {
-            questionHTML += `<img src="${question.image}" class="question-image" alt="صورة السؤال">`;
-        }
-        questionHTML += `<div class="modal-question">${question.question}</div>`;
-
-        let answerHTML = '';
-        if (question.answerImage) {
-            answerHTML += `<img src="${question.answerImage}" class="answer-image" alt="صورة الإجابة">`;
-        }
-        answerHTML += `<div class="answer-text">${question.answer}</div>`;
-
-        overlay.innerHTML = `
-            <div class="modal-card">
-                <h2>${cat.category} – ${question.points} نقطة</h2>
-                ${questionHTML}
-                <button class="btn-show-answer" id="showAnswerBtn">🔍 إظهار الإجابة</button>
-                <div class="answer-box" id="answerBox">
-                    <div class="answer-label">الإجابة</div>
-                    ${answerHTML}
-                </div>
-                <div class="action-buttons" id="actionButtons">
-                    <button class="btn-wrong" id="btnWrong">❌ خاطئة (-${question.points})</button>
-                    <button class="btn-correct" id="btnCorrect">✅ صحيحة (+${question.points})</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-
-        const showBtn = overlay.querySelector('#showAnswerBtn');
-        const answerBox = overlay.querySelector('#answerBox');
-        const actionBtns = overlay.querySelector('#actionButtons');
-
-        showBtn.addEventListener('click', () => {
-            showBtn.style.display = 'none';
-            answerBox.style.display = 'block';
-            actionBtns.style.display = 'flex';
-        });
-
-        const finalize = (correct) => {
-            const points = correct ? question.points : -question.points;
-            adjustScore(getCurrentTeam(), points);
-            localStorage.setItem(`answered_${cat.base}_${question.points}`, 'true');
-            nextTeam();
-            buildBoard();
-            setActiveTeam(getCurrentTeam());
-            overlay.remove();
-        };
-
-        overlay.querySelector('#btnCorrect').addEventListener('click', () => finalize(true));
-        overlay.querySelector('#btnWrong').addEventListener('click', () => finalize(false));
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
-    }
-
-    function resetGame() {
-        if (confirm('هل أنت متأكد من مسح جميع النقاط والأسئلة؟')) {
-            TEAMS.forEach(t => localStorage.removeItem('score_' + t.id));
-            QUIZ_DATA.forEach(cat => cat.questions.forEach(q => localStorage.removeItem(`answered_${cat.base}_${q.points}`)));
-            setCurrentTeam('red');
-            location.reload();
-        }
-    }
-
-    window.onload = () => {
-        buildBoard();
-        buildTeams();
-        setActiveTeam(getCurrentTeam());
-    };
-    window.addEventListener('focus', () => {
-        TEAMS.forEach(t => {
-            const el = document.getElementById('score-' + t.id);
-            if (el) el.textContent = getTeamScore(t.id);
-        });
-        buildBoard();
-        setActiveTeam(getCurrentTeam());
+        tilesDiv.appendChild(tile);
+      });
     });
+  }
+
+  function buildTeams() {
+    const container = document.getElementById('teamsContainer');
+    container.innerHTML = '';
+    TEAMS.forEach(team => {
+      const teamDiv = document.createElement('div');
+      teamDiv.className = 'team';
+      teamDiv.dataset.team = team.id;
+      if (getCurrentTeam() === team.id) teamDiv.classList.add('active-team');
+
+      teamDiv.innerHTML = `
+        <div class="team-actions">
+          <button class="btn-subtract">-200</button>
+          <button class="btn-add">+200</button>
+        </div>
+        <div class="team-info ${team.css}">
+          <div class="team-score" id="score-${team.id}">${getTeamScore(team.id)}</div>
+          <div class="team-name">${team.name}</div>
+        </div>
+      `;
+
+      teamDiv.querySelector('.btn-subtract').addEventListener('click', (e) => {
+        e.stopPropagation();
+        adjustScore(team.id, -200);
+      });
+      teamDiv.querySelector('.btn-add').addEventListener('click', (e) => {
+        e.stopPropagation();
+        adjustScore(team.id, 200);
+      });
+      teamDiv.addEventListener('click', () => setActiveTeam(team.id));
+
+      container.appendChild(teamDiv);
+    });
+  }
+
+  function adjustScore(teamId, amount) {
+    let score = getTeamScore(teamId);
+    score += amount;
+    localStorage.setItem('score_' + teamId, score);
+    const el = document.getElementById('score-' + teamId);
+    el.textContent = score;
+    el.classList.remove('pulse');
+    void el.offsetWidth;
+    el.classList.add('pulse');
+    el.addEventListener('animationend', () => el.classList.remove('pulse'), { once: true });
+  }
+
+  function setActiveTeam(teamId) {
+    setCurrentTeam(teamId);
+    document.querySelectorAll('.team').forEach(t => t.classList.remove('active-team'));
+    const activeTeam = document.querySelector(`.team[data-team="${teamId}"]`);
+    if (activeTeam) activeTeam.classList.add('active-team');
+    const team = TEAMS.find(t => t.id === teamId);
+    const indicator = document.getElementById('teamIndicator');
+    indicator.textContent = `الدور: ${team.name}`;
+    indicator.style.background = team.color;
+  }
+
+  function openQuestion(cat, question) {
+    const old = document.querySelector('.modal-overlay');
+    if (old) old.remove();
+    clearInterval(timerInterval);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+
+    let qHTML = '';
+    if (question.image) qHTML += `<img src="${question.image}" class="question-image">`;
+    qHTML += `<div class="modal-question" style="font-size:4vmin;">${question.question}</div>`;
+
+    let aHTML = '';
+    if (question.answerImage) aHTML += `<img src="${question.answerImage}" class="answer-image">`;
+    aHTML += `<div class="answer-text" style="font-size:5vmin;">${question.answer}</div>`;
+
+    overlay.innerHTML = `
+      <div class="modal-card">
+        <h2 style="font-size:4vmin;">${cat.category} – ${question.points} نقطة</h2>
+        ${qHTML}
+        <div class="timer-display" id="timerDisplay">⏳ 90</div>
+        <button class="btn-show-answer" id="showAnswerBtn">🔍 إظهار الإجابة</button>
+        <div class="answer-box" id="answerBox">${aHTML}</div>
+        <div class="action-buttons" id="actionButtons">
+          <button class="btn-wrong" id="btnWrong">❌ خاطئة (-${question.points})</button>
+          <button class="btn-correct" id="btnCorrect">✅ صحيحة (+${question.points})</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    let timeLeft = 90;
+    const timerEl = overlay.querySelector('#timerDisplay');
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = `⏳ ${timeLeft}`;
+      if (timeLeft <= 10) timerEl.classList.add('warning');
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        overlay.querySelector('#showAnswerBtn').style.display = 'none';
+        overlay.querySelector('#answerBox').style.display = 'block';
+        overlay.querySelector('#actionButtons').style.display = 'flex';
+        finalize(false);
+      }
+    }, 1000);
+
+    const showBtn = overlay.querySelector('#showAnswerBtn');
+    const answerBox = overlay.querySelector('#answerBox');
+    const actionBtns = overlay.querySelector('#actionButtons');
+
+    showBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      showBtn.style.display = 'none';
+      answerBox.style.display = 'block';
+      actionBtns.style.display = 'flex';
+    });
+
+    const finalize = (correct) => {
+      clearInterval(timerInterval);
+      const points = correct ? question.points : -question.points;
+      adjustScore(getCurrentTeam(), points);
+      const key = getRoundKey() + `answered_${cat.base}_${question.points}`;
+      localStorage.setItem(key, 'true');
+      nextTeam();
+      buildBoard();
+      setActiveTeam(getCurrentTeam());
+      overlay.remove();
+    };
+
+    overlay.querySelector('#btnCorrect').addEventListener('click', () => finalize(true));
+    overlay.querySelector('#btnWrong').addEventListener('click', () => finalize(false));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) { clearInterval(timerInterval); overlay.remove(); } });
+  }
+
+  function showRoundSelector() {
+    const overlay = document.createElement('div');
+    overlay.className = 'round-select-modal';
+    overlay.innerHTML = `
+      <div class="round-select-content">
+        <h2>اختر الجولة</h2>
+        <button class="round-btn" data-round="1">الجولة 1</button>
+        <button class="round-btn" data-round="2">الجولة 2</button>
+        <br><br>
+        <button class="round-btn" style="background:#555;" onclick="this.closest('.round-select-modal').remove()">إغلاق</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    overlay.querySelectorAll('[data-round]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const r = parseInt(this.dataset.round);
+        if (r === currentRound) {
+          overlay.remove();
+          return;
+        }
+        currentRound = r;
+        localStorage.setItem('currentRound', currentRound);
+        buildBoard();
+        overlay.remove();
+      });
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  }
+
+  function resetGame() {
+    if (confirm('مسح جميع النقاط والأسئلة للجولة الحالية؟')) {
+      TEAMS.forEach(t => localStorage.removeItem('score_' + t.id));
+      const data = QUIZ_DATA[currentRound] || [];
+      data.forEach(cat => cat.questions.forEach(q => {
+        localStorage.removeItem(getRoundKey() + `answered_${cat.base}_${q.points}`);
+      }));
+      setCurrentTeam('red');
+      buildBoard();
+      buildTeams();
+      setActiveTeam('red');
+    }
+  }
+
+  window.openRulesPage = () => document.getElementById('rulesPage').classList.add('active');
+  window.closeRulesPage = () => document.getElementById('rulesPage').classList.remove('active');
+
+  // بدء التشغيل
+  document.getElementById('startBtn').addEventListener('click', () => {
+    document.getElementById('splashScreen').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('splashScreen').style.display = 'none';
+      document.getElementById('gameContent').style.display = '';
+      if (localStorage.getItem('currentRound')) {
+        currentRound = parseInt(localStorage.getItem('currentRound'));
+      }
+      buildBoard();
+      buildTeams();
+      setActiveTeam(getCurrentTeam());
+    }, 800);
+  });
+
+  window.addEventListener('focus', () => {
+    TEAMS.forEach(t => {
+      const el = document.getElementById('score-' + t.id);
+      if (el) el.textContent = getTeamScore(t.id);
+    });
+    buildBoard();
+    setActiveTeam(getCurrentTeam());
+  });
 </script>
 
 </body>
