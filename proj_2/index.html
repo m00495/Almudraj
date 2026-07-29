@@ -53,22 +53,22 @@
       overflow: hidden;
     }
     .splash-bg-img {
-      position: absolute;
+      position:absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: fill;
       opacity: 0.85;
     }
     .splash-btn {
-      position: relative;
+      object-position: 50% 1000% ;
       background: var(--gold);
-      color: #000;
-      border: none;
+      color: #192847;
+      border: scale-down;
       padding: 2.5vmin 6vmin;
       border-radius: 2vmin;
       font-size: 4vmin;
-      font-weight: 700;
+      font-weight: 8000;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 0 30px rgba(0,0,0,0.6);
@@ -76,7 +76,7 @@
     }
     .splash-btn:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 50px var(--gold);
+      box-shadow: 0 0 20px var(--gold);
     }
 
     .top-bar {
@@ -423,7 +423,7 @@
       width: 40%;
     }
     .rules-image-box {
-      background: #d9d9d9;
+      background: #E9F3EE;
       border-radius: 2vmin;
       flex: 1;
       display: flex;
@@ -432,8 +432,8 @@
       overflow: hidden;
     }
     .rules-image-box img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 200%;
+      max-height: 200%;
       object-fit: contain;
     }
 
@@ -471,7 +471,7 @@
 
 <!-- شاشة البدء -->
 <div class="splash-screen" id="splashScreen">
-  <img class="splash-bg-img" src="https://i.ibb.co/6wPqY90/flower-blur.jpg" alt="خلفية">
+  <img class="splash-bg-img" src="pic_2\Screenshot 2026-07-29 171407.png" alt="خلفية">
   <button class="splash-btn" id="startBtn">ابدأ</button>
 </div>
 
@@ -510,10 +510,10 @@
     </div>
     <div class="rules-images">
       <div class="rules-image-box">
-        <img src="https://i.ibb.co/2YzQ0dM/flower-clear.jpg" alt="صورة 1">
+        <img src="pic_2\Screenshot 2026-07-29 163904.png" alt="صورة 1">
       </div>
       <div class="rules-image-box">
-        <img src="https://i.ibb.co/2YzQ0dM/flower-clear.jpg" alt="صورة 2">
+        <img src="pic_2\Screenshot 2026-07-29 163924.png" alt="صورة 2">
       </div>
     </div>
   </div>
@@ -524,9 +524,9 @@
   <div class="top-bar">
     <div class="team-indicator" id="teamIndicator">الدور: الفريق الأحمر</div>
     <div class="top-buttons">
-      <button class="rounds-btn" onclick="showRoundSelector()">🔄 الجولات</button>
-      <button class="rules-btn" onclick="openRulesPage()">📜 القوانين</button>
-      <button class="reset-btn" onclick="resetGame()">🔄 إعادة الضبط</button>
+      <button class="rounds-btn" onclick="showRoundSelector()">الجولات</button>
+      <button class="rules-btn" onclick="openRulesPage()">القوانين</button>
+      <button class="reset-btn" onclick="resetGame()">إعادة الضبط</button>
     </div>
   </div>
 
@@ -655,12 +655,12 @@
       <div class="modal-card">
         <h2 style="font-size:4vmin;">${cat.category} – ${question.points} نقطة</h2>
         ${qHTML}
-        <div class="timer-display" id="timerDisplay">⏳ 90</div>
-        <button class="btn-show-answer" id="showAnswerBtn">🔍 إظهار الإجابة</button>
+        <div class="timer-display" id="timerDisplay">ثانية 90</div>
+        <button class="btn-show-answer" id="showAnswerBtn"> إظهار الإجابة</button>
         <div class="answer-box" id="answerBox">${aHTML}</div>
         <div class="action-buttons" id="actionButtons">
-          <button class="btn-wrong" id="btnWrong">❌ خاطئة (-${question.points})</button>
-          <button class="btn-correct" id="btnCorrect">✅ صحيحة (+${question.points})</button>
+          <button class="btn-wrong" id="btnWrong"> خاطئة (-${question.points})</button>
+          <button class="btn-correct" id="btnCorrect"> صحيحة (+${question.points})</button>
         </div>
       </div>
     `;
@@ -670,7 +670,7 @@
     const timerEl = overlay.querySelector('#timerDisplay');
     timerInterval = setInterval(() => {
       timeLeft--;
-      timerEl.textContent = `⏳ ${timeLeft}`;
+      timerEl.textContent = `ثانية ${timeLeft}`;
       if (timeLeft <= 10) timerEl.classList.add('warning');
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
