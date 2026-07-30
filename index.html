@@ -35,11 +35,10 @@ nav {
   gap: 13px;
 }
 .nav-logo-group img {
-  object-position: 55%;
   width: 38px;
   height: 38px;
-  border-radius: 0%;
-  object-fit: fill;
+  border-radius: 50%;
+  object-fit: cover;
   border: 1px solid rgba(255,255,255,0.1);
 }
 .nav-logo-group .main-title {
@@ -48,16 +47,13 @@ nav {
   color: #fff;
   letter-spacing: 2px;
   font-family: 'Verdana', sans-serif;
-  line-height: 1;
 }
 .nav-logo-group .by-line {
   font-size: 10px;
   color: #666;
-  letter-spacing: 0.5px;
-  margin-top: 0px;
+  margin-top: 2px;
 }
 
-/* زر اللغة */
 .lang-btn {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.2);
@@ -67,9 +63,7 @@ nav {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  letter-spacing: 1px;
   transition: all 0.3s;
-  margin-left: 15px;
 }
 .lang-btn:hover {
   border-color: rgba(255,255,255,0.5);
@@ -79,14 +73,14 @@ nav {
 
 /* ===================== HERO ===================== */
 .hero {
-  height:100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   background-image: url('pictures/pic back/gmu.png');
-  background-size: fill;
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-color: #0a0a0a;
@@ -104,13 +98,11 @@ nav {
   font-weight: 900;
   color: #fff;
   margin-bottom: 1rem;
-  letter-spacing: -1px;
 }
 .hero p {
   font-size: 1rem;
   color: #bbb;
   margin-bottom: 2.5rem;
-  letter-spacing: 1px;
 }
 .hero-btns {
   display: flex;
@@ -124,12 +116,10 @@ nav {
   color: #fff;
   font-size: 12px;
   font-weight: 600;
-  cursor: pointer;
   text-decoration: none;
   letter-spacing: 2px;
   transition: all 0.3s;
   background: transparent;
-  display: inline-block;
 }
 .hero-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
 .hero-btn.secondary {
@@ -155,7 +145,6 @@ nav {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 4px;
-  opacity: 0.9;
 }
 
 /* ===================== SCROLL LIST ===================== */
@@ -174,65 +163,46 @@ nav {
 .scroll-list::-webkit-scrollbar-track { background: transparent; }
 .scroll-list::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
 
-.list-gradient-top {
-  position: absolute; top: 0; left: 0; right: 0; height: 60px;
-  background: linear-gradient(to bottom, #0a0a0a, transparent);
-  pointer-events: none; z-index: 2; transition: opacity 0.3s;
+.list-gradient-top, .list-gradient-bottom {
+  position: absolute; left: 0; right: 0; height: 60px; pointer-events: none; z-index: 2;
 }
-.list-gradient-bottom {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
-  background: linear-gradient(to top, #0a0a0a, transparent);
-  pointer-events: none; z-index: 2; transition: opacity 0.3s;
-}
+.list-gradient-top { top: 0; background: linear-gradient(to bottom, #0a0a0a, transparent); }
+.list-gradient-bottom { bottom: 0; background: linear-gradient(to top, #0a0a0a, transparent); }
 
-/* ===================== ITEM WRAPPER ===================== */
+/* ===================== LIST ITEM ===================== */
 .list-item-wrapper {
   margin-bottom: 12px;
   opacity: 0;
   transform: scale(0.93) translateY(12px);
   transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.34,1.3,0.64,1);
-  position: relative;
-  overflow: visible;
 }
 .list-item-wrapper.in-view { opacity: 1; transform: scale(1) translateY(0); }
 
-/* ===================== LIST ITEM ===================== */
 .list-item {
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 10px;
-  cursor: pointer;
   display: flex;
   align-items: stretch;
   transition: border-color 0.25s, transform 0.22s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   min-height: 72px;
+  cursor: pointer;
 }
+.list-item:hover { border-color: rgba(255,255,255,0.18); }
 
 .item-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0.18; z-index: 0;
   transition: transform 0.5s ease, opacity 0.3s;
-  opacity: 0.18;
-  z-index: 0;
 }
-.list-item:hover .item-bg,
-.list-item.hovered .item-bg {
-  opacity: 0.32;
-  transform: scale(1.04);
-}
+.list-item:hover .item-bg { opacity: 0.32; transform: scale(1.04); }
 
 .item-overlay {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: linear-gradient(to left, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.85) 100%);
   z-index: 1;
-}
-
-.list-item:hover, .list-item.hovered {
-  border-color: rgba(255,255,255,0.18);
 }
 
 .item-main {
@@ -253,18 +223,14 @@ nav {
   font-family: 'Courier New', monospace;
   min-width: 22px;
   flex-shrink: 0;
-  transition: color 0.25s;
 }
-.list-item:hover .item-number,
-.list-item.hovered .item-number { color: #555; }
 
 .item-name-group {
-  position: relative;
   display: flex;
   align-items: center;
+  gap: 12px;
   flex: 1;
   min-width: 0;
-  overflow: visible;
 }
 
 .item-name {
@@ -272,31 +238,21 @@ nav {
   font-weight: 600;
   color: #ccc;
   white-space: nowrap;
-  transition: color 0.25s;
-  position: relative;
-  z-index: 2;
 }
-.list-item:hover .item-name,
-.list-item.hovered .item-name { color: #fff; }
 
 .item-date {
-  position: absolute;
-  right: 90%;
-  top: 50%;
-  transform: translateY(-50%) translateX(40px);
-  padding-left: 14px;
   font-size: 10px;
   color: #a8a8a8;
   letter-spacing: 2px;
   font-family: 'Courier New', monospace;
   white-space: nowrap;
   opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
+  transform: translateY(-50%) translateX(15px);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.1, 0.64, 1);
+  order: 1;
 }
-.list-item:hover .item-date,
-.list-item.hovered .item-date {
+
+.list-item:hover .item-date {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
 }
@@ -311,169 +267,68 @@ nav {
   color: #2e2e2e;
   font-size: 16px;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition: background 0.2s, color 0.2s;
   cursor: pointer;
-  position: relative;
-  z-index: 2;
-  border-radius: 10px 0 0 10px;
+  z-index: 3;
+  order: 2;
 }
-.item-link-btn:hover {
-  background: rgba(255,255,255,0.07);
-  color: #fff;
-  border-color: rgba(255,255,255,0.15);
-}
+.item-link-btn:hover { background: rgba(255,255,255,0.07); color: #fff; }
 
-/* ===================== BLUR OVERLAY & MODAL ===================== */
+/* ===================== MODAL ===================== */
 .page-blur-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
+  position: fixed; inset: 0; z-index: 2000;
   backdrop-filter: blur(20px) brightness(0.3);
-  -webkit-backdrop-filter: blur(20px) brightness(0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s;
 }
-.page-blur-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+.page-blur-overlay.active { opacity: 1; pointer-events: auto; }
 
 .project-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 2100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0.93) translateY(18px);
+  position: fixed; inset: 0; z-index: 2100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; pointer-events: none;
+  opacity: 0; transform: scale(0.93) translateY(18px);
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.2,0.64,1);
 }
-.project-modal.active {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-  pointer-events: auto;
-}
+.project-modal.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
 
 .modal-card {
-  background: #0f0f0f;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 580px;
-  max-height: 88vh;
-  overflow-y: auto;
-  position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: #1e1e1e transparent;
+  background: #0f0f0f; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; width: 100%; max-width: 580px;
+  max-height: 88vh; overflow-y: auto; position: relative;
 }
-.modal-card::-webkit-scrollbar { width: 4px; }
-.modal-card::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
-
 .modal-close {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  background: rgba(0,0,0,0.5);
-  color: #888;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 10;
+  position: absolute; top: 14px; left: 14px;
+  width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%; background: rgba(0,0,0,0.5); color: #888;
+  font-size: 14px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; z-index: 10;
 }
-.modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
-
-.modal-images {
-  width: 100%;
-  overflow-x: auto;
-  display: flex;
-  gap: 0;
-  scrollbar-width: none;
-  border-radius: 16px 16px 0 0;
-}
-.modal-images::-webkit-scrollbar { display: none; }
-.modal-img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  flex-shrink: 0;
-  border-radius: 16px 16px 0 0;
-}
-.modal-images.multi .modal-img {
-  width: 85%;
-  border-radius: 0;
-}
-.modal-images.multi .modal-img:first-child { border-radius: 16px 0 0 0; }
-.modal-images.multi .modal-img:last-child  { border-radius: 0 16px 0 0; }
-
-.modal-body {
-  padding: 28px 32px 32px;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 10px;
-}
-.modal-desc {
-  font-size: 14px;
-  color: #777;
-  line-height: 1.85;
-  margin-bottom: 22px;
-}
-.modal-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-}
+.modal-images { display: flex; overflow-x: auto; border-radius: 16px 16px 0 0; }
+.modal-img { width: 100%; height: 240px; object-fit: cover; flex-shrink: 0; }
+.modal-body { padding: 28px 32px 32px; }
+.modal-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.modal-desc { font-size: 14px; color: #777; line-height: 1.85; margin-bottom: 22px; }
+.modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
 .modal-tag {
-  padding: 5px 14px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  font-size: 10px;
-  color: #888;
-  letter-spacing: 1px;
+  padding: 5px 14px; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; font-size: 10px; color: #888;
   font-family: 'Courier New', monospace;
-  background: rgba(255,255,255,0.02);
 }
 .modal-enter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 26px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: all 0.25s;
-  background: transparent;
-  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 26px; border: none;
+  border-radius: 8px; color: #000; font-size: 13px; font-weight: 600;
+  text-decoration: none; cursor: pointer; transition: all 0.25s;
+  background: #eb9c72;
 }
-.modal-enter-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.45); }
+.modal-enter-btn:hover { background: #f0a87e; }
 
 /* ===================== FOOTER ===================== */
 footer {
-  background: #050505;
-  padding: 60px 3rem 40px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  background: #050505; padding: 60px 3rem 40px;
+  text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
 }
-footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
+footer p { color: #2e2e2e; font-size: 0.85rem; }
 
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
@@ -506,8 +361,8 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <nav>
   <div class="nav-logo-group">
+    <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
     <div>
-      <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
       <div class="main-title" data-i18n="siteName">المدرج</div>
       <div class="by-line" data-i18n="byLine">لمحمد عجل محمد الدوسري</div>
     </div>
@@ -519,7 +374,7 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
   <h1 data-i18n="heroTitle">صفحة تجمع تجاربي العملية بالخط زمني</h1>
   <p data-i18n="heroSub">اضغط على المشروع لتشوف التفاصيل</p>
   <div class="hero-btns">
-    <a href="#projects" class="hero-btn" data-i18n="timelineBtn">الخط الزمني</a>
+    <a href="#projects" class="hero-btn" id="timelineBtn" data-i18n="timelineBtn">الخط الزمني</a>
     <a href="pictures/pic projects/MOHAMMED ALDAWSARI_CV.pdf" class="hero-btn secondary" target="_blank" rel="noopener" data-i18n="cvBtn">السيرة الذاتية</a>
     <a href="https://github.com/m00495" class="hero-btn secondary" target="_blank" rel="noopener">Github</a>
   </div>
@@ -539,10 +394,8 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 </footer>
 
 <script>
-/* =========================================================
-   الترجمات
-   ========================================================= */
-const translations = {
+// ========== الترجمات ==========
+const i18n = {
   ar: {
     siteName: 'المدرج',
     byLine: 'لمحمد عجل محمد الدوسري',
@@ -567,107 +420,120 @@ const translations = {
   }
 };
 
-/* =========================================================
-   بيانات المشاريع (ثنائية اللغة)
-   ========================================================= */
+// ========== بيانات المشاريع (ثنائية اللغة) ==========
 const projectsData = [
   {
     id: 1,
-    name: { ar: 'إدارة المكتبة', en: 'Library Management' },
-    url: "https://github.com/m00495/AL_ibrarymanagement",
-    date: { ar: 'يناير 2024', en: 'Jan 2024' },
-    thumb: "pictures/pic projects/al_li.png",
-    images: ["pictures/pic projects/al_li.png"],
-    desc: {
-      ar: 'مشروع تخرجي مع زملائي في الجامعة وهو نضام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.',
-      en: 'My graduation project with my university colleagues. A library management system that allows book registration, members tracking, and loan management. Provides a simple interface to add books, record operations, and generate reports.'
-    },
-    tags: ["Python", "SQLite", "Tkinter", "django"]
+    nameAr: 'إدارة المكتبة',
+    nameEn: 'Library Management',
+    url: 'https://github.com/m00495/AL_ibrarymanagement',
+    dateAr: 'يناير 2024',
+    dateEn: 'Jan 2024',
+    thumb: 'pictures/pic projects/al_li.png',
+    images: ['pictures/pic projects/al_li.png'],
+    descAr: 'مشروع تخرجي مع زملائي في الجامعة وهو نظام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.',
+    descEn: 'My graduation project with university colleagues. A library management system that enables book registration, member tracking, and loan management. Features a simple interface for adding books, recording transactions, and generating reports.',
+    tags: ['Python', 'SQLite', 'Tkinter', 'django']
   },
   {
     id: 2,
-    name: { ar: 'لعبة المجازفة', en: 'Adventure Game' },
-    url: "proj_2/index.html",
-    date: { ar: 'يوليو 2025', en: 'Jul 2025' },
-    thumb: "pictures/pic projects/Screenshot 2026-07-29 173923.png",
-    images: ["pictures/pic projects/Screenshot 2026-07-29 173923.png"],
-    desc: {
-      ar: 'لعبة مسابقة تفاعلية عائلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار شبيهه لمخمخ او سين جين لكن القوانين مختلفه وامتع',
-      en: 'An interactive family quiz game with multiple teams, a question board, permanent points, and automatic turn rotation. Similar to trivia games but with unique rules and more fun.'
-    },
-    tags: ["JavaScript", "HTML", "CSS", "Game"]
+    nameAr: 'لعبة المجازفة',
+    nameEn: 'Adventure Game',
+    url: 'proj_2/index.html',
+    dateAr: 'يوليو 2025',
+    dateEn: 'Jul 2025',
+    thumb: 'pictures/pic projects/Screenshot 2026-07-29 173923.png',
+    images: ['pictures/pic projects/Screenshot 2026-07-29 173923.png'],
+    descAr: 'لعبة مسابقة تفاعلية عائلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار شبيهه لمخمخ او سين جين لكن القوانين مختلفه وامتع',
+    descEn: 'An interactive family quiz game with multiple teams, a question board, permanent points, and automatic turn rotation. Similar to trivia games but with unique rules and more fun.',
+    tags: ['JavaScript', 'HTML', 'CSS', 'Game']
   },
   {
     id: 3,
-    name: { ar: 'مشروع ثالث', en: 'Project Three' },
-    url: "https://example.com/project3",
-    date: { ar: 'مايو 2024', en: 'May 2024' },
-    thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop"],
-    desc: { ar: 'وصف المشروع الثالث — عدّل هذا النص.', en: 'Description for project three — edit this text.' },
-    tags: ["React", "Node.js"]
+    nameAr: 'مشروع ثالث',
+    nameEn: 'Project Three',
+    url: 'https://example.com/project3',
+    dateAr: 'مايو 2024',
+    dateEn: 'May 2024',
+    thumb: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop',
+    images: ['https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop'],
+    descAr: 'وصف المشروع الثالث — عدّل هذا النص.',
+    descEn: 'Description for project three — edit this text.',
+    tags: ['React', 'Node.js']
   },
   {
     id: 4,
-    name: { ar: 'مشروع رابع', en: 'Project Four' },
-    url: "https://example.com/project4",
-    date: { ar: 'يوليو 2024', en: 'Jul 2024' },
-    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop"],
-    desc: { ar: 'وصف المشروع الرابع — عدّل هذا النص.', en: 'Description for project four — edit this text.' },
-    tags: ["Python", "Flask"]
+    nameAr: 'مشروع رابع',
+    nameEn: 'Project Four',
+    url: 'https://example.com/project4',
+    dateAr: 'يوليو 2024',
+    dateEn: 'Jul 2024',
+    thumb: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+    images: ['https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop'],
+    descAr: 'وصف المشروع الرابع — عدّل هذا النص.',
+    descEn: 'Description for project four — edit this text.',
+    tags: ['Python', 'Flask']
   },
   {
     id: 5,
-    name: { ar: 'مشروع خامس', en: 'Project Five' },
-    url: "https://example.com/project5",
-    date: { ar: 'سبتمبر 2024', en: 'Sep 2024' },
-    thumb: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop"],
-    desc: { ar: 'وصف المشروع الخامس — عدّل هذا النص.', en: 'Description for project five — edit this text.' },
-    tags: ["Vue.js", "Firebase"]
+    nameAr: 'مشروع خامس',
+    nameEn: 'Project Five',
+    url: 'https://example.com/project5',
+    dateAr: 'سبتمبر 2024',
+    dateEn: 'Sep 2024',
+    thumb: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop',
+    images: ['https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop'],
+    descAr: 'وصف المشروع الخامس — عدّل هذا النص.',
+    descEn: 'Description for project five — edit this text.',
+    tags: ['Vue.js', 'Firebase']
   },
   {
     id: 6,
-    name: { ar: 'مشروع سادس', en: 'Project Six' },
-    url: "https://example.com/project6",
-    date: { ar: 'نوفمبر 2024', en: 'Nov 2024' },
-    thumb: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
-    images: ["https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop"],
-    desc: { ar: 'وصف المشروع السادس — عدّل هذا النص.', en: 'Description for project six — edit this text.' },
-    tags: ["TypeScript", "Next.js"]
+    nameAr: 'مشروع سادس',
+    nameEn: 'Project Six',
+    url: 'https://example.com/project6',
+    dateAr: 'نوفمبر 2024',
+    dateEn: 'Nov 2024',
+    thumb: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop',
+    images: ['https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop'],
+    descAr: 'وصف المشروع السادس — عدّل هذا النص.',
+    descEn: 'Description for project six — edit this text.',
+    tags: ['TypeScript', 'Next.js']
   }
 ];
 
-/* =========================================================
-   حالة اللغة
-   ========================================================= */
+// ========== اللغة الحالية ==========
 let currentLang = localStorage.getItem('lang') || 'ar';
 
 function applyLanguage(lang) {
-  // اتجاه الصفحة
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-  // النصوص الثابتة
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang]?.[key]) {
-      el.textContent = translations[lang][key];
-    }
+    if (i18n[lang]?.[key]) el.textContent = i18n[lang][key];
   });
-
-  // زر اللغة
   document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'العربية';
 
-  // إعادة بناء قائمة المشاريع باللغة الجديدة
-  buildProjectList();
+  // تحديث أسماء المشاريع والتواريخ في القائمة
+  document.querySelectorAll('.list-item').forEach(item => {
+    const projectId = parseInt(item.getAttribute('data-project-id'));
+    const project = projectsData.find(p => p.id === projectId);
+    if (!project) return;
+    const nameEl = item.querySelector('.item-name');
+    const dateEl = item.querySelector('.item-date');
+    if (nameEl) nameEl.textContent = lang === 'ar' ? project.nameAr : project.nameEn;
+    if (dateEl) dateEl.textContent = lang === 'ar' ? project.dateAr : project.dateEn;
+  });
 
-  // تحديث أي مودال مفتوح (إذا كان موجوداً)
+  // تحديث المودال إذا كان مفتوحاً
   const modalTitle = document.getElementById('modalTitle');
   if (modalTitle && modalTitle.dataset.projectId) {
     const project = projectsData.find(p => p.id == modalTitle.dataset.projectId);
-    if (project) updateModalContent(project);
+    if (project) {
+      document.getElementById('modalTitle').textContent = lang === 'ar' ? project.nameAr : project.nameEn;
+      document.getElementById('modalDesc').textContent = lang === 'ar' ? project.descAr : project.descEn;
+    }
   }
 }
 
@@ -677,47 +543,21 @@ function switchLanguage() {
   applyLanguage(currentLang);
 }
 
-/* =========================================================
-   Modal (مع دعم الترجمة)
-   ========================================================= */
+// ========== المودال ==========
 const pageBlur   = document.getElementById('pageBlur');
 const modal      = document.getElementById('projectModal');
 const modalCard  = document.getElementById('modalCard');
 const modalClose = document.getElementById('modalClose');
 
-function updateModalContent(p) {
-  document.getElementById('modalTitle').textContent = p.name[currentLang];
-  document.getElementById('modalTitle').dataset.projectId = p.id;
-  document.getElementById('modalDesc').textContent = p.desc[currentLang] || '';
-
-  const tagsEl = document.getElementById('modalTags');
-  tagsEl.innerHTML = '';
-  (p.tags||[]).forEach(t => {
-    const s = document.createElement('span');
-    s.className = 'modal-tag'; s.textContent = t;
-    tagsEl.appendChild(s);
-  });
-
-  const enterBtn = document.getElementById('modalEnterBtn');
-  enterBtn.onclick = function() {
-    window.open(p.url, '_blank');
-  };
-  // تحديث نص الزر حسب اللغة
-  const btnText = enterBtn.querySelector('[data-i18n]');
-  if (btnText) btnText.textContent = translations[currentLang].enterProject;
-}
-
 function openModal(p) {
-  const imgCont = document.getElementById('modalImages');
-  imgCont.innerHTML = '';
-  (p.images||[]).forEach(src => {
-    const img = document.createElement('img');
-    img.src = src; img.className = 'modal-img'; img.alt = p.name[currentLang];
-    imgCont.appendChild(img);
-  });
-  imgCont.classList.toggle('multi', (p.images||[]).length > 1);
-
-  updateModalContent(p);
+  document.getElementById('modalImages').innerHTML = (p.images || []).map(src => `<img src="${src}" class="modal-img" alt="${p.nameAr}">`).join('');
+  document.getElementById('modalTitle').textContent = currentLang === 'ar' ? p.nameAr : p.nameEn;
+  document.getElementById('modalTitle').dataset.projectId = p.id;
+  document.getElementById('modalDesc').textContent = currentLang === 'ar' ? p.descAr : p.descEn;
+  document.getElementById('modalTags').innerHTML = (p.tags || []).map(t => `<span class="modal-tag">${t}</span>`).join('');
+  const enterBtn = document.getElementById('modalEnterBtn');
+  enterBtn.onclick = () => window.open(p.url, '_blank');
+  enterBtn.querySelector('span:first-child').textContent = i18n[currentLang].enterProject;
 
   pageBlur.classList.add('active');
   modal.classList.add('active');
@@ -734,70 +574,55 @@ function closeModal() {
 modalClose.addEventListener('click', closeModal);
 pageBlur.addEventListener('click', closeModal);
 modalCard.addEventListener('click', e => e.stopPropagation());
-document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* =========================================================
-   بناء قائمة المشاريع (تستجيب لتغيير اللغة)
-   ========================================================= */
+// ========== بناء القائمة مع دعم اللغة ==========
 const scrollList = document.getElementById('scrollList');
 const gradTop    = document.getElementById('gradTop');
 const gradBottom = document.getElementById('gradBottom');
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    e.isIntersecting
-      ? e.target.classList.add('in-view')
-      : e.target.classList.remove('in-view');
-  });
-}, { threshold: 0.15, root: scrollList });
-
 function buildProjectList() {
   scrollList.innerHTML = '';
-
   projectsData.forEach((project, index) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'list-item-wrapper';
-
     wrapper.innerHTML = `
-      <div class="list-item" data-id="${project.id}">
+      <div class="list-item" data-project-id="${project.id}">
         <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
         <div class="item-overlay"></div>
-
         <div class="item-main">
           <span class="item-number">${String(index+1).padStart(2,'0')}</span>
           <div class="item-name-group">
-            <span class="item-date">${project.date[currentLang]}</span>
-            <span class="item-name">${project.name[currentLang]}</span>
+            <span class="item-name">${currentLang === 'ar' ? project.nameAr : project.nameEn}</span>
+            <span class="item-date" data-project-id="${project.id}">${currentLang === 'ar' ? project.dateAr : project.dateEn}</span>
           </div>
+          <span class="item-link-btn" data-url="${project.url}">↗</span>
         </div>
-
-        <span class="item-link-btn" onclick="window.open('${project.url}','_blank')">↗</span>
       </div>
     `;
 
-    const itemEl  = wrapper.querySelector('.list-item');
-    const mainEl  = wrapper.querySelector('.item-main');
+    const itemEl = wrapper.querySelector('.list-item');
     const linkBtn = wrapper.querySelector('.item-link-btn');
 
-    itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
-    itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
+    itemEl.addEventListener('click', (e) => {
+      if (e.target.classList.contains('item-link-btn')) return;
+      openModal(project);
+    });
 
-    mainEl.addEventListener('click', () => openModal(project));
+    linkBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.open(project.url, '_blank');
+    });
 
     scrollList.appendChild(wrapper);
-    observer.observe(wrapper);
+
+    setTimeout(() => {
+      wrapper.classList.add('in-view');
+    }, index * 80);
   });
 }
 
-/* gradient */
-scrollList.addEventListener('scroll', () => {
-  const { scrollTop, scrollHeight, clientHeight } = scrollList;
-  gradTop.style.opacity = Math.min(scrollTop/50, 1);
-  const d = scrollHeight - (scrollTop + clientHeight);
-  gradBottom.style.opacity = scrollHeight <= clientHeight ? 0 : Math.min(d/50, 1);
-});
-
-/* smooth scroll */
+// ========== حركة السلسة عند النقر على الخط الزمني ==========
 document.getElementById('timelineBtn').addEventListener('click', function(e) {
   e.preventDefault();
   const target = document.getElementById('projects');
@@ -816,11 +641,18 @@ document.getElementById('timelineBtn').addEventListener('click', function(e) {
   requestAnimationFrame(step);
 });
 
-/* =========================================================
-   بدء التشغيل
-   ========================================================= */
+// ========== التدرجات ==========
+scrollList.addEventListener('scroll', () => {
+  const { scrollTop, scrollHeight, clientHeight } = scrollList;
+  gradTop.style.opacity = Math.min(scrollTop/50, 1);
+  const d = scrollHeight - (scrollTop + clientHeight);
+  gradBottom.style.opacity = scrollHeight <= clientHeight ? 0 : Math.min(d/50, 1);
+});
+
+// ========== بدء التشغيل ==========
 document.getElementById('langToggle').addEventListener('click', switchLanguage);
 applyLanguage(currentLang);
+buildProjectList();
 </script>
 </body>
 </html>
