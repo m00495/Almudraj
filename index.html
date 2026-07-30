@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المدرج</title>
+<title>المدرج | Al-Mudarraj</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,7 +29,6 @@ nav {
   padding: 0 3rem;
 }
 
-/* اللوجو على اليمين */
 .nav-logo-group {
   display: flex;
   align-items: center;
@@ -56,6 +55,26 @@ nav {
   color: #666;
   letter-spacing: 0.5px;
   margin-top: 0px;
+}
+
+/* زر اللغة */
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #aaa;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  margin-left: 15px;
+}
+.lang-btn:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+  background: rgba(255,255,255,0.05);
 }
 
 /* ===================== HERO ===================== */
@@ -190,7 +209,6 @@ nav {
   min-height: 72px;
 }
 
-/* طبقة الصورة */
 .item-bg {
   position: absolute;
   inset: 0;
@@ -206,7 +224,6 @@ nav {
   transform: scale(1.04);
 }
 
-/* overlay داكن فوق الصورة */
 .item-overlay {
   position: absolute;
   inset: 0;
@@ -218,7 +235,6 @@ nav {
   border-color: rgba(255,255,255,0.18);
 }
 
-/* ===================== الجزء الرئيسي ===================== */
 .item-main {
   flex: 1;
   display: flex;
@@ -242,7 +258,6 @@ nav {
 .list-item:hover .item-number,
 .list-item.hovered .item-number { color: #555; }
 
-/* ===================== اسم + التاريخ من وراءه ===================== */
 .item-name-group {
   position: relative;
   display: flex;
@@ -264,18 +279,12 @@ nav {
 .list-item:hover .item-name,
 .list-item.hovered .item-name { color: #fff; }
 
-/*
-  التاريخ يجلس مباشرة بعد الاسم (يسار الاسم في RTL)
-  يبدأ مخفي خلف الاسم (translateX يجعله خلف الاسم)
-  ويخرج للخارج على اليسار عند الـ hover
-*/
 .item-date {
   position: absolute;
-  right: 90%;           /* يبدأ عند يمين الـ name-group = خلف الاسم */
+  right: 90%;
   top: 50%;
   transform: translateY(-50%) translateX(40px);
-  padding-left: 14px;    /* مسافة بين الاسم والتاريخ */
-
+  padding-left: 14px;
   font-size: 10px;
   color: #a8a8a8;
   letter-spacing: 2px;
@@ -284,7 +293,6 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 1;
-
   transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.34,1.1,0.64,1);
 }
 .list-item:hover .item-date,
@@ -293,7 +301,6 @@ nav {
   transform: translateY(-50%) translateX(0);
 }
 
-/* ===================== زر السهم ===================== */
 .item-link-btn {
   display: flex;
   align-items: center;
@@ -316,7 +323,7 @@ nav {
   border-color: rgba(255,255,255,0.15);
 }
 
-/* ===================== BLUR OVERLAY ===================== */
+/* ===================== BLUR OVERLAY & MODAL ===================== */
 .page-blur-overlay {
   position: fixed;
   inset: 0;
@@ -332,7 +339,6 @@ nav {
   pointer-events: auto;
 }
 
-/* ===================== PROJECT MODAL ===================== */
 .project-modal {
   position: fixed;
   inset: 0;
@@ -367,7 +373,6 @@ nav {
 .modal-card::-webkit-scrollbar { width: 4px; }
 .modal-card::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
 
-/* زر الإغلاق */
 .modal-close {
   position: absolute;
   top: 14px;
@@ -388,7 +393,6 @@ nav {
 }
 .modal-close:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
 
-/* صور المشروع */
 .modal-images {
   width: 100%;
   overflow-x: auto;
@@ -412,7 +416,6 @@ nav {
 .modal-images.multi .modal-img:first-child { border-radius: 16px 0 0 0; }
 .modal-images.multi .modal-img:last-child  { border-radius: 0 16px 0 0; }
 
-/* محتوى المودال */
 .modal-body {
   padding: 28px 32px 32px;
 }
@@ -472,7 +475,6 @@ footer {
 }
 footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
-/* ===================== MOBILE ===================== */
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
   .projects-section { padding: 100px 1.2rem 80px; }
@@ -487,7 +489,6 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
 
 <div class="page-blur-overlay" id="pageBlur"></div>
 
-<!-- المودال -->
 <div class="project-modal" id="projectModal">
   <div class="modal-card" id="modalCard">
     <button class="modal-close" id="modalClose">✕</button>
@@ -497,134 +498,197 @@ footer p { color: #2e2e2e; font-size: 0.85rem; letter-spacing: 1px; }
       <p  class="modal-desc"  id="modalDesc"></p>
       <div class="modal-tags" id="modalTags"></div>
       <button class="modal-enter-btn" id="modalEnterBtn">
-        دخول للمشروع <span>↗</span>
+        <span data-i18n="enterProject">دخول للمشروع</span> <span>↗</span>
       </button>
     </div>
   </div>
 </div>
 
 <nav>
-  <!-- اللوجو على اليمين -->
   <div class="nav-logo-group">
-    <div>    <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
-
-      <div class="main-title">المدرج</div>
-      <div class="by-line">لمحمد عجل محمد الدوسري</div>
+    <div>
+      <img src="pictures/pic projects/Rectangle 2 (7).png" alt="صورة">
+      <div class="main-title" data-i18n="siteName">المدرج</div>
+      <div class="by-line" data-i18n="byLine">لمحمد عجل محمد الدوسري</div>
     </div>
   </div>
+  <button class="lang-btn" id="langToggle">English</button>
 </nav>
 
 <section class="hero">
-  <h1>صفحة تجمع تجاربي العملية بالخط زمني</h1>
-  <p>اضغط على المشروع لتشوف التفاصيل</p>
+  <h1 data-i18n="heroTitle">صفحة تجمع تجاربي العملية بالخط زمني</h1>
+  <p data-i18n="heroSub">اضغط على المشروع لتشوف التفاصيل</p>
   <div class="hero-btns">
-    <a href="#projects" class="hero-btn" id="timelineBtn">الخط الزمني</a>
-    <a href="pictures/pic projects/MOHAMMED ALDAWSARI_CV.pdf"    class="hero-btn secondary" target="_blank" rel="noopener">السيرة الذاتية</a>
-    <a href="https://github.com/m00495"    class="hero-btn secondary" target="_blank" rel="noopener">Github</a>
-
+    <a href="#projects" class="hero-btn" data-i18n="timelineBtn">الخط الزمني</a>
+    <a href="pictures/pic projects/MOHAMMED ALDAWSARI_CV.pdf" class="hero-btn secondary" target="_blank" rel="noopener" data-i18n="cvBtn">السيرة الذاتية</a>
+    <a href="https://github.com/m00495" class="hero-btn secondary" target="_blank" rel="noopener">Github</a>
   </div>
 </section>
 
 <section class="projects-section" id="projects">
-  <h2 class="section-title">التجارب</h2>
+  <h2 class="section-title" data-i18n="sectionTitle">التجارب</h2>
   <div class="scroll-list-container">
-    <div class="list-gradient-top"    id="gradTop"    style="opacity:0"></div>
-    <div class="scroll-list"          id="scrollList"></div>
+    <div class="list-gradient-top" id="gradTop" style="opacity:0"></div>
+    <div class="scroll-list" id="scrollList"></div>
     <div class="list-gradient-bottom" id="gradBottom"></div>
   </div>
 </section>
 
 <footer>
-  <p>&copy; 2026 المدرج . جميع الحقوق محفوظة محمد عجل محمد الدوسري </p>
+  <p data-i18n="footerText">&copy; 2026 المدرج . جميع الحقوق محفوظة محمد عجل محمد الدوسري</p>
 </footer>
 
 <script>
 /* =========================================================
-   بيانات المشاريع
+   الترجمات
    ========================================================= */
-const projects = [
+const translations = {
+  ar: {
+    siteName: 'المدرج',
+    byLine: 'لمحمد عجل محمد الدوسري',
+    heroTitle: 'صفحة تجمع تجاربي العملية بالخط زمني',
+    heroSub: 'اضغط على المشروع لتشوف التفاصيل',
+    timelineBtn: 'الخط الزمني',
+    cvBtn: 'السيرة الذاتية',
+    sectionTitle: 'التجارب',
+    enterProject: 'دخول للمشروع',
+    footerText: '© 2026 المدرج . جميع الحقوق محفوظة محمد عجل محمد الدوسري'
+  },
+  en: {
+    siteName: 'Al-Mudarraj',
+    byLine: 'By Mohammed Ajl Al-Dawsari',
+    heroTitle: 'A timeline of my practical experiences',
+    heroSub: 'Click on a project to see details',
+    timelineBtn: 'Timeline',
+    cvBtn: 'CV',
+    sectionTitle: 'PROJECTS',
+    enterProject: 'View Project',
+    footerText: '© 2026 Al-Mudarraj. All rights reserved.'
+  }
+};
+
+/* =========================================================
+   بيانات المشاريع (ثنائية اللغة)
+   ========================================================= */
+const projectsData = [
   {
     id: 1,
-    name: "إدارة المكتبة",
+    name: { ar: 'إدارة المكتبة', en: 'Library Management' },
     url: "https://github.com/m00495/AL_ibrarymanagement",
-    date: "يناير 2024",
+    date: { ar: 'يناير 2024', en: 'Jan 2024' },
     thumb: "pictures/pic projects/al_li.png",
     images: ["pictures/pic projects/al_li.png"],
-    desc: "مشروع تخرجي مع زملائي في الجامعة وهو نضام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.",
+    desc: {
+      ar: 'مشروع تخرجي مع زملائي في الجامعة وهو نضام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.',
+      en: 'My graduation project with my university colleagues. A library management system that allows book registration, members tracking, and loan management. Provides a simple interface to add books, record operations, and generate reports.'
+    },
     tags: ["Python", "SQLite", "Tkinter", "django"]
   },
   {
     id: 2,
-    name: "لعبة المجازفة",
-    url: "proj_2/index.html",   
-    date: "يوليو 2025",
+    name: { ar: 'لعبة المجازفة', en: 'Adventure Game' },
+    url: "proj_2/index.html",
+    date: { ar: 'يوليو 2025', en: 'Jul 2025' },
     thumb: "pictures/pic projects/Screenshot 2026-07-29 173923.png",
     images: ["pictures/pic projects/Screenshot 2026-07-29 173923.png"],
-    desc: "لعبة مسابقة تفاعلية عائلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار شبيهه لمخمخ او سين جين لكن القوانين مختلفه وامتع ",
+    desc: {
+      ar: 'لعبة مسابقة تفاعلية عائلية متعددة الفرق مع لوحة أسئلة ونقاط دائمة وتناوب تلقائي للأدوار شبيهه لمخمخ او سين جين لكن القوانين مختلفه وامتع',
+      en: 'An interactive family quiz game with multiple teams, a question board, permanent points, and automatic turn rotation. Similar to trivia games but with unique rules and more fun.'
+    },
     tags: ["JavaScript", "HTML", "CSS", "Game"]
   },
   {
     id: 3,
-    name: "Project Three",
+    name: { ar: 'مشروع ثالث', en: 'Project Three' },
     url: "https://example.com/project3",
-    date: "مايو 2024",
+    date: { ar: 'مايو 2024', en: 'May 2024' },
     thumb: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop",
     images: ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الثالث — عدّل هذا النص.",
+    desc: { ar: 'وصف المشروع الثالث — عدّل هذا النص.', en: 'Description for project three — edit this text.' },
     tags: ["React", "Node.js"]
   },
   {
     id: 4,
-    name: "Project Four",
+    name: { ar: 'مشروع رابع', en: 'Project Four' },
     url: "https://example.com/project4",
-    date: "يوليو 2024",
+    date: { ar: 'يوليو 2024', en: 'Jul 2024' },
     thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
     images: ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الرابع — عدّل هذا النص.",
+    desc: { ar: 'وصف المشروع الرابع — عدّل هذا النص.', en: 'Description for project four — edit this text.' },
     tags: ["Python", "Flask"]
   },
   {
     id: 5,
-    name: "Project Five",
+    name: { ar: 'مشروع خامس', en: 'Project Five' },
     url: "https://example.com/project5",
-    date: "سبتمبر 2024",
+    date: { ar: 'سبتمبر 2024', en: 'Sep 2024' },
     thumb: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=400&fit=crop",
     images: ["https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع الخامس — عدّل هذا النص.",
+    desc: { ar: 'وصف المشروع الخامس — عدّل هذا النص.', en: 'Description for project five — edit this text.' },
     tags: ["Vue.js", "Firebase"]
   },
   {
     id: 6,
-    name: "Project Six",
+    name: { ar: 'مشروع سادس', en: 'Project Six' },
     url: "https://example.com/project6",
-    date: "نوفمبر 2024",
+    date: { ar: 'نوفمبر 2024', en: 'Nov 2024' },
     thumb: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
     images: ["https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=500&fit=crop"],
-    desc: "وصف المشروع السادس — عدّل هذا النص.",
+    desc: { ar: 'وصف المشروع السادس — عدّل هذا النص.', en: 'Description for project six — edit this text.' },
     tags: ["TypeScript", "Next.js"]
   }
 ];
 
 /* =========================================================
-   Modal
+   حالة اللغة
+   ========================================================= */
+let currentLang = localStorage.getItem('lang') || 'ar';
+
+function applyLanguage(lang) {
+  // اتجاه الصفحة
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  // النصوص الثابتة
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang]?.[key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // زر اللغة
+  document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'العربية';
+
+  // إعادة بناء قائمة المشاريع باللغة الجديدة
+  buildProjectList();
+
+  // تحديث أي مودال مفتوح (إذا كان موجوداً)
+  const modalTitle = document.getElementById('modalTitle');
+  if (modalTitle && modalTitle.dataset.projectId) {
+    const project = projectsData.find(p => p.id == modalTitle.dataset.projectId);
+    if (project) updateModalContent(project);
+  }
+}
+
+function switchLanguage() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('lang', currentLang);
+  applyLanguage(currentLang);
+}
+
+/* =========================================================
+   Modal (مع دعم الترجمة)
    ========================================================= */
 const pageBlur   = document.getElementById('pageBlur');
 const modal      = document.getElementById('projectModal');
 const modalCard  = document.getElementById('modalCard');
 const modalClose = document.getElementById('modalClose');
 
-function openModal(p) {
-  const imgCont = document.getElementById('modalImages');
-  imgCont.innerHTML = '';
-  (p.images||[]).forEach(src => {
-    const img = document.createElement('img');
-    img.src = src; img.className = 'modal-img'; img.alt = p.name;
-    imgCont.appendChild(img);
-  });
-  imgCont.classList.toggle('multi', (p.images||[]).length > 1);
-
-  document.getElementById('modalTitle').textContent = p.name;
-  document.getElementById('modalDesc').textContent  = p.desc || '';
+function updateModalContent(p) {
+  document.getElementById('modalTitle').textContent = p.name[currentLang];
+  document.getElementById('modalTitle').dataset.projectId = p.id;
+  document.getElementById('modalDesc').textContent = p.desc[currentLang] || '';
 
   const tagsEl = document.getElementById('modalTags');
   tagsEl.innerHTML = '';
@@ -634,11 +698,26 @@ function openModal(p) {
     tagsEl.appendChild(s);
   });
 
-  // زر دخول المشروع – يفتح في نافذة جديدة
   const enterBtn = document.getElementById('modalEnterBtn');
   enterBtn.onclick = function() {
     window.open(p.url, '_blank');
   };
+  // تحديث نص الزر حسب اللغة
+  const btnText = enterBtn.querySelector('[data-i18n]');
+  if (btnText) btnText.textContent = translations[currentLang].enterProject;
+}
+
+function openModal(p) {
+  const imgCont = document.getElementById('modalImages');
+  imgCont.innerHTML = '';
+  (p.images||[]).forEach(src => {
+    const img = document.createElement('img');
+    img.src = src; img.className = 'modal-img'; img.alt = p.name[currentLang];
+    imgCont.appendChild(img);
+  });
+  imgCont.classList.toggle('multi', (p.images||[]).length > 1);
+
+  updateModalContent(p);
 
   pageBlur.classList.add('active');
   modal.classList.add('active');
@@ -658,7 +737,7 @@ modalCard.addEventListener('click', e => e.stopPropagation());
 document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
 
 /* =========================================================
-   Build List
+   بناء قائمة المشاريع (تستجيب لتغيير اللغة)
    ========================================================= */
 const scrollList = document.getElementById('scrollList');
 const gradTop    = document.getElementById('gradTop');
@@ -672,43 +751,43 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.15, root: scrollList });
 
-projects.forEach((project, index) => {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'list-item-wrapper';
+function buildProjectList() {
+  scrollList.innerHTML = '';
 
-  // السهم يستخدم onclick لفتح الرابط في نافذة جديدة
-  wrapper.innerHTML = `
-    <div class="list-item" data-id="${project.id}">
-      <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
-      <div class="item-overlay"></div>
+  projectsData.forEach((project, index) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'list-item-wrapper';
 
-      <div class="item-main">
-        <span class="item-number">${String(index+1).padStart(2,'0')}</span>
-        <div class="item-name-group">
-          <span class="item-date">${project.date}</span>
-          <span class="item-name">${project.name}</span>
+    wrapper.innerHTML = `
+      <div class="list-item" data-id="${project.id}">
+        <div class="item-bg" style="background-image:url('${project.thumb}')"></div>
+        <div class="item-overlay"></div>
+
+        <div class="item-main">
+          <span class="item-number">${String(index+1).padStart(2,'0')}</span>
+          <div class="item-name-group">
+            <span class="item-date">${project.date[currentLang]}</span>
+            <span class="item-name">${project.name[currentLang]}</span>
+          </div>
         </div>
+
+        <span class="item-link-btn" onclick="window.open('${project.url}','_blank')">↗</span>
       </div>
+    `;
 
-      <span class="item-link-btn" onclick="window.open('${project.url}','_blank')">↗</span>
-    </div>
-  `;
+    const itemEl  = wrapper.querySelector('.list-item');
+    const mainEl  = wrapper.querySelector('.item-main');
+    const linkBtn = wrapper.querySelector('.item-link-btn');
 
-  const itemEl  = wrapper.querySelector('.list-item');
-  const mainEl  = wrapper.querySelector('.item-main');
-  const linkBtn = wrapper.querySelector('.item-link-btn');
+    itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
+    itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
 
-  itemEl.addEventListener('mouseenter', () => itemEl.classList.add('hovered'));
-  itemEl.addEventListener('mouseleave', () => itemEl.classList.remove('hovered'));
+    mainEl.addEventListener('click', () => openModal(project));
 
-  // النقر على الجزء الرئيسي يفتح المودال (وليس المشروع)
-  mainEl.addEventListener('click', () => openModal(project));
-
-  // النقر على السهم يفتح الرابط في نافذة جديدة (تم تعريفه مباشرة فوق)
-
-  scrollList.appendChild(wrapper);
-  observer.observe(wrapper);
-});
+    scrollList.appendChild(wrapper);
+    observer.observe(wrapper);
+  });
+}
 
 /* gradient */
 scrollList.addEventListener('scroll', () => {
@@ -736,6 +815,12 @@ document.getElementById('timelineBtn').addEventListener('click', function(e) {
   };
   requestAnimationFrame(step);
 });
+
+/* =========================================================
+   بدء التشغيل
+   ========================================================= */
+document.getElementById('langToggle').addEventListener('click', switchLanguage);
+applyLanguage(currentLang);
 </script>
 </body>
 </html>
