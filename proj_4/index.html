@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق الملاحظات الاحترافي</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50%25' y='50%25' font-size='80' text-anchor='middle' dominant-baseline='middle'%3E📋%3C/text%3E%3C/svg%3E">
+  
+  <!-- Google Fonts للخطوط العربية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Lateef&family=Reem+Kufi:wght@400;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- ربط ملفات CSS و JavaScript الخارجية -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ════════════════ شاشة البداية ════════════════ -->
+  <div id="splash">
+    <div class="splash-content">
+      <div class="splash-icon">📋</div>
+      <div class="splash-title">تطبيق الملاحظات</div>
+      <div class="splash-subtitle">منصة احترافية لتنظيم وطباعة الملاحظات</div>
+      <button class="splash-btn" id="enterBtn">ابدأ الآن</button>
+    </div>
+  </div>
+
+  <!-- ════════════════ المحتوى الرئيسي (مخفي بداية) ════════════════ -->
+  <div id="mainContent" style="display: none;">
+    
+    <!-- مؤشر مخصص -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <!-- حاوية الجزيئات -->
+    <div id="particles"></div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="app">
+
+      <!-- شريط الخطوط والحجم -->
+      <div class="font-bar" id="fontBar">
+        <span class="bar-section-label">الحجم</span>
+        <button class="size-chip active" id="sc-a4" onclick="window.setSize('a4')"><span class="size-icon">📋</span> A4</button>
+        <div class="font-bar-sep"></div>
+        <button class="size-chip" id="sc-a6" onclick="window.setSize('a6')"><span class="size-icon">📄</span> A6</button>
+        <div class="font-bar-sep" style="margin:0 8px"></div>
+        <span class="bar-section-label">الخط</span>
+        <div class="font-bar-sep"></div>
+        <!-- أزرار الخطوط ستضاف ديناميكياً -->
+      </div>
+
+      <!-- رأس الصفحة -->
+      <header class="header">
+        <div class="brand">
+          <div class="brand-icon">📋</div>
+          <div class="brand-text">
+            <div class="brand-name">تطبيق الملاحظات</div>
+            <div class="brand-sub" id="brandSub">A4 · ٤ ملاحظات لكل صفحة</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-ghost" onclick="window.clearAll()">مسح الكل</button>
+          <button class="btn btn-print" onclick="window.print()">🖨&nbsp; طباعة / PDF</button>
+        </div>
+      </header>
+
+      <!-- الشريط الجانبي -->
+      <aside class="sidebar">
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="window.switchTab('form', this)">✦ إضافة</button>
+          <button class="tab-btn" onclick="window.switchTab('list', this)">📋 القائمة</button>
+        </div>
+
+        <div class="sidebar-scroll">
+          <!-- الإحصائيات -->
+          <div class="stats-strip" id="tabForm">
+            <div class="stat-row">
+              <div>
+                <div class="f-label" style="margin-bottom:2px">الملاحظات المضافة</div>
+                <div style="display:flex;align-items:baseline;gap:6px">
+                  <span class="stat-num" id="countNum">٠</span>
+                  <span class="stat-lbl">ملاحظة</span>
+                </div>
+              </div>
+              <div class="pages-badge" id="pagesBadge">٠ صفحات</div>
+            </div>
+            <div class="track"><div class="track-fill" id="trackFill" style="width:0%"></div></div>
+          </div>
+
+          <!-- نموذج الإضافة -->
+          <div class="form-wrap" id="formPanel">
+            <div class="f-group rating-wrap">
+              <label class="f-label">التقييم من ١١ ✦</label>
+              <div class="rating-row">
+                <input class="rating-num-input" id="ratingInput" type="number" min="1" max="11" placeholder="—">
+                <span class="rating-suffix">/١١</span>
+              </div>
+              <div class="rating-divider"></div>
+            </div>
+
+            <div class="f-group">
+              <label class="f-label">نص الملاحظة ✦</label>
+              <textarea class="f-input" id="fBody" placeholder="اكتب ملاحظتك هنا..." rows="6"></textarea>
+              <div class="hint">Ctrl + Enter للإضافة السريعة</div>
+            </div>
+
+            <div class="live-preview" id="livePreview">
+              <div class="lp-label">✦ معاينة الملاحظة</div>
+              <div class="lp-text" id="lpText"></div>
+            </div>
+
+            <div class="f-group">
+              <label class="f-label">التاريخ</label>
+              <input class="f-input" id="fDate" type="text" placeholder="مثال: 2025.6.28" style="font-size:.95rem;line-height:1.5">
+            </div>
+
+            <button class="btn btn-primary" id="addBtn" onclick="window.addMessage()">＋&nbsp; إضافة الملاحظة</button>
+          </div>
+
+          <div class="divider"></div>
+          <div class="msg-list" id="msgList"></div>
+        </div>
+      </aside>
+
+      <!-- لوحة الرسم (المعاينة) -->
+      <main class="canvas" id="canvas">
+        <div class="empty-state" id="emptyState">
+          <div class="es-icon">📋</div>
+          <div class="es-text">أضف ملاحظة لتظهر المعاينة هنا</div>
+        </div>
+      </main>
+
+    </div>
+
+    <!-- زر المعاينة للجوال -->
+    <button class="preview-toggle" id="previewBtn" onclick="window.openSheet()">👁 معاينة الورقة</button>
+
+    <!-- صفحة المعاينة المنبثقة (للجوال) -->
+    <div class="sheet-overlay" id="overlay" onclick="window.closeSheet()"></div>
+    <div class="sheet" id="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <span class="sheet-title">معاينة الورقة</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="sheet-print" onclick="window.print()">🖨 طباعة</button>
+          <button class="sheet-close" onclick="window.closeSheet()">✕</button>
+        </div>
+      </div>
+      <div class="sheet-canvas" id="sheetCanvas"></div>
+    </div>
+
+    <!-- إشعار التوست -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <!-- رابط ملف JavaScript الخارجي -->
+  <script src="script.js"></script>
+</body>
+</html>
