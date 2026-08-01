@@ -20,13 +20,13 @@
     <div class="points" id="pointVal">...</div>
     <div class="question" id="questionText">...</div>
     <div class="answer-section">
-        <div class="answer-label">🔑 الإجابة الصحيحة</div>
+        <div class="answer-label"> الإجابة الصحيحة</div>
         <div class="answer-text" id="correctAnswer">...</div>
     </div>
-    <button class="btn btn-correct" id="btnCorrect">✅ إجابة صحيحة</button>
-    <button class="btn btn-wrong" id="btnWrong">❌ إجابة خاطئة</button>
+    <button class="btn btn-correct" id="btnCorrect"> إجابة صحيحة</button>
+    <button class="btn btn-wrong" id="btnWrong"> إجابة خاطئة</button>
     <br>
-    <a class="back-link" href="index.html">🔙 العودة للوحة</a>
+    <a class="back-link" href="index.html"> العودة للوحة</a>
 </div>
 
 <script src="questions-data.js"></script>
@@ -53,8 +53,8 @@
         document.getElementById('pointVal').textContent = points + ' نقطة';
         document.getElementById('questionText').textContent = questionObj.question;
         document.getElementById('correctAnswer').textContent = questionObj.answer;
-        document.getElementById('btnCorrect').innerHTML = `✅ إجابة صحيحة (+${points})`;
-        document.getElementById('btnWrong').innerHTML = `❌ إجابة خاطئة (-${points})`;
+        document.getElementById('btnCorrect').innerHTML = ` إجابة صحيحة (+${points})`;
+        document.getElementById('btnWrong').innerHTML = ` إجابة خاطئة (-${points})`;
     } else {
         document.body.innerHTML = '<h1 style="color:white;text-align:center;">لم يتم العثور على السؤال</h1>';
     }

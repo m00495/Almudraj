@@ -408,7 +408,7 @@ const i18n = {
     footerText: '© 2026 المدرج . جميع الحقوق محفوظة محمد عجل محمد الدوسري'
   },
   en: {
-    siteName: 'Al-Mudarraj',
+    siteName: 'Almudraj',
     byLine: 'By Mohammed Ajl Al-Dawsari',
     heroTitle: 'A timeline of my practical experiences',
     heroSub: 'Click on a project to see details',
@@ -427,13 +427,13 @@ const projectsData = [
     nameAr: 'إدارة المكتبة',
     nameEn: 'Library Management',
     url: 'https://github.com/m00495/AL_ibrarymanagement',
-    dateAr: 'يناير 2024',
-    dateEn: 'Jan 2024',
+    dateAr: 'ديسمبر 2024',
+    dateEn: 'dec 2024',
     thumb: 'pictures/pic projects/al_li.png',
     images: ['pictures/pic projects/al_li.png'],
     descAr: 'مشروع تخرجي مع زملائي في الجامعة وهو نظام لإدارة مكتبة يتيح تسجيل الكتب والأعضاء وتتبع الإعارات. يوفر واجهة بسيطة لإضافة الكتب وتسجيل العمليات وإنشاء التقارير.',
     descEn: 'My graduation project with university colleagues. A library management system that enables book registration, member tracking, and loan management. Features a simple interface for adding books, recording transactions, and generating reports.',
-    tags: ['Python', 'SQLite', 'Tkinter', 'django']
+    tags: ['Python', 'Html', 'PowerShell', 'django','shell','css']
   },
   {
     id: 2,
@@ -450,29 +450,27 @@ const projectsData = [
   },
   {
     id: 3,
-    nameAr: 'مشروع ثالث',
-    nameEn: 'Project Three',
-    url: 'https://example.com/project3',
-    dateAr: 'مايو 2024',
-    dateEn: 'May 2024',
-    thumb: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop',
-    images: ['https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop'],
-    descAr: 'وصف المشروع الثالث — عدّل هذا النص.',
-    descEn: 'Description for project three — edit this text.',
-    tags: ['React', 'Node.js']
+    nameAr: 'نظام الكفاءة الحقليه',
+    nameEn: 'Field Efficiency System',
+    url: 'https://script.google.com/macros/s/AKfycbzWte3iZkrAPl8hKQ3x2nRjLnw4XI1hOgVCo_ArJxHmriNFYz3Wiik-apiaH5cBAXadmg/exec',
+    dateAr: 'مايو 2026',
+    dateEn: 'May 2026',
+    thumb: 'pictures/pic projects/Screenshot 2026-08-01 125900.png',
+    images: ['pictures/pic projects/Screenshot 2026-08-01 125947.png'],
+    descAr: 'تم تصميم هذا النظام كحل رقمي متكامل لإدارة الزيارات الحقلية، يعتمد على Google Sheets كقاعدة بيانات بسيطة وخفيفة، وذلك لأن حجم المشروع صغير ولا يحتاج إلى قاعدة بيانات معقدة أو خوادم ضخمة. هذا الاختيار يضمن سرعة التطوير، وسهولة الصيانة، وانخفاض التكلفة، مع توفير جميع الوظائف المطلوبة من تخزين بيانات المزارعين والزيارات والصور بشكل مرن وآمن.',
+    descEn: 'This system is designed as an integrated digital solution for managing field visits, utilizing Google Sheets as a simple and lightweight database. This choice was made because the project is small-scale and does not require a complex database or heavy servers. This approach ensures rapid development, easy maintenance, and low cost, while still providing all the required functionalities for storing farmers data, visits, and images in a flexible and secure manner.',
+    tags: ['HTML', 'Node.js','CSS','JavaScript ','Google Apps Script','Google Sheets API','Google Drive API','Google Maps API']
   },
   {
     id: 4,
-    nameAr: 'مشروع رابع',
-    nameEn: 'Project Four',
-    url: 'https://example.com/project4',
-    dateAr: 'يوليو 2024',
-    dateEn: 'Jul 2024',
-    thumb: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
-    images: ['https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop'],
-    descAr: 'وصف المشروع الرابع — عدّل هذا النص.',
-    descEn: 'Description for project four — edit this text.',
-    tags: ['Python', 'Flask']
+    nameAr: 'المدرج',
+    nameEn: 'Almudraj',
+    url: 'https://m00495.github.io/Almudraj',
+    dateAr: 'فبراير 2026',
+    dateEn: 'feb 2026',
+    descAr: 'هذا الموقع الي انت داخله وفكرته لعرض قدراتي',
+    descEn: 'This is the site you are currently visiting; its concept is to showcase capabilities.',
+    tags: ['html', 'css', 'js']
   },
   {
     id: 5,
@@ -513,7 +511,7 @@ function applyLanguage(lang) {
     const key = el.getAttribute('data-i18n');
     if (i18n[lang]?.[key]) el.textContent = i18n[lang][key];
   });
-  document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'العربية';
+  document.getElementById('langToggle').textContent = lang === 'ar' ? 'E' : 'ع';
 
   // تحديث أسماء المشاريع والتواريخ في القائمة
   document.querySelectorAll('.list-item').forEach(item => {
